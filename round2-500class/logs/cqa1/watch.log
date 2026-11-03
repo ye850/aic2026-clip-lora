@@ -1,0 +1,14 @@
+[2026-10-26 08:55:29] 看门狗启动：等 probs_test.npy
+[2026-10-26 08:59:29] 等待中 进程=17
+[2026-10-26 09:01:29] probs 就绪，开始校准
+[2026-10-26 09:01:47] 校准 rc=0
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/pack_cal/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/pack_cal/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/pack_cal/pred_results.zip  (49857 行)
+[bal] ★ 已写 /root/autodl-tmp/aic/outputs/pack_cal
+[bal] 下一步：scripts/check_submission.py /root/autodl-tmp/aic/outputs/pack_cal/pred_results.zip
+校准前 类别498/500 最多464 中位88 最少3
+[2026-10-26 09:01:47] ★★ 校准完成 ★★

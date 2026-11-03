@@ -1,0 +1,5 @@
+# 白名单模式：构建上下文里只放行这两个文件
+# （旧写法 `**` 会把 requirements.image.txt 也排除掉，导致 COPY 失败 —— 2026-11-01 实踩）
+*
+!Dockerfile
+!requirements.image.txt

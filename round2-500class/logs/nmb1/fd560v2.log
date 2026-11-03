@@ -1,0 +1,559 @@
+[21:31:14] fd560v2: wait conf2_560
+[22:31:19] FD560v2 start (TRUE full-data: val-ratio 0 + per-class 1)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--val-ratio', '0.0', '--val-per-class', '1', '--ckpt', '/root/autodl-tmp/aic/outputs/fd560v2.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_fd560v2']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 89652 / 验证 500（验证每类至少 1 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  88%|████████▊ | 352/398 [00:00<00:00, 3515.97it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 3474.07it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1630 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9901 sum=88762.7/89652
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1867 步（优化步 1867/轮，grad_accum=1），batch=48，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ep 1] 200/1867 loss=1.1421 已用 2.5min 预计还需 21.1min
+[ep 1] 400/1867 loss=1.0930 已用 5.1min 预计还需 18.5min
+[ep 1] 600/1867 loss=1.0356 已用 7.6min 预计还需 16.0min
+[ep 1] 800/1867 loss=0.9717 已用 10.1min 预计还需 13.4min
+[ep 1] 1000/1867 loss=0.9100 已用 12.6min 预计还需 10.9min
+[ep 1] 1200/1867 loss=0.8566 已用 15.1min 预计还需 8.4min
+[ep 1] 1400/1867 loss=0.8129 已用 17.6min 预计还需 5.9min
+[ep 1] 1600/1867 loss=0.7767 已用 20.1min 预计还需 3.4min
+[ep 1] 1800/1867 loss=0.7485 已用 22.7min 预计还需 0.8min
+[ep 1] ★ 完成 loss=0.7406 val_acc=0.6300  [raw 0.5720 EMA 0.6300] 用时 23.7min
+[ep 1] ↑ 新最优（按 full）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep 2] 200/1867 loss=0.4720 已用 2.5min 预计还需 21.2min
+[ep 2] 400/1867 loss=0.4779 已用 5.0min 预计还需 18.5min
+[ep 2] 600/1867 loss=0.4786 已用 7.5min 预计还需 15.9min
+[ep 2] 800/1867 loss=0.4763 已用 10.0min 预计还需 13.3min
+[ep 2] 1000/1867 loss=0.4673 已用 12.5min 预计还需 10.8min
+[ep 2] 1200/1867 loss=0.4652 已用 15.0min 预计还需 8.3min
+[ep 2] 1400/1867 loss=0.4588 已用 17.4min 预计还需 5.8min
+[ep 2] 1600/1867 loss=0.4544 已用 19.9min 预计还需 3.3min
+[ep 2] 1800/1867 loss=0.4515 已用 22.4min 预计还需 0.8min
+[ep 2] ★ 完成 loss=0.4499 val_acc=0.6940  [raw 0.6840 EMA 0.6940] 用时 23.5min
+[ep 2] ↑ 新最优（按 full）
+[ep 2] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep 3] 200/1867 loss=0.3911 已用 2.5min 预计还需 20.9min
+[ep 3] 400/1867 loss=0.3951 已用 5.0min 预计还需 18.3min
+[ep 3] 600/1867 loss=0.3852 已用 7.5min 预计还需 15.8min
+[ep 3] 800/1867 loss=0.3808 已用 9.9min 预计还需 13.3min
+[ep 3] 1000/1867 loss=0.3805 已用 12.4min 预计还需 10.8min
+[ep 3] 1200/1867 loss=0.3800 已用 14.9min 预计还需 8.3min
+[ep 3] 1400/1867 loss=0.3790 已用 17.4min 预计还需 5.8min
+[ep 3] 1600/1867 loss=0.3791 已用 19.9min 预计还需 3.3min
+[ep 3] 1800/1867 loss=0.3787 已用 22.4min 预计还需 0.8min
+[ep 3] ★ 完成 loss=0.3796 val_acc=0.7340  [raw 0.7040 EMA 0.7340] 用时 23.5min
+[ep 3] ↑ 新最优（按 full）
+[ep 3] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep 4] 200/1867 loss=0.3342 已用 2.5min 预计还需 20.9min
+[ep 4] 400/1867 loss=0.3324 已用 5.0min 预计还需 18.3min
+[ep 4] 600/1867 loss=0.3397 已用 7.5min 预计还需 15.8min
+[ep 4] 800/1867 loss=0.3380 已用 10.0min 预计还需 13.3min
+[ep 4] 1000/1867 loss=0.3395 已用 12.5min 预计还需 10.8min
+[ep 4] 1200/1867 loss=0.3401 已用 14.9min 预计还需 8.3min
+[ep 4] 1400/1867 loss=0.3372 已用 17.4min 预计还需 5.8min
+[ep 4] 1600/1867 loss=0.3379 已用 19.9min 预计还需 3.3min
+[ep 4] 1800/1867 loss=0.3376 已用 22.4min 预计还需 0.8min
+[ep 4] ★ 完成 loss=0.3371 val_acc=0.7700  [raw 0.7420 EMA 0.7700] 用时 23.5min
+[ep 4] ↑ 新最优（按 full）
+[ep 4] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep 5] 200/1867 loss=0.2883 已用 2.6min 预计还需 21.3min
+[ep 5] 400/1867 loss=0.2906 已用 5.1min 预计还需 18.6min
+[ep 5] 600/1867 loss=0.2894 已用 7.6min 预计还需 16.0min
+[ep 5] 800/1867 loss=0.2874 已用 10.1min 预计还需 13.5min
+[ep 5] 1000/1867 loss=0.2910 已用 12.6min 预计还需 10.9min
+[ep 5] 1200/1867 loss=0.2930 已用 15.1min 预计还需 8.4min
+[ep 5] 1400/1867 loss=0.2938 已用 17.6min 预计还需 5.9min
+[ep 5] 1600/1867 loss=0.2949 已用 20.1min 预计还需 3.3min
+[ep 5] 1800/1867 loss=0.2966 已用 22.6min 预计还需 0.8min
+[ep 5] ★ 完成 loss=0.2957 val_acc=0.7880  [raw 0.7660 EMA 0.7880] 用时 23.7min
+[ep 5] ↑ 新最优（按 full）
+[ep 5] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep 6] 200/1867 loss=0.2475 已用 2.5min 预计还需 20.8min
+[ep 6] 400/1867 loss=0.2540 已用 5.0min 预计还需 18.2min
+[ep 6] 600/1867 loss=0.2578 已用 7.4min 预计还需 15.7min
+[ep 6] 800/1867 loss=0.2647 已用 9.9min 预计还需 13.2min
+[ep 6] 1000/1867 loss=0.2674 已用 12.4min 预计还需 10.7min
+[ep 6] 1200/1867 loss=0.2681 已用 14.9min 预计还需 8.3min
+[ep 6] 1400/1867 loss=0.2704 已用 17.3min 预计还需 5.8min
+[ep 6] 1600/1867 loss=0.2697 已用 19.8min 预计还需 3.3min
+[ep 6] 1800/1867 loss=0.2688 已用 22.3min 预计还需 0.8min
+[ep 6] ★ 完成 loss=0.2693 val_acc=0.7900  [raw 0.7640 EMA 0.7900] 用时 23.4min
+[ep 6] ↑ 新最优（按 full）
+[ep 6] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep 7] 200/1867 loss=0.2387 已用 2.5min 预计还需 20.7min
+[ep 7] 400/1867 loss=0.2369 已用 4.9min 预计还需 18.1min
+[ep 7] 600/1867 loss=0.2419 已用 7.4min 预计还需 15.6min
+[ep 7] 800/1867 loss=0.2418 已用 9.9min 预计还需 13.2min
+[ep 7] 1000/1867 loss=0.2457 已用 12.3min 预计还需 10.7min
+[ep 7] 1200/1867 loss=0.2462 已用 14.8min 预计还需 8.2min
+[ep 7] 1400/1867 loss=0.2468 已用 17.3min 预计还需 5.8min
+[ep 7] 1600/1867 loss=0.2460 已用 19.7min 预计还需 3.3min
+[ep 7] 1800/1867 loss=0.2461 已用 22.2min 预计还需 0.8min
+[ep 7] ★ 完成 loss=0.2458 val_acc=0.7920  [raw 0.7820 EMA 0.7920] 用时 23.3min
+[ep 7] ↑ 新最优（按 full）
+[ep 7] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep 8] 200/1867 loss=0.2176 已用 2.5min 预计还需 20.8min
+[ep 8] 400/1867 loss=0.2174 已用 5.0min 预计还需 18.2min
+[ep 8] 600/1867 loss=0.2265 已用 7.4min 预计还需 15.7min
+[ep 8] 800/1867 loss=0.2268 已用 9.9min 预计还需 13.2min
+[ep 8] 1000/1867 loss=0.2258 已用 12.4min 预计还需 10.7min
+[ep 8] 1200/1867 loss=0.2222 已用 14.8min 预计还需 8.2min
+[ep 8] 1400/1867 loss=0.2200 已用 17.3min 预计还需 5.8min
+[ep 8] 1600/1867 loss=0.2192 已用 19.8min 预计还需 3.3min
+[ep 8] 1800/1867 loss=0.2184 已用 22.2min 预计还需 0.8min
+[ep 8] ★ 完成 loss=0.2187 val_acc=0.7880  [raw 0.7780 EMA 0.7880] 用时 23.3min
+[ep 8] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep 9] 200/1867 loss=0.1958 已用 2.5min 预计还需 21.1min
+[ep 9] 400/1867 loss=0.2036 已用 5.0min 预计还需 18.5min
+[ep 9] 600/1867 loss=0.2044 已用 7.5min 预计还需 15.9min
+[ep 9] 800/1867 loss=0.2083 已用 10.0min 预计还需 13.4min
+[ep 9] 1000/1867 loss=0.2077 已用 12.5min 预计还需 10.9min
+[ep 9] 1200/1867 loss=0.2044 已用 15.0min 预计还需 8.3min
+[ep 9] 1400/1867 loss=0.2062 已用 17.5min 预计还需 5.8min
+[ep 9] 1600/1867 loss=0.2073 已用 20.0min 预计还需 3.3min
+[ep 9] 1800/1867 loss=0.2075 已用 22.5min 预计还需 0.8min
+[ep 9] ★ 完成 loss=0.2074 val_acc=0.7800  [raw 0.7800 EMA 0.7800] 用时 23.6min
+[ep 9] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep10] 200/1867 loss=0.1633 已用 2.5min 预计还需 21.1min
+[ep10] 400/1867 loss=0.1718 已用 5.0min 预计还需 18.4min
+[ep10] 600/1867 loss=0.1808 已用 7.5min 预计还需 15.9min
+[ep10] 800/1867 loss=0.1835 已用 10.0min 预计还需 13.3min
+[ep10] 1000/1867 loss=0.1856 已用 12.5min 预计还需 10.8min
+[ep10] 1200/1867 loss=0.1865 已用 15.0min 预计还需 8.3min
+[ep10] 1400/1867 loss=0.1886 已用 17.5min 预计还需 5.8min
+[ep10] 1600/1867 loss=0.1887 已用 19.9min 预计还需 3.3min
+[ep10] 1800/1867 loss=0.1898 已用 22.4min 预计还需 0.8min
+[ep10] ★ 完成 loss=0.1917 val_acc=0.7940  [raw 0.7940 EMA 0.7940] 用时 23.5min
+[ep10] ↑ 新最优（按 full）
+[ep10] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep11] 200/1867 loss=0.1971 已用 2.5min 预计还需 20.8min
+[ep11] 400/1867 loss=0.1854 已用 5.0min 预计还需 18.2min
+[ep11] 600/1867 loss=0.1886 已用 7.4min 预计还需 15.7min
+[ep11] 800/1867 loss=0.1885 已用 9.9min 预计还需 13.2min
+[ep11] 1000/1867 loss=0.1885 已用 12.4min 预计还需 10.7min
+[ep11] 1200/1867 loss=0.1894 已用 14.9min 预计还需 8.3min
+[ep11] 1400/1867 loss=0.1884 已用 17.3min 预计还需 5.8min
+[ep11] 1600/1867 loss=0.1864 已用 19.8min 预计还需 3.3min
+[ep11] 1800/1867 loss=0.1875 已用 22.3min 预计还需 0.8min
+[ep11] ★ 完成 loss=0.1868 val_acc=0.7980  [raw 0.8000 EMA 0.7980] 用时 23.4min
+[ep11] ↑ 新最优（按 full）
+[ep11] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[ep12] 200/1867 loss=0.1590 已用 2.5min 预计还需 20.9min
+[ep12] 400/1867 loss=0.1762 已用 5.0min 预计还需 18.3min
+[ep12] 600/1867 loss=0.1757 已用 7.5min 预计还需 15.8min
+[ep12] 800/1867 loss=0.1789 已用 9.9min 预计还需 13.3min
+[ep12] 1000/1867 loss=0.1798 已用 12.4min 预计还需 10.8min
+[ep12] 1200/1867 loss=0.1783 已用 14.9min 预计还需 8.3min
+[ep12] 1400/1867 loss=0.1772 已用 17.4min 预计还需 5.8min
+[ep12] 1600/1867 loss=0.1784 已用 19.9min 预计还需 3.3min
+[ep12] 1800/1867 loss=0.1784 已用 22.3min 预计还需 0.8min
+[ep12] ★ 完成 loss=0.1790 val_acc=0.7960  [raw 0.7960 EMA 0.7960] 用时 23.4min
+[ep12] ckpt -> /root/autodl-tmp/aic/outputs/fd560v2.pt
+[swa] ★ 已加载 SWA 平均权重（共 8 个 epoch 平均，start=5）⇒ 作为提交权重
+[swa] SWA 权重 val_acc=0.7900（对照：选优 0.7980 @ep11，同一把 val 尺）
+
+[train] 完成，总用时 282.5 min
+[train] 最优 epoch=11 val_acc=0.7980（权重来源：EMA）
+[train] 最优权重 -> /root/autodl-tmp/aic/outputs/fd560v2_best.pt
+[train] val_acc 轨迹：0.630 0.694 0.734 0.770 0.788 0.790 0.792 0.788 0.780 0.794 0.798 0.796
+[data] 全量 90152 张 / 500 类
+[data] 训练 89652 / 验证 500（验证每类至少 1 张）
+[03:14:00] train done
+[ptta] device=cuda；视图 15 个：base, flip, rc0, rc1, rc2, rc3, rc4, rc5, rc6, rc7, zoom240, zoom256, zoom288, zoom320, square
+[test] 49857 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 49857 张 / 500 类
+[tta] fd560v2_best.pt best_ep=11 best_val_acc=0.798 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4790.20it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/195
+[tta/base] 20/195
+[tta/base] 30/195
+[tta/base] 40/195
+[tta/base] 50/195
+[tta/base] 60/195
+[tta/base] 70/195
+[tta/base] 80/195
+[tta/base] 90/195
+[tta/base] 100/195
+[tta/base] 110/195
+[tta/base] 120/195
+[tta/base] 130/195
+[tta/base] 140/195
+[tta/base] 150/195
+[tta/base] 160/195
+[tta/base] 170/195
+[tta/base] 180/195
+[tta/base] 190/195
+[ptta] 视图 1/15 base 完成（146s）
+[tta/flip] 10/195
+[tta/flip] 20/195
+[tta/flip] 30/195
+[tta/flip] 40/195
+[tta/flip] 50/195
+[tta/flip] 60/195
+[tta/flip] 70/195
+[tta/flip] 80/195
+[tta/flip] 90/195
+[tta/flip] 100/195
+[tta/flip] 110/195
+[tta/flip] 120/195
+[tta/flip] 130/195
+[tta/flip] 140/195
+[tta/flip] 150/195
+[tta/flip] 160/195
+[tta/flip] 170/195
+[tta/flip] 180/195
+[tta/flip] 190/195
+[ptta] 视图 2/15 flip 完成（148s）
+[tta/rc0] 10/195
+[tta/rc0] 20/195
+[tta/rc0] 30/195
+[tta/rc0] 40/195
+[tta/rc0] 50/195
+[tta/rc0] 60/195
+[tta/rc0] 70/195
+[tta/rc0] 80/195
+[tta/rc0] 90/195
+[tta/rc0] 100/195
+[tta/rc0] 110/195
+[tta/rc0] 120/195
+[tta/rc0] 130/195
+[tta/rc0] 140/195
+[tta/rc0] 150/195
+[tta/rc0] 160/195
+[tta/rc0] 170/195
+[tta/rc0] 180/195
+[tta/rc0] 190/195
+[ptta] 视图 3/15 rc0 完成（147s）
+[tta/rc1] 10/195
+[tta/rc1] 20/195
+[tta/rc1] 30/195
+[tta/rc1] 40/195
+[tta/rc1] 50/195
+[tta/rc1] 60/195
+[tta/rc1] 70/195
+[tta/rc1] 80/195
+[tta/rc1] 90/195
+[tta/rc1] 100/195
+[tta/rc1] 110/195
+[tta/rc1] 120/195
+[tta/rc1] 130/195
+[tta/rc1] 140/195
+[tta/rc1] 150/195
+[tta/rc1] 160/195
+[tta/rc1] 170/195
+[tta/rc1] 180/195
+[tta/rc1] 190/195
+[ptta] 视图 4/15 rc1 完成（147s）
+[tta/rc2] 10/195
+[tta/rc2] 20/195
+[tta/rc2] 30/195
+[tta/rc2] 40/195
+[tta/rc2] 50/195
+[tta/rc2] 60/195
+[tta/rc2] 70/195
+[tta/rc2] 80/195
+[tta/rc2] 90/195
+[tta/rc2] 100/195
+[tta/rc2] 110/195
+[tta/rc2] 120/195
+[tta/rc2] 130/195
+[tta/rc2] 140/195
+[tta/rc2] 150/195
+[tta/rc2] 160/195
+[tta/rc2] 170/195
+[tta/rc2] 180/195
+[tta/rc2] 190/195
+[ptta] 视图 5/15 rc2 完成（143s）
+[tta/rc3] 10/195
+[tta/rc3] 20/195
+[tta/rc3] 30/195
+[tta/rc3] 40/195
+[tta/rc3] 50/195
+[tta/rc3] 60/195
+[tta/rc3] 70/195
+[tta/rc3] 80/195
+[tta/rc3] 90/195
+[tta/rc3] 100/195
+[tta/rc3] 110/195
+[tta/rc3] 120/195
+[tta/rc3] 130/195
+[tta/rc3] 140/195
+[tta/rc3] 150/195
+[tta/rc3] 160/195
+[tta/rc3] 170/195
+[tta/rc3] 180/195
+[tta/rc3] 190/195
+[ptta] 视图 6/15 rc3 完成（146s）
+[tta/rc4] 10/195
+[tta/rc4] 20/195
+[tta/rc4] 30/195
+[tta/rc4] 40/195
+[tta/rc4] 50/195
+[tta/rc4] 60/195
+[tta/rc4] 70/195
+[tta/rc4] 80/195
+[tta/rc4] 90/195
+[tta/rc4] 100/195
+[tta/rc4] 110/195
+[tta/rc4] 120/195
+[tta/rc4] 130/195
+[tta/rc4] 140/195
+[tta/rc4] 150/195
+[tta/rc4] 160/195
+[tta/rc4] 170/195
+[tta/rc4] 180/195
+[tta/rc4] 190/195
+[ptta] 视图 7/15 rc4 完成（146s）
+[tta/rc5] 10/195
+[tta/rc5] 20/195
+[tta/rc5] 30/195
+[tta/rc5] 40/195
+[tta/rc5] 50/195
+[tta/rc5] 60/195
+[tta/rc5] 70/195
+[tta/rc5] 80/195
+[tta/rc5] 90/195
+[tta/rc5] 100/195
+[tta/rc5] 110/195
+[tta/rc5] 120/195
+[tta/rc5] 130/195
+[tta/rc5] 140/195
+[tta/rc5] 150/195
+[tta/rc5] 160/195
+[tta/rc5] 170/195
+[tta/rc5] 180/195
+[tta/rc5] 190/195
+[ptta] 视图 8/15 rc5 完成（146s）
+[tta/rc6] 10/195
+[tta/rc6] 20/195
+[tta/rc6] 30/195
+[tta/rc6] 40/195
+[tta/rc6] 50/195
+[tta/rc6] 60/195
+[tta/rc6] 70/195
+[tta/rc6] 80/195
+[tta/rc6] 90/195
+[tta/rc6] 100/195
+[tta/rc6] 110/195
+[tta/rc6] 120/195
+[tta/rc6] 130/195
+[tta/rc6] 140/195
+[tta/rc6] 150/195
+[tta/rc6] 160/195
+[tta/rc6] 170/195
+[tta/rc6] 180/195
+[tta/rc6] 190/195
+[ptta] 视图 9/15 rc6 完成（146s）
+[tta/rc7] 10/195
+[tta/rc7] 20/195
+[tta/rc7] 30/195
+[tta/rc7] 40/195
+[tta/rc7] 50/195
+[tta/rc7] 60/195
+[tta/rc7] 70/195
+[tta/rc7] 80/195
+[tta/rc7] 90/195
+[tta/rc7] 100/195
+[tta/rc7] 110/195
+[tta/rc7] 120/195
+[tta/rc7] 130/195
+[tta/rc7] 140/195
+[tta/rc7] 150/195
+[tta/rc7] 160/195
+[tta/rc7] 170/195
+[tta/rc7] 180/195
+[tta/rc7] 190/195
+[ptta] 视图 10/15 rc7 完成（146s）
+[tta/zoom240] 10/195
+[tta/zoom240] 20/195
+[tta/zoom240] 30/195
+[tta/zoom240] 40/195
+[tta/zoom240] 50/195
+[tta/zoom240] 60/195
+[tta/zoom240] 70/195
+[tta/zoom240] 80/195
+[tta/zoom240] 90/195
+[tta/zoom240] 100/195
+[tta/zoom240] 110/195
+[tta/zoom240] 120/195
+[tta/zoom240] 130/195
+[tta/zoom240] 140/195
+[tta/zoom240] 150/195
+[tta/zoom240] 160/195
+[tta/zoom240] 170/195
+[tta/zoom240] 180/195
+[tta/zoom240] 190/195
+[ptta] 视图 11/15 zoom240 完成（145s）
+[tta/zoom256] 10/195
+[tta/zoom256] 20/195
+[tta/zoom256] 30/195
+[tta/zoom256] 40/195
+[tta/zoom256] 50/195
+[tta/zoom256] 60/195
+[tta/zoom256] 70/195
+[tta/zoom256] 80/195
+[tta/zoom256] 90/195
+[tta/zoom256] 100/195
+[tta/zoom256] 110/195
+[tta/zoom256] 120/195
+[tta/zoom256] 130/195
+[tta/zoom256] 140/195
+[tta/zoom256] 150/195
+[tta/zoom256] 160/195
+[tta/zoom256] 170/195
+[tta/zoom256] 180/195
+[tta/zoom256] 190/195
+[ptta] 视图 12/15 zoom256 完成（145s）
+[tta/zoom288] 10/195
+[tta/zoom288] 20/195
+[tta/zoom288] 30/195
+[tta/zoom288] 40/195
+[tta/zoom288] 50/195
+[tta/zoom288] 60/195
+[tta/zoom288] 70/195
+[tta/zoom288] 80/195
+[tta/zoom288] 90/195
+[tta/zoom288] 100/195
+[tta/zoom288] 110/195
+[tta/zoom288] 120/195
+[tta/zoom288] 130/195
+[tta/zoom288] 140/195
+[tta/zoom288] 150/195
+[tta/zoom288] 160/195
+[tta/zoom288] 170/195
+[tta/zoom288] 180/195
+[tta/zoom288] 190/195
+[ptta] 视图 13/15 zoom288 完成（148s）
+[tta/zoom320] 10/195
+[tta/zoom320] 20/195
+[tta/zoom320] 30/195
+[tta/zoom320] 40/195
+[tta/zoom320] 50/195
+[tta/zoom320] 60/195
+[tta/zoom320] 70/195
+[tta/zoom320] 80/195
+[tta/zoom320] 90/195
+[tta/zoom320] 100/195
+[tta/zoom320] 110/195
+[tta/zoom320] 120/195
+[tta/zoom320] 130/195
+[tta/zoom320] 140/195
+[tta/zoom320] 150/195
+[tta/zoom320] 160/195
+[tta/zoom320] 170/195
+[tta/zoom320] 180/195
+[tta/zoom320] 190/195
+[ptta] 视图 14/15 zoom320 完成（148s）
+[tta/square] 10/195
+[tta/square] 20/195
+[tta/square] 30/195
+[tta/square] 40/195
+[tta/square] 50/195
+[tta/square] 60/195
+[tta/square] 70/195
+[tta/square] 80/195
+[tta/square] 90/195
+[tta/square] 100/195
+[tta/square] 110/195
+[tta/square] 120/195
+[tta/square] 130/195
+[tta/square] 140/195
+[tta/square] 150/195
+[tta/square] 160/195
+[tta/square] 170/195
+[tta/square] 180/195
+[tta/square] 190/195
+[ptta] 视图 15/15 square 完成（150s）
+[ptta] 15 视图融合完成，总用时 36.6 min
+[ptta] 各视图与 base 的预测一致率（仅供判断是否真有分歧）：
+[ptta]   base      1.0000
+[ptta]   flip      0.8050
+[ptta]   rc0       0.7885
+[ptta]   rc1       0.7894
+[ptta]   rc2       0.7880
+[ptta]   rc3       0.7896
+[ptta]   rc4       0.7880
+[ptta]   rc5       0.7891
+[ptta]   rc6       0.7885
+[ptta]   rc7       0.7899
+[ptta]   zoom240   0.8249
+[ptta]   zoom256   0.7947
+[ptta]   zoom288   0.7524
+[ptta]   zoom320   0.7154
+[ptta]   square    1.0000
+[ptta] ---- 健康检查（15 视图 · 算术平均）----
+[ptta] 预测 49857 条；覆盖 500/500 类（覆盖率 1.0000，空类 0）
+[ptta] 每类预测数：均值 99.7、最大 572、最小 1、最大/均值 5.74x
+[ptta] 平均熵 1.651（均匀分布为 6.215）、平均最大概率 0.610
+[ptta] 与 base 单视图的预测一致率 0.8582（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_fd560v2_test/probs.npy (49857, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_fd560v2_test/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_fd560v2_test/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_fd560v2_test/pred_results.zip  (49857 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_fd560v2_test
+[ptta] 下一步：`scripts/check_submission.py` 校验
+[03:50:48] inference done rows=49857
+[bal] 概率 probs.npy  shape=(49857, 500) dtype=float16
+[test] 49857 张（未发现官方列表，按文件名排序）
+[bal] 目标边际 = 均匀（每类 N/K）
+[bal] 解 Sinkhorn 不动点（iters=60 damp=0.5）...
+    [sinkhorn] 第  10 轮：实得列计数 标准差= 16.71 min=49 max=149
+    [sinkhorn] 第  20 轮：实得列计数 标准差= 14.65 min=51 max=139
+    [sinkhorn] 第  30 轮：实得列计数 标准差= 14.50 min=51 max=139
+    [sinkhorn] 第  40 轮：实得列计数 标准差= 14.46 min=51 max=138
+    [sinkhorn] 第  50 轮：实得列计数 标准差= 14.46 min=51 max=138
+    [sinkhorn] 第  60 轮：实得列计数 标准差= 14.44 min=51 max=138
+
+[bal] 校正前: max= 572 中位=  86 均值=  99.7 min=  1 标准差= 57.2 超额=20.77%
+[bal] 校正后: max= 138 中位= 100 均值=  99.7 min= 51 标准差= 14.4 超额= 5.79%
+[bal] 改动预测 22.88%（11409/49857）
+[bal] 改动样本原预测类平均热度 194.4 张 → 新预测类 69.0 张（应以后者更大 = 往冷门搬）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/pack_fd560v2_a100/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/pack_fd560v2_a100/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/pack_fd560v2_a100/pred_results.zip  (49857 行)
+[bal] ★ 已写 /root/autodl-tmp/aic/outputs/pack_fd560v2_a100
+[bal] 下一步：scripts/check_submission.py /root/autodl-tmp/aic/outputs/pack_fd560v2_a100/pred_results.zip
+=== 核验提交文件：/root/autodl-tmp/aic/outputs/pack_fd560v2_a100/pred_results.zip ===
+  zip 内含 1 个条目：['pred_results.csv']
+  解析出 49857 行
+  [OK] 类别编号均为四位数字
+[test] 49857 张（未发现官方列表，按文件名排序）
+  [OK] 无重复文件名
+  [OK] 文件名与测试集完全一致
+  [信息] 预测覆盖 500 个不同类别编号
+=== 结论：全部通过，可提交 ===
+[03:51:09] FD560V2 PACKAGE VERIFIED READY

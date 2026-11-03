@@ -1,0 +1,102 @@
+[11:06:05] MASTER: wait r640 exit
+[12:09:25] SLOT1 PURE-LORA (unfreeze 0, resolve the LoRA/full-FT conflict)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '0', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--ckpt', '/root/autodl-tmp/aic/outputs/plora.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_plora']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  33%|███▎      | 130/398 [00:00<00:00, 1299.69it/s]Loading weights:  65%|██████▌   | 260/398 [00:00<00:00, 1171.43it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 1672.87it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[model] 可训练 3,692,021 / 154,969,334（2.382%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=0 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 149 个张量（14 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 149｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1781 步（优化步 1781/轮，grad_accum=1），batch=48，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 131, in main
+    return int(F.main() or 0)
+               ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 2510, in main
+    return train(a)
+           ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 1581, in train
+    x_in = mix_lam * x + (1.0 - mix_lam) * x[_perm]
+           ~~~~~~~~^~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 174.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 76.69 MiB is free. Process 68055 has 15.59 GiB memory in use. Process 67986 has 962.00 MiB memory in use. Process 68276 has 5.69 GiB memory in use. Including non-PyTorch memory, this process has 1.20 GiB memory in use. Of the allocated memory 777.94 MiB is allocated by PyTorch, and 46.06 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[ptta] 🛑 找不到检查点 /root/autodl-tmp/aic/outputs/plora_best.pt
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_plora/pred_results.csv'
+[12:09:56] plora pin done
+[12:09:56] SLOT2 LP-FT phase1 (frozen, head-only 3ep)
+[arm] → finetune_lora.main() argv=['--epochs', '3', '--batch', '48', '--workers', '16', '--lr', '5e-4', '--head-lr-mult', '2', '--lora-scale', '0', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '0', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '2', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--ckpt', '/root/autodl-tmp/aic/outputs/lpft_p1.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_lpft_p1']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8527.66it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] lora-scale=0，退化为纯冻结骨干基线
+[vpt] 未启用（--vpt 0）
+[model] 可训练 1,037,813 / 152,315,126（0.681%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[opt] 分组参数：lora=0 vpt=0 backbone=0 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 5 个张量（4 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 5｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 2 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 3 轮 x 1781 步（优化步 1781/轮，grad_accum=1），batch=48，lr(lora)=0.0005 lr(head)=0.001（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ep 1] 200/1781 loss=1.0866 已用 1.8min 预计还需 13.9min
+[ep 1] 400/1781 loss=0.9899 已用 3.7min 预计还需 12.7min
+[ep 1] 600/1781 loss=0.9178 已用 5.6min 预计还需 11.1min
+[ep 1] 800/1781 loss=0.8726 已用 7.6min 预计还需 9.4min
+[ep 1] 1000/1781 loss=0.8363 已用 9.6min 预计还需 7.5min
+[ep 1] 1200/1781 loss=0.8070 已用 11.6min 预计还需 5.6min
+[ep 1] 1400/1781 loss=0.7836 已用 13.4min 预计还需 3.7min
+[ep 1] 1600/1781 loss=0.7632 已用 15.0min 预计还需 1.7min
+[ep 1] ★ 完成 loss=0.7494 val_acc=0.5563  [raw 0.5082 EMA 0.5563] 用时 17.0min
+[ep 1] ↑ 新最优（按 full）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/lpft_p1.pt
+[ep 2] 200/1781 loss=0.5793 已用 1.6min 预计还需 12.7min
+[ep 2] 400/1781 loss=0.5834 已用 3.2min 预计还需 11.0min
+[ep 2] 600/1781 loss=0.5874 已用 4.8min 预计还需 9.4min
+[ep 2] 800/1781 loss=0.5844 已用 6.4min 预计还需 7.8min
+[ep 2] 1000/1781 loss=0.5820 已用 7.9min 预计还需 6.2min
+[ep 2] 1200/1781 loss=0.5785 已用 9.5min 预计还需 4.6min
+[ep 2] 1400/1781 loss=0.5775 已用 11.1min 预计还需 3.0min
+[ep 2] 1600/1781 loss=0.5725 已用 12.7min 预计还需 1.4min

@@ -1,0 +1,124 @@
+[20:28:44] voters: wait probe + trigger
+[ptta] device=cuda；视图 1 个：base
+[test] 90152 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 90152 张 / 500 类
+[tta] lora_best.pt best_ep=11 best_val_acc=0.8062770562770563 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 6901.69it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/353
+[tta/base] 20/353
+[tta/base] 30/353
+[tta/base] 40/353
+[tta/base] 50/353
+[tta/base] 60/353
+[tta/base] 70/353
+[tta/base] 80/353
+[tta/base] 90/353
+[tta/base] 100/353
+[tta/base] 110/353
+[tta/base] 120/353
+[tta/base] 130/353
+[tta/base] 140/353
+[tta/base] 150/353
+[tta/base] 160/353
+[tta/base] 170/353
+[tta/base] 180/353
+[tta/base] 190/353
+[tta/base] 200/353
+[tta/base] 210/353
+[tta/base] 220/353
+[tta/base] 230/353
+[tta/base] 240/353
+[tta/base] 250/353
+[tta/base] 260/353
+[tta/base] 270/353
+[tta/base] 280/353
+[tta/base] 290/353
+[tta/base] 300/353
+[tta/base] 310/353
+[tta/base] 320/353
+[tta/base] 330/353
+[tta/base] 340/353
+[tta/base] 350/353
+[ptta] 视图 1/1 base 完成（149s）
+[ptta] 1 视图融合完成，总用时 2.5 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 90152 条；覆盖 500/500 类（覆盖率 1.0000，空类 0）
+[ptta] 每类预测数：均值 180.3、最大 277、最小 3、最大/均值 1.54x
+[ptta] 平均熵 0.296（均匀分布为 6.215）、平均最大概率 0.934
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_vot_champ/probs.npy (90152, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_vot_champ/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_vot_champ/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_vot_champ/pred_results.zip  (90152 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_vot_champ
+[ptta] 下一步：`scripts/check_submission.py` 校验
+[20:31:31] voter champ done, test=49857
+[ptta] device=cuda；视图 1 个：base
+[test] 90152 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 90152 张 / 500 类
+[tta] conf_s1.pt best_ep=None best_val_acc=None r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 6883.34it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/353
+[tta/base] 20/353
+[tta/base] 30/353
+[tta/base] 40/353
+[tta/base] 50/353
+[tta/base] 60/353
+[tta/base] 70/353
+[tta/base] 80/353
+[tta/base] 90/353
+[tta/base] 100/353
+[tta/base] 110/353
+[tta/base] 120/353
+[tta/base] 130/353
+[tta/base] 140/353
+[tta/base] 150/353
+[tta/base] 160/353
+[tta/base] 170/353
+[tta/base] 180/353
+[tta/base] 190/353
+[tta/base] 200/353
+[tta/base] 210/353
+[tta/base] 220/353
+[tta/base] 230/353
+[tta/base] 240/353
+[tta/base] 250/353
+[tta/base] 260/353
+[tta/base] 270/353
+[tta/base] 280/353
+[tta/base] 290/353
+[tta/base] 300/353
+[tta/base] 310/353
+[tta/base] 320/353
+[tta/base] 330/353
+[tta/base] 340/353
+[tta/base] 350/353
+[ptta] 视图 1/1 base 完成（149s）
+[ptta] 1 视图融合完成，总用时 2.5 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 90152 条；覆盖 500/500 类（覆盖率 1.0000，空类 0）
+[ptta] 每类预测数：均值 180.3、最大 239、最小 3、最大/均值 1.33x
+[ptta] 平均熵 0.225（均匀分布为 6.215）、平均最大概率 0.953
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_vot_s1/probs.npy (90152, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_vot_s1/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_vot_s1/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_vot_s1/pred_results.zip  (90152 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_vot_s1
+[ptta] 下一步：`scripts/check_submission.py` 校验
+[20:34:15] voter s1 done, test=49857
+[20:34:16] cqa voters DONE

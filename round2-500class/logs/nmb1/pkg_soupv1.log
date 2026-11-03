@@ -1,0 +1,23 @@
+############ [21:11:17] PKG soup_v1 START ############
+[21:11:37] preflight ok (test=49857), free=12G
+[21:11:37] 15-view TTA soup_v1 @560
+[ptta] device=cuda；视图 15 个：base, flip, rc0, rc1, rc2, rc3, rc4, rc5, rc6, rc7, zoom240, zoom256, zoom288, zoom320, square
+[test] 49857 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 49857 张 / 500 类
+[tta] soup_v1_best.pt best_ep=-1 best_val_acc=None r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  91%|█████████▏| 364/398 [00:00<00:00, 3637.12it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 3810.25it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/195
+[tta/base] 20/195
+[tta/base] 30/195
+[tta/base] 40/195
+[tta/base] 50/195
+[tta/base] 60/195
+[tta/base] 70/195
+[tta/base] 80/195
+[tta/base] 90/195
+[tta/base] 100/195
+[tta/base] 110/195
+[tta/base] 120/195

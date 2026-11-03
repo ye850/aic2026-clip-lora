@@ -1,0 +1,78 @@
+[22:21:32] SMOKE: wait blindshot done
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85613 / 验证 4539（验证每类至少 2 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8247.20it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1555 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9901 sum=84767.8/85613
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 1 轮 x 1783 步（优化步 1783/轮，grad_accum=1），batch=48，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ep 1] 50/1783 loss=1.1942 已用 0.1min 预计还需 4.2min
+[ep 1] 100/1783 loss=1.1337 已用 0.2min 预计还需 3.8min
+[ep 1] 150/1783 loss=1.0816 已用 0.3min 预计还需 3.7min
+[ep 1] 200/1783 loss=1.0386 已用 0.4min 预计还需 3.5min
+[ep 1] 250/1783 loss=1.0081 已用 0.5min 预计还需 3.4min
+[ep 1] 300/1783 loss=0.9747 已用 0.7min 预计还需 3.2min
+[ep 1] 350/1783 loss=0.9426 已用 0.8min 预计还需 3.1min
+[ep 1] 400/1783 loss=0.9201 已用 0.9min 预计还需 3.0min
+[ep 1] 450/1783 loss=0.9014 已用 1.0min 预计还需 2.9min
+[ep 1] 500/1783 loss=0.8839 已用 1.1min 预计还需 2.8min
+[ep 1] 550/1783 loss=0.8700 已用 1.2min 预计还需 2.7min
+[ep 1] 600/1783 loss=0.8559 已用 1.3min 预计还需 2.5min
+[ep 1] 650/1783 loss=0.8446 已用 1.4min 预计还需 2.4min
+[ep 1] 700/1783 loss=0.8307 已用 1.5min 预计还需 2.3min
+[ep 1] 750/1783 loss=0.8206 已用 1.6min 预计还需 2.2min
+[ep 1] 800/1783 loss=0.8094 已用 1.7min 预计还需 2.1min
+[ep 1] 850/1783 loss=0.8045 已用 1.8min 预计还需 2.0min
+[ep 1] 900/1783 loss=0.7971 已用 1.9min 预计还需 1.9min
+[ep 1] 950/1783 loss=0.7940 已用 2.0min 预计还需 1.8min
+[ep 1] 1000/1783 loss=0.7846 已用 2.1min 预计还需 1.7min
+[ep 1] 1050/1783 loss=0.7786 已用 2.2min 预计还需 1.6min
+[ep 1] 1100/1783 loss=0.7728 已用 2.3min 预计还需 1.5min
+[ep 1] 1150/1783 loss=0.7668 已用 2.4min 预计还需 1.3min
+[ep 1] 1200/1783 loss=0.7626 已用 2.6min 预计还需 1.2min
+[ep 1] 1250/1783 loss=0.7570 已用 2.7min 预计还需 1.1min
+[ep 1] 1300/1783 loss=0.7522 已用 2.8min 预计还需 1.0min
+[ep 1] 1350/1783 loss=0.7483 已用 2.9min 预计还需 0.9min
+[ep 1] 1400/1783 loss=0.7434 已用 3.0min 预计还需 0.8min
+[ep 1] 1450/1783 loss=0.7394 已用 3.1min 预计还需 0.7min
+[ep 1] 1500/1783 loss=0.7355 已用 3.2min 预计还需 0.6min
+[ep 1] 1550/1783 loss=0.7339 已用 3.3min 预计还需 0.5min
+[ep 1] 1600/1783 loss=0.7306 已用 3.4min 预计还需 0.4min
+[ep 1] 1650/1783 loss=0.7266 已用 3.5min 预计还需 0.3min
+[ep 1] 1700/1783 loss=0.7237 已用 3.6min 预计还需 0.2min
+[ep 1] 1750/1783 loss=0.7192 已用 3.7min 预计还需 0.1min
+[ep 1] ★ 完成 loss=0.7167 val_acc=0.6387  [raw 0.6510 EMA 0.6387] 用时 4.0min
+[ep 1] ↑ 新最优（按 full）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/smoke_rb.pt
+[crt] ★ 分类器重训 1 轮：冻结骨干，类平衡采样，仅头可训练
+[crt] ep1 loss=0.3438
+[crt] ★ 重训后 val_acc = 66.18%
+[crt] best 已替换为 cRT 权重（提交端使用重训后模型）
+
+[train] 完成，总用时 6.3 min
+[train] 最优 epoch=-1 val_acc=0.6618（权重来源：EMA）
+[train] 最优权重 -> /root/autodl-tmp/aic/outputs/smoke_rb_best.pt
+[train] val_acc 轨迹：0.639
+[22:28:16] SMOKE OK (cutmix+crt 全链路通过)

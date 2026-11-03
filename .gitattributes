@@ -1,0 +1,20 @@
+# 强制 LF —— .sh 脚本带 CRLF 在 Linux / 容器里会报 "command not found"
+* text=auto eol=lf
+
+*.sh   text eol=lf
+*.py   text eol=lf
+*.md   text eol=lf
+*.yml  text eol=lf
+*.txt  text eol=lf
+Dockerfile text eol=lf
+
+# 二进制文件不做换行转换
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.pt   binary
+*.npy  binary
+
+# 日志：原样保留，不做任何转换
+logs/** -text
+*.log  -text

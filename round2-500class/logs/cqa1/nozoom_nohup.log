@@ -1,0 +1,14 @@
+=== 推理（10 视图，无 zoom/square）===
+推理 rc=0
+[ptta] ---- 健康检查（10 视图 · 幂平均 t=4.0）----
+[ptta] 预测 49857 条；覆盖 498/500 类（覆盖率 0.9960，空类 2）
+[ptta] 每类预测数：均值 99.7、最大 503、最小 0、最大/均值 5.04x
+[ptta] 与 base 单视图的预测一致率 0.8409（TTA 只应在少数样本上改动预测）
+=== 校准 ===
+校准 rc=0
+[submit] /root/autodl-tmp/aic/outputs/pack_nz_cal/pred_results.zip  (49857 行)
+[bal] ★ 已写 /root/autodl-tmp/aic/outputs/pack_nz_cal
+[bal] 下一步：scripts/check_submission.py /root/autodl-tmp/aic/outputs/pack_nz_cal/pred_results.zip
+=== 结果 ===
+49857
+1064629 /root/autodl-tmp/aic/outputs/pack_nz_cal/pred_results.zip

@@ -1,0 +1,13 @@
+[15:03:44] 新机同尺重评开始
+[15:03:44] lora_best
+[ptta] device=cuda；视图 1 个：base
+[ptta] 🛑 缺少 train_meta.json，请先跑 scan 阶段
+  lora_best 推理失败
+  缺 hlr2
+[15:03:47] conf
+[ptta] device=cuda；视图 1 个：base
+[ptta] 🛑 缺少 train_meta.json，请先跑 scan 阶段
+  conf 推理失败
+  缺 ep20
+  缺 r500
+[15:03:49] 完成，test 还原 49857 张

@@ -1,0 +1,3 @@
+[04:46:56] aug-strong 臂启动
+[07:49:38] aug-strong 结束
+[train] 最优 epoch=12 val_acc=0.7998（权重来源：EMA）

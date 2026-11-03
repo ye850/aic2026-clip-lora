@@ -1,0 +1,225 @@
+[20:31:38] 560+PROPER-FT start (batch 40, uf12+llrd0.9+lr2e-5+20ep)
+[arm] → finetune_lora.main() argv=['--epochs', '20', '--batch', '40', '--workers', '16', '--lr', '2e-5', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '12', '--llrd-decay', '0.9', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '12', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--ckpt', '/root/autodl-tmp/aic/outputs/px560ft.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_px560ft']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4938.53it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 12/12 层（骨干 lr = 2e-05×0.1 = 2.00e-06）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 88,748,021 / 154,969,334（57.268%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=85,056,000 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 343 个张量（339 MB fp32）
+[opt] ★ LLRD 启用：逐层 lr = 2e-05×0.1×0.9^k（k=0 顶层 → 11 底层）｜顶层 2.00e-06 → 底层 6.28e-07｜每层参数数 [16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16]
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 343｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 12 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 20 轮 x 2138 步（优化步 2138/轮，grad_accum=1），batch=40，lr(lora)=2e-05 lr(head)=4e-05（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ep 1] 200/2138 loss=1.2321 已用 2.3min 预计还需 22.6min
+[ep 1] 400/2138 loss=1.2097 已用 4.6min 预计还需 20.1min
+[ep 1] 600/2138 loss=1.1904 已用 6.9min 预计还需 17.7min
+[ep 1] 800/2138 loss=1.1725 已用 9.2min 预计还需 15.4min
+[ep 1] 1000/2138 loss=1.1555 已用 11.5min 预计还需 13.1min
+[ep 1] 1200/2138 loss=1.1422 已用 13.8min 预计还需 10.8min
+[ep 1] 1400/2138 loss=1.1318 已用 16.1min 预计还需 8.5min
+[ep 1] 1600/2138 loss=1.1236 已用 18.3min 预计还需 6.2min
+[ep 1] 1800/2138 loss=1.1171 已用 20.6min 预计还需 3.9min
+[ep 1] 2000/2138 loss=1.1109 已用 22.9min 预计还需 1.6min
+[ep 1] ★ 完成 loss=1.1062 val_acc=0.0035  [raw 0.0268 EMA 0.0035] 用时 25.1min
+[ep 1] ↑ 新最优（按 full）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep 2] 200/2138 loss=1.0015 已用 2.3min 预计还需 22.4min
+[ep 2] 400/2138 loss=0.9817 已用 4.6min 预计还需 20.0min
+[ep 2] 600/2138 loss=0.9561 已用 6.9min 预计还需 17.6min
+[ep 2] 800/2138 loss=0.9301 已用 9.2min 预计还需 15.3min
+[ep 2] 1000/2138 loss=0.9056 已用 11.5min 预计还需 13.0min
+[ep 2] 1200/2138 loss=0.8819 已用 13.7min 预计还需 10.7min
+[ep 2] 1400/2138 loss=0.8601 已用 16.0min 预计还需 8.4min
+[ep 2] 1600/2138 loss=0.8386 已用 18.3min 预计还需 6.2min
+[ep 2] 1800/2138 loss=0.8205 已用 20.6min 预计还需 3.9min
+[ep 2] 2000/2138 loss=0.8034 已用 22.9min 预计还需 1.6min
+[ep 2] ★ 完成 loss=0.7905 val_acc=0.4797  [raw 0.5221 EMA 0.4797] 用时 25.1min
+[ep 2] ↑ 新最优（按 full）
+[ep 2] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep 3] 200/2138 loss=0.5841 已用 2.3min 预计还需 22.4min
+[ep 3] 400/2138 loss=0.5778 已用 4.6min 预计还需 19.9min
+[ep 3] 600/2138 loss=0.5768 已用 6.9min 预计还需 17.6min
+[ep 3] 800/2138 loss=0.5703 已用 9.2min 预计还需 15.3min
+[ep 3] 1000/2138 loss=0.5676 已用 11.4min 预计还需 13.0min
+[ep 3] 1200/2138 loss=0.5636 已用 13.7min 预计还需 10.7min
+[ep 3] 1400/2138 loss=0.5598 已用 16.0min 预计还需 8.4min
+[ep 3] 1600/2138 loss=0.5543 已用 18.3min 预计还需 6.2min
+[ep 3] 1800/2138 loss=0.5510 已用 20.6min 预计还需 3.9min
+[ep 3] 2000/2138 loss=0.5464 已用 22.9min 预计还需 1.6min
+[ep 3] ★ 完成 loss=0.5429 val_acc=0.6229  [raw 0.6320 EMA 0.6229] 用时 25.1min
+[ep 3] ↑ 新最优（按 full）
+[ep 3] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep 4] 200/2138 loss=0.5012 已用 2.3min 预计还需 22.7min
+[ep 4] 400/2138 loss=0.4968 已用 4.7min 预计还需 20.3min
+[ep 4] 600/2138 loss=0.4848 已用 7.0min 预计还需 17.9min
+[ep 4] 800/2138 loss=0.4865 已用 9.3min 预计还需 15.5min
+[ep 4] 1000/2138 loss=0.4854 已用 11.6min 预计还需 13.2min
+[ep 4] 1200/2138 loss=0.4811 已用 13.9min 预计还需 10.9min
+[ep 4] 1400/2138 loss=0.4789 已用 16.2min 预计还需 8.5min
+[ep 4] 1600/2138 loss=0.4752 已用 18.5min 预计还需 6.2min
+[ep 4] 1800/2138 loss=0.4714 已用 20.8min 预计还需 3.9min
+[ep 4] 2000/2138 loss=0.4688 已用 23.0min 预计还需 1.6min
+[ep 4] ★ 完成 loss=0.4685 val_acc=0.6727  [raw 0.6706 EMA 0.6727] 用时 25.3min
+[ep 4] ↑ 新最优（按 full）
+[ep 4] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep 5] 200/2138 loss=0.4410 已用 2.4min 预计还需 22.8min
+[ep 5] 400/2138 loss=0.4381 已用 4.6min 预计还需 20.2min
+[ep 5] 600/2138 loss=0.4396 已用 6.9min 预计还需 17.8min
+[ep 5] 800/2138 loss=0.4381 已用 9.2min 预计还需 15.4min
+[ep 5] 1000/2138 loss=0.4345 已用 11.5min 预计还需 13.1min
+[ep 5] 1200/2138 loss=0.4333 已用 13.8min 预计还需 10.8min
+[ep 5] 1400/2138 loss=0.4340 已用 16.1min 预计还需 8.5min
+[ep 5] 1600/2138 loss=0.4356 已用 18.4min 预计还需 6.2min
+[ep 5] 1800/2138 loss=0.4359 已用 20.7min 预计还需 3.9min
+[ep 5] 2000/2138 loss=0.4345 已用 23.0min 预计还需 1.6min
+[ep 5] ★ 完成 loss=0.4355 val_acc=0.6963  [raw 0.6887 EMA 0.6963] 用时 25.2min
+[ep 5] ↑ 新最优（按 full）
+[ep 5] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep 6] 200/2138 loss=0.3989 已用 2.4min 预计还需 22.9min
+[ep 6] 400/2138 loss=0.4039 已用 4.7min 预计还需 20.4min
+[ep 6] 600/2138 loss=0.4065 已用 7.0min 预计还需 17.9min
+[ep 6] 800/2138 loss=0.4098 已用 9.3min 预计还需 15.6min
+[ep 6] 1000/2138 loss=0.4084 已用 11.6min 预计还需 13.2min
+[ep 6] 1200/2138 loss=0.4102 已用 13.9min 预计还需 10.9min
+[ep 6] 1400/2138 loss=0.4095 已用 16.2min 预计还需 8.5min
+[ep 6] 1600/2138 loss=0.4103 已用 18.5min 预计还需 6.2min
+[ep 6] 1800/2138 loss=0.4094 已用 20.8min 预计还需 3.9min
+[ep 6] 2000/2138 loss=0.4092 已用 23.1min 预计还需 1.6min
+[ep 6] ★ 完成 loss=0.4105 val_acc=0.7147  [raw 0.7106 EMA 0.7147] 用时 25.4min
+[ep 6] ↑ 新最优（按 full）
+[ep 6] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep 7] 200/2138 loss=0.3941 已用 2.4min 预计还需 22.8min
+[ep 7] 400/2138 loss=0.3913 已用 4.7min 预计还需 20.3min
+[ep 7] 600/2138 loss=0.3890 已用 7.0min 预计还需 17.9min
+[ep 7] 800/2138 loss=0.3936 已用 9.3min 预计还需 15.6min
+[ep 7] 1000/2138 loss=0.3959 已用 11.6min 预计还需 13.2min
+[ep 7] 1200/2138 loss=0.3954 已用 13.9min 预计还需 10.9min
+[ep 7] 1400/2138 loss=0.3920 已用 16.3min 预计还需 8.6min
+[ep 7] 1600/2138 loss=0.3904 已用 18.6min 预计还需 6.2min
+[ep 7] 1800/2138 loss=0.3889 已用 20.9min 预计还需 3.9min
+[ep 7] 2000/2138 loss=0.3886 已用 23.2min 预计还需 1.6min
+[ep 7] ★ 完成 loss=0.3879 val_acc=0.7260  [raw 0.7238 EMA 0.7260] 用时 25.5min
+[ep 7] ↑ 新最优（按 full）
+[ep 7] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep 8] 200/2138 loss=0.3807 已用 2.3min 预计还需 22.4min
+[ep 8] 400/2138 loss=0.3751 已用 4.6min 预计还需 19.9min
+[ep 8] 600/2138 loss=0.3773 已用 6.9min 预计还需 17.6min
+[ep 8] 800/2138 loss=0.3798 已用 9.2min 预计还需 15.3min
+[ep 8] 1000/2138 loss=0.3767 已用 11.4min 预计还需 13.0min
+[ep 8] 1200/2138 loss=0.3750 已用 13.7min 预计还需 10.7min
+[ep 8] 1400/2138 loss=0.3772 已用 16.0min 预计还需 8.4min
+[ep 8] 1600/2138 loss=0.3778 已用 18.3min 预计还需 6.2min
+[ep 8] 1800/2138 loss=0.3788 已用 20.6min 预计还需 3.9min
+[ep 8] 2000/2138 loss=0.3761 已用 22.9min 预计还需 1.6min
+[ep 8] ★ 完成 loss=0.3731 val_acc=0.7323  [raw 0.7303 EMA 0.7323] 用时 25.1min
+[ep 8] ↑ 新最优（按 full）
+[ep 8] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep 9] 200/2138 loss=0.3755 已用 2.3min 预计还需 22.7min
+[ep 9] 400/2138 loss=0.3770 已用 4.6min 预计还需 20.1min
+[ep 9] 600/2138 loss=0.3723 已用 6.9min 预计还需 17.7min
+[ep 9] 800/2138 loss=0.3678 已用 9.2min 预计还需 15.3min
+[ep 9] 1000/2138 loss=0.3694 已用 11.5min 预计还需 13.0min
+[ep 9] 1200/2138 loss=0.3689 已用 13.7min 预计还需 10.7min
+[ep 9] 1400/2138 loss=0.3677 已用 16.0min 预计还需 8.5min
+[ep 9] 1600/2138 loss=0.3683 已用 18.3min 预计还需 6.2min
+[ep 9] 1800/2138 loss=0.3680 已用 20.6min 预计还需 3.9min
+[ep 9] 2000/2138 loss=0.3679 已用 22.9min 预计还需 1.6min
+[ep 9] ★ 完成 loss=0.3672 val_acc=0.7409  [raw 0.7385 EMA 0.7409] 用时 25.1min
+[ep 9] ↑ 新最优（按 full）
+[ep 9] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep10] 200/2138 loss=0.3595 已用 2.3min 预计还需 22.7min
+[ep10] 400/2138 loss=0.3547 已用 4.6min 预计还需 20.2min
+[ep10] 600/2138 loss=0.3572 已用 6.9min 预计还需 17.8min
+[ep10] 800/2138 loss=0.3555 已用 9.2min 预计还需 15.4min
+[ep10] 1000/2138 loss=0.3525 已用 11.5min 预计还需 13.1min
+[ep10] 1200/2138 loss=0.3533 已用 13.8min 预计还需 10.8min
+[ep10] 1400/2138 loss=0.3530 已用 16.1min 预计还需 8.5min
+[ep10] 1600/2138 loss=0.3533 已用 18.4min 预计还需 6.2min
+[ep10] 1800/2138 loss=0.3535 已用 20.7min 预计还需 3.9min
+[ep10] 2000/2138 loss=0.3521 已用 23.0min 预计还需 1.6min
+[ep10] ★ 完成 loss=0.3525 val_acc=0.7483  [raw 0.7452 EMA 0.7483] 用时 25.3min
+[ep10] ↑ 新最优（按 full）
+[ep10] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep11] 200/2138 loss=0.3386 已用 2.3min 预计还需 22.5min
+[ep11] 400/2138 loss=0.3345 已用 4.6min 预计还需 20.2min
+[ep11] 600/2138 loss=0.3348 已用 6.9min 预计还需 17.8min
+[ep11] 800/2138 loss=0.3361 已用 9.2min 预计还需 15.5min
+[ep11] 1000/2138 loss=0.3372 已用 11.5min 预计还需 13.1min
+[ep11] 1200/2138 loss=0.3396 已用 13.8min 预计还需 10.8min
+[ep11] 1400/2138 loss=0.3393 已用 16.2min 预计还需 8.5min
+[ep11] 1600/2138 loss=0.3396 已用 18.5min 预计还需 6.2min
+[ep11] 1800/2138 loss=0.3397 已用 20.8min 预计还需 3.9min
+[ep11] 2000/2138 loss=0.3389 已用 23.1min 预计还需 1.6min
+[ep11] ★ 完成 loss=0.3409 val_acc=0.7509  [raw 0.7513 EMA 0.7509] 用时 25.3min
+[ep11] ↑ 新最优（按 full）
+[ep11] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep12] 200/2138 loss=0.2982 已用 2.3min 预计还需 22.8min
+[ep12] 400/2138 loss=0.3226 已用 4.7min 预计还需 20.2min
+[ep12] 600/2138 loss=0.3265 已用 7.0min 预计还需 17.8min
+[ep12] 800/2138 loss=0.3263 已用 9.3min 预计还需 15.5min
+[ep12] 1000/2138 loss=0.3271 已用 11.5min 预计还需 13.1min
+[ep12] 1200/2138 loss=0.3266 已用 13.8min 预计还需 10.8min
+[ep12] 1400/2138 loss=0.3297 已用 16.2min 预计还需 8.5min
+[ep12] 1600/2138 loss=0.3290 已用 18.5min 预计还需 6.2min
+[ep12] 1800/2138 loss=0.3324 已用 20.8min 预计还需 3.9min
+[ep12] 2000/2138 loss=0.3330 已用 23.1min 预计还需 1.6min
+[ep12] ★ 完成 loss=0.3349 val_acc=0.7556  [raw 0.7548 EMA 0.7556] 用时 25.3min
+[ep12] ↑ 新最优（按 full）
+[ep12] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep13] 200/2138 loss=0.3302 已用 2.4min 预计还需 22.8min
+[ep13] 400/2138 loss=0.3342 已用 4.7min 预计还需 20.3min
+[ep13] 600/2138 loss=0.3349 已用 7.0min 预计还需 17.9min
+[ep13] 800/2138 loss=0.3339 已用 9.3min 预计还需 15.5min
+[ep13] 1000/2138 loss=0.3325 已用 11.5min 预计还需 13.1min
+[ep13] 1200/2138 loss=0.3344 已用 13.8min 预计还需 10.8min
+[ep13] 1400/2138 loss=0.3340 已用 16.2min 预计还需 8.5min
+[ep13] 1600/2138 loss=0.3340 已用 18.5min 预计还需 6.2min
+[ep13] 1800/2138 loss=0.3368 已用 20.8min 预计还需 3.9min
+[ep13] 2000/2138 loss=0.3357 已用 23.1min 预计还需 1.6min
+[ep13] ★ 完成 loss=0.3364 val_acc=0.7619  [raw 0.7628 EMA 0.7619] 用时 25.3min
+[ep13] ↑ 新最优（按 full）
+[ep13] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep14] 200/2138 loss=0.3240 已用 2.3min 预计还需 22.5min
+[ep14] 400/2138 loss=0.3295 已用 4.6min 预计还需 20.1min
+[ep14] 600/2138 loss=0.3260 已用 6.9min 预计还需 17.7min
+[ep14] 800/2138 loss=0.3186 已用 9.2min 预计还需 15.4min
+[ep14] 1000/2138 loss=0.3194 已用 11.5min 预计还需 13.1min
+[ep14] 1200/2138 loss=0.3174 已用 13.8min 预计还需 10.8min
+[ep14] 1400/2138 loss=0.3203 已用 16.1min 预计还需 8.5min
+[ep14] 1600/2138 loss=0.3207 已用 18.4min 预计还需 6.2min
+[ep14] 1800/2138 loss=0.3209 已用 20.7min 预计还需 3.9min
+[ep14] 2000/2138 loss=0.3218 已用 22.9min 预计还需 1.6min
+[ep14] ★ 完成 loss=0.3206 val_acc=0.7645  [raw 0.7606 EMA 0.7645] 用时 25.1min
+[ep14] ↑ 新最优（按 full）
+[ep14] ckpt -> /root/autodl-tmp/aic/outputs/px560ft.pt
+[ep15] 200/2138 loss=0.3263 已用 2.3min 预计还需 22.4min
+[ep15] 400/2138 loss=0.3220 已用 4.6min 预计还需 19.9min
+[ep15] 600/2138 loss=0.3331 已用 6.9min 预计还需 17.6min
+[ep15] 800/2138 loss=0.3288 已用 9.2min 预计还需 15.3min
+[ep15] 1000/2138 loss=0.3232 已用 11.4min 预计还需 13.0min
+[ep15] 1200/2138 loss=0.3196 已用 13.7min 预计还需 10.7min
+[ep15] 1400/2138 loss=0.3218 已用 16.0min 预计还需 8.4min
+[ep15] 1600/2138 loss=0.3215 已用 18.3min 预计还需 6.1min
+[ep15] 1800/2138 loss=0.3242 已用 20.6min 预计还需 3.9min
+[ep15] 2000/2138 loss=0.3237 已用 22.8min 预计还需 1.6min

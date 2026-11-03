@@ -1,0 +1,37 @@
+[09:21:24] ext2: wait nmb_ext
+[10:54:30] px560 folder-ruler acc= (threshold 81.5)
+[10:54:30] px560 below threshold -> skip test inference
+[10:54:30] conf2-s1 arm start
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '96', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/soft_conflicts_v2.json', '--seed', '1', '--ckpt', '/root/autodl-tmp/aic/outputs/conf2s1.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_conf2s1']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  88%|████████▊ | 351/398 [00:00<00:00, 3507.59it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 3544.24it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 131, in main
+    return int(F.main() or 0)
+               ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 2494, in main
+    return train(a)
+           ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 941, in train
+    _rec = _json.load(open(args.soft_conflicts, encoding="utf-8"))
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/soft_conflicts_v2.json'
+[10:54:39] ext2 DONE

@@ -1,0 +1,7 @@
+############ [00:14:25] Q-MIXSTYLE START (waiting FINAL CHAIN) ############
+############ [00:15:04] Q-MIXSTYLE START (waiting FINAL CHAIN) ############
+############ [00:19:19] Q-MIXSTYLE START (waiting FINAL CHAIN) ############
+############ [00:22:48] Q-MIXSTYLE START (waiting FINAL CHAIN) ############
+[00:28:48] [warn] 终局链已退出但无 DONE 标记，按异常结束处理、继续开跑
+/root/autodl-tmp/aic/scripts/_q_mixstyle.sh: line 45: syntax error near unexpected token `then'
+/root/autodl-tmp/aic/scripts/_q_mixstyle.sh: line 45: ` pgrep -f "_final_chain" >/dev/null 2>&1; then'

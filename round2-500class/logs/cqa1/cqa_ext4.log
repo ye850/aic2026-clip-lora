@@ -1,0 +1,193 @@
+[11:47:21] ext4: wait ASAM arm
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] asamrt_best.pt best_ep=8 best_val_acc=0.7954545454545454 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7446.73it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/1 base 完成（11s）
+[ptta] 1 视图融合完成，总用时 0.2 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 498/500 类（覆盖率 0.9960，空类 2）
+[ptta] 每类预测数：均值 9.2、最大 16、最小 0、最大/均值 1.73x
+[ptta] 平均熵 0.441（均匀分布为 6.215）、平均最大概率 0.886
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_rt_asamrt/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_rt_asamrt/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_asamrt/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_asamrt/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_rt_asamrt
+[ptta] 下一步：`scripts/check_submission.py` 校验
+  STAR asamrt pinned-val = 80.02% (n=4620)
+[12:28:50] asamrt pin done
+[12:28:50] osb1.0 start
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '96', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--oversample-beta', '1.0', '--ckpt', '/root/autodl-tmp/aic/outputs/osb100.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_osb100']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7679.40it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[train] ★★ 类均衡重采样已启用（H3）：oversample_beta=1.0，w∝(1/freq)^beta；num_samples=85532（步数不变）；freq<150 的类 65 个将被均衡覆盖
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 890 步（优化步 890/轮，grad_accum=1），batch=96，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ep 1] 200/890 loss=1.1685 已用 3.3min 预计还需 11.3min
+[ep 1] 400/890 loss=1.0488 已用 6.5min 预计还需 8.0min
+[ep 1] 600/890 loss=0.9200 已用 9.8min 预计还需 4.7min
+[ep 1] 800/890 loss=0.8312 已用 13.1min 预计还需 1.5min
+[ep 1] ★ 完成 loss=0.7978 val_acc=0.2740  [raw 0.6052 EMA 0.2740] 用时 15.0min
+[ep 1] ↑ 新最优（按 full）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep 2] 200/890 loss=0.4866 已用 3.3min 预计还需 11.4min
+[ep 2] 400/890 loss=0.4742 已用 6.6min 预计还需 8.1min
+[ep 2] 600/890 loss=0.4509 已用 9.9min 预计还需 4.8min
+[ep 2] 800/890 loss=0.4414 已用 13.2min 预计还需 1.5min
+[ep 2] ★ 完成 loss=0.4366 val_acc=0.7002  [raw 0.6965 EMA 0.7002] 用时 15.0min
+[ep 2] ↑ 新最优（按 full）
+[ep 2] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep 3] 200/890 loss=0.3706 已用 3.3min 预计还需 11.4min
+[ep 3] 400/890 loss=0.3694 已用 6.6min 预计还需 8.1min
+[ep 3] 600/890 loss=0.3697 已用 9.9min 预计还需 4.8min
+[ep 3] 800/890 loss=0.3627 已用 13.2min 预计还需 1.5min
+[ep 3] ★ 完成 loss=0.3626 val_acc=0.7478  [raw 0.7294 EMA 0.7478] 用时 15.0min
+[ep 3] ↑ 新最优（按 full）
+[ep 3] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep 4] 200/890 loss=0.3195 已用 3.3min 预计还需 11.5min
+[ep 4] 400/890 loss=0.3253 已用 6.6min 预计还需 8.1min
+[ep 4] 600/890 loss=0.3134 已用 9.9min 预计还需 4.8min
+[ep 4] 800/890 loss=0.3098 已用 13.2min 预计还需 1.5min
+[ep 4] ★ 完成 loss=0.3129 val_acc=0.7708  [raw 0.7537 EMA 0.7708] 用时 15.1min
+[ep 4] ↑ 新最优（按 full）
+[ep 4] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep 5] 200/890 loss=0.2707 已用 3.3min 预计还需 11.5min
+[ep 5] 400/890 loss=0.2821 已用 6.6min 预计还需 8.1min
+[ep 5] 600/890 loss=0.2854 已用 9.9min 预计还需 4.8min
+[ep 5] 800/890 loss=0.2776 已用 13.2min 预计还需 1.5min
+[ep 5] ★ 完成 loss=0.2759 val_acc=0.7799  [raw 0.7617 EMA 0.7799] 用时 15.1min
+[ep 5] ↑ 新最优（按 full）
+[ep 5] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep 6] 200/890 loss=0.2593 已用 3.3min 预计还需 11.5min
+[ep 6] 400/890 loss=0.2528 已用 6.6min 预计还需 8.1min
+[ep 6] 600/890 loss=0.2524 已用 9.9min 预计还需 4.8min
+[ep 6] 800/890 loss=0.2562 已用 13.2min 预计还需 1.5min
+[ep 6] ★ 完成 loss=0.2532 val_acc=0.7892  [raw 0.7777 EMA 0.7892] 用时 15.1min
+[ep 6] ↑ 新最优（按 full）
+[ep 6] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep 7] 200/890 loss=0.2499 已用 3.3min 预计还需 11.5min
+[ep 7] 400/890 loss=0.2431 已用 6.6min 预计还需 8.1min
+[ep 7] 600/890 loss=0.2371 已用 9.9min 预计还需 4.8min
+[ep 7] 800/890 loss=0.2394 已用 13.2min 预计还需 1.5min
+[ep 7] ★ 完成 loss=0.2392 val_acc=0.7944  [raw 0.7844 EMA 0.7944] 用时 15.0min
+[ep 7] ↑ 新最优（按 full）
+[ep 7] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep 8] 200/890 loss=0.2079 已用 3.3min 预计还需 11.5min
+[ep 8] 400/890 loss=0.2287 已用 6.6min 预计还需 8.1min
+[ep 8] 600/890 loss=0.2260 已用 9.9min 预计还需 4.8min
+[ep 8] 800/890 loss=0.2190 已用 13.2min 预计还需 1.5min
+[ep 8] ★ 完成 loss=0.2204 val_acc=0.7983  [raw 0.7974 EMA 0.7983] 用时 15.1min
+[ep 8] ↑ 新最优（按 full）
+[ep 8] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep 9] 200/890 loss=0.2154 已用 3.3min 预计还需 11.5min
+[ep 9] 400/890 loss=0.2168 已用 6.6min 预计还需 8.1min
+[ep 9] 600/890 loss=0.2058 已用 9.9min 预计还需 4.8min
+[ep 9] 800/890 loss=0.2054 已用 13.2min 预计还需 1.5min
+[ep 9] ★ 完成 loss=0.2020 val_acc=0.7989  [raw 0.7981 EMA 0.7989] 用时 15.1min
+[ep 9] ↑ 新最优（按 full）
+[ep 9] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep10] 200/890 loss=0.1829 已用 3.3min 预计还需 11.5min
+[ep10] 400/890 loss=0.1858 已用 6.6min 预计还需 8.1min
+[ep10] 600/890 loss=0.1899 已用 9.9min 预计还需 4.8min
+[ep10] 800/890 loss=0.1926 已用 13.2min 预计还需 1.5min
+[ep10] ★ 完成 loss=0.1914 val_acc=0.8002  [raw 0.8022 EMA 0.8002] 用时 15.1min
+[ep10] ↑ 新最优（按 full）
+[ep10] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep11] 200/890 loss=0.2016 已用 3.3min 预计还需 11.5min
+[ep11] 400/890 loss=0.1991 已用 6.6min 预计还需 8.1min
+[ep11] 600/890 loss=0.1892 已用 9.9min 预计还需 4.8min
+[ep11] 800/890 loss=0.1883 已用 13.2min 预计还需 1.5min
+[ep11] ★ 完成 loss=0.1879 val_acc=0.8013  [raw 0.8030 EMA 0.8013] 用时 15.1min
+[ep11] ↑ 新最优（按 full）
+[ep11] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[ep12] 200/890 loss=0.2028 已用 3.3min 预计还需 11.5min
+[ep12] 400/890 loss=0.2027 已用 6.6min 预计还需 8.1min
+[ep12] 600/890 loss=0.2021 已用 9.9min 预计还需 4.8min
+[ep12] 800/890 loss=0.2020 已用 13.2min 预计还需 1.5min
+[ep12] ★ 完成 loss=0.2018 val_acc=0.8024  [raw 0.8022 EMA 0.8024] 用时 15.1min
+[ep12] ↑ 新最优（按 full）
+[ep12] ckpt -> /root/autodl-tmp/aic/outputs/osb100.pt
+[swa] ★ 已加载 SWA 平均权重（共 8 个 epoch 平均，start=5）⇒ 作为提交权重
+[swa] SWA 权重 val_acc=0.8017（对照：选优 0.8024 @ep12，同一把 val 尺）
+
+[train] 完成，总用时 181.3 min
+[train] 最优 epoch=12 val_acc=0.8024（权重来源：EMA）
+[train] 最优权重 -> /root/autodl-tmp/aic/outputs/osb100_best.pt
+[train] val_acc 轨迹：0.274 0.700 0.748 0.771 0.780 0.789 0.794 0.798 0.799 0.800 0.801 0.802
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] osb100_best.pt best_ep=12 best_val_acc=0.8023809523809524 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7824.13it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/1 base 完成（11s）
+[ptta] 1 视图融合完成，总用时 0.2 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 499/500 类（覆盖率 0.9980，空类 1）
+[ptta] 每类预测数：均值 9.2、最大 17、最小 0、最大/均值 1.84x
+[ptta] 平均熵 0.668（均匀分布为 6.215）、平均最大概率 0.844
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_rt_osb100/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_rt_osb100/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_osb100/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_osb100/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_rt_osb100
+[ptta] 下一步：`scripts/check_submission.py` 校验
+  STAR osb100 pinned-val = 80.17% (n=4620)
+[15:30:36] osb100 pin done
+STAR asamrt acc=80.02% (n=4620)
+  chk asamrt probs-argmax=80.02% agree_with_csv=1.000
+STAR osb100 acc=80.17% (n=4620)
+  chk osb100 probs-argmax=80.17% agree_with_csv=1.000
+saved correct vectors: 4620 samples x 2 models
+GRID base=asamrt raw_acc=80.02%
+GRID sinkhorn alpha=0.25 acc=79.78% change=2.16%
+GRID sinkhorn alpha=0.50 acc=80.15% change=4.03%
+GRID sinkhorn alpha=0.75 acc=80.02% change=6.06%
+GRID sinkhorn alpha=1.00 acc=79.46% change=8.40%
+MCN asamrt vs osb100: b(other right,champ wrong)=158 c=151 chi2=0.12 ns
+[15:30:37] ext4 DONE

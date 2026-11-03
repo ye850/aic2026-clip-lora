@@ -1,0 +1,67 @@
+[21:19:31] wrapup: wait nmb_overnight
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] conf_s4_best.pt best_ep=10 best_val_acc=0.8047619047619048 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4501.36it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/1 base 完成（14s）
+[ptta] 1 视图融合完成，总用时 0.2 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 499/500 类（覆盖率 0.9980，空类 1）
+[ptta] 每类预测数：均值 9.2、最大 17、最小 0、最大/均值 1.84x
+[ptta] 平均熵 0.654（均匀分布为 6.215）、平均最大概率 0.847
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_wu_s4/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_wu_s4/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_wu_s4/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_wu_s4/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_wu_s4
+[ptta] 下一步：`scripts/check_submission.py` 校验
+[02:55:08] s4 done, test=49857
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] mixup0n.pt best_ep=None best_val_acc=None r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4385.23it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/1 base 完成（13s）
+[ptta] 1 视图融合完成，总用时 0.2 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 498/500 类（覆盖率 0.9960，空类 2）
+[ptta] 每类预测数：均值 9.2、最大 18、最小 0、最大/均值 1.95x
+[ptta] 平均熵 0.451（均匀分布为 6.215）、平均最大概率 0.876
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_wu_mixup0/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_wu_mixup0/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_wu_mixup0/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_wu_mixup0/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_wu_mixup0
+[ptta] 下一步：`scripts/check_submission.py` 校验
+[02:55:32] mixup0 done, test=49857
+STAR s4 acc=80.37% (n=4620)
+  chk s4 probs-argmax=80.37% agree_with_csv=1.000
+STAR mixup0 acc=79.78% (n=4620)
+  chk mixup0 probs-argmax=79.78% agree_with_csv=1.000
+saved correct vectors: 4620 samples x 2 models
+GRID base=s4 raw_acc=80.37%
+GRID sinkhorn alpha=0.25 acc=80.52% change=2.14%
+GRID sinkhorn alpha=0.50 acc=80.65% change=4.39%
+GRID sinkhorn alpha=0.75 acc=80.41% change=5.97%
+GRID sinkhorn alpha=1.00 acc=80.15% change=7.81%
+MCN s4 vs mixup0: b(other right,champ wrong)=148 c=175 chi2=2.09 ns
+[02:55:34] wrapup DONE

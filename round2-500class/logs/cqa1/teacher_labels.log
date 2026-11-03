@@ -1,0 +1,65 @@
+[23:00:04] teacher labels: 3 models x 90k train
+[23:00:04] teacher px560rt @560
+[pt] samples 85532 (excluded val 4620 names)
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7927.05it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[pt] loaded /root/autodl-tmp/aic/outputs/px560rt_best.pt: missing 0 unexpected 0
+[pt] 8016/85532
+[pt] 16032/85532
+[pt] 24000/85532
+[pt] 32016/85532
+[pt] 40032/85532
+[pt] 48000/85532
+[pt] 56016/85532
+[pt] 64032/85532
+[pt] 72000/85532
+[pt] 80016/85532
+WROTE /root/autodl-tmp/aic/outputs/_teach_px560rt/probs.npy (85532, 500)
+[23:03:45] px560rt probs OK
+[23:03:45] teacher r640 @640
+[pt] samples 85532 (excluded val 4620 names)
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8496.03it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[pt] loaded /root/autodl-tmp/aic/outputs/r640_best.pt: missing 0 unexpected 0
+[pt] 8016/85532
+[pt] 16032/85532
+[pt] 24000/85532
+[pt] 32016/85532
+[pt] 40032/85532
+[pt] 48000/85532
+[pt] 56016/85532
+[pt] 64032/85532
+[pt] 72000/85532
+[pt] 80016/85532
+WROTE /root/autodl-tmp/aic/outputs/_teach_r640/probs.npy (85532, 500)
+[23:08:49] r640 probs OK
+[23:08:49] teacher conf2_560 @560
+[pt] samples 85532 (excluded val 4620 names)
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 9667.99it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[pt] loaded /root/autodl-tmp/aic/outputs/conf2_560_best.pt: missing 0 unexpected 0
+[pt] 8016/85532
+[pt] 16032/85532
+[pt] 24000/85532
+[pt] 32016/85532
+[pt] 40032/85532
+[pt] 48000/85532
+[pt] 56016/85532
+[pt] 64032/85532
+[pt] 72000/85532
+[pt] 80016/85532
+WROTE /root/autodl-tmp/aic/outputs/_teach_conf2_560/probs.npy (85532, 500)
+[23:12:32] conf2_560 probs OK
+[23:12:32] TEACHER LABELS DONE

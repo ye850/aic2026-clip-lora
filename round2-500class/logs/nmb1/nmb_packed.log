@@ -1,0 +1,226 @@
+[00:02:14] packed v2: wait fd560v2.sh + gate 05:40
+[05:41:17] gate 05:40 passed - PACKED v2 START
+[05:41:17] SLOT1 COMBO-A (v2+fulldata, blind - IMPORTANT FIRST)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/soft_conflicts_v2.json', '--val-ratio', '0.0', '--val-per-class', '1', '--ckpt', '/root/autodl-tmp/aic/outputs/comboA.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_comboA']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 89652 / 验证 500（验证每类至少 1 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  90%|█████████ | 359/398 [00:00<00:00, 3579.79it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 3576.45it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=3970 训练集命中=4722 ★ 组总权重=0.8000~1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9859 sum=88390.4/89652
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1867 步（优化步 1867/轮，grad_accum=1），batch=48，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ep 1] 200/1867 loss=1.1196 已用 2.5min 预计还需 20.7min
+[ep 1] 400/1867 loss=1.0714 已用 5.0min 预计还需 18.2min
+[ep 1] 600/1867 loss=1.0153 已用 7.4min 预计还需 15.7min
+[ep 1] 800/1867 loss=0.9514 已用 10.0min 预计还需 13.3min
+[ep 1] 1000/1867 loss=0.8897 已用 12.5min 预计还需 10.8min
+[ep 1] 1200/1867 loss=0.8363 已用 15.0min 预计还需 8.4min
+[ep 1] 1400/1867 loss=0.7926 已用 17.6min 预计还需 5.9min
+[ep 1] 1600/1867 loss=0.7566 已用 20.2min 预计还需 3.4min
+[ep 1] 1800/1867 loss=0.7284 已用 22.7min 预计还需 0.8min
+[ep 1] ★ 完成 loss=0.7206 val_acc=0.6220  [raw 0.5680 EMA 0.6220] 用时 23.8min
+[ep 1] ↑ 新最优（按 full）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep 2] 200/1867 loss=0.4518 已用 2.5min 预计还需 20.9min
+[ep 2] 400/1867 loss=0.4570 已用 5.0min 预计还需 18.4min
+[ep 2] 600/1867 loss=0.4579 已用 7.6min 预计还需 16.0min
+[ep 2] 800/1867 loss=0.4558 已用 10.1min 预计还需 13.4min
+[ep 2] 1000/1867 loss=0.4471 已用 12.6min 预计还需 10.9min
+[ep 2] 1200/1867 loss=0.4453 已用 15.1min 预计还需 8.4min
+[ep 2] 1400/1867 loss=0.4387 已用 17.6min 预计还需 5.9min
+[ep 2] 1600/1867 loss=0.4342 已用 20.1min 预计还需 3.4min
+[ep 2] 1800/1867 loss=0.4314 已用 22.6min 预计还需 0.8min
+[ep 2] ★ 完成 loss=0.4298 val_acc=0.6960  [raw 0.6880 EMA 0.6960] 用时 23.6min
+[ep 2] ↑ 新最优（按 full）
+[ep 2] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep 3] 200/1867 loss=0.3722 已用 2.5min 预计还需 20.8min
+[ep 3] 400/1867 loss=0.3765 已用 5.0min 预计还需 18.2min
+[ep 3] 600/1867 loss=0.3665 已用 7.4min 预计还需 15.7min
+[ep 3] 800/1867 loss=0.3621 已用 9.9min 预计还需 13.2min
+[ep 3] 1000/1867 loss=0.3617 已用 12.4min 预计还需 10.7min
+[ep 3] 1200/1867 loss=0.3611 已用 14.8min 预计还需 8.2min
+[ep 3] 1400/1867 loss=0.3603 已用 17.3min 预计还需 5.8min
+[ep 3] 1600/1867 loss=0.3606 已用 19.8min 预计还需 3.3min
+[ep 3] 1800/1867 loss=0.3601 已用 22.3min 预计还需 0.8min
+[ep 3] ★ 完成 loss=0.3610 val_acc=0.7420  [raw 0.7080 EMA 0.7420] 用时 23.3min
+[ep 3] ↑ 新最优（按 full）
+[ep 3] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep 4] 200/1867 loss=0.3161 已用 2.5min 预计还需 21.2min
+[ep 4] 400/1867 loss=0.3150 已用 5.1min 预计还需 18.6min
+[ep 4] 600/1867 loss=0.3219 已用 7.6min 预计还需 16.0min
+[ep 4] 800/1867 loss=0.3200 已用 10.1min 预计还需 13.5min
+[ep 4] 1000/1867 loss=0.3216 已用 12.6min 预计还需 10.9min
+[ep 4] 1200/1867 loss=0.3222 已用 15.1min 预计还需 8.4min
+[ep 4] 1400/1867 loss=0.3193 已用 17.6min 预计还需 5.9min
+[ep 4] 1600/1867 loss=0.3202 已用 20.2min 预计还需 3.4min
+[ep 4] 1800/1867 loss=0.3200 已用 22.7min 预计还需 0.8min
+[ep 4] ★ 完成 loss=0.3194 val_acc=0.7680  [raw 0.7340 EMA 0.7680] 用时 23.8min
+[ep 4] ↑ 新最优（按 full）
+[ep 4] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep 5] 200/1867 loss=0.2709 已用 2.5min 预计还需 21.1min
+[ep 5] 400/1867 loss=0.2740 已用 5.1min 预计还需 18.6min
+[ep 5] 600/1867 loss=0.2734 已用 7.6min 预计还需 16.1min
+[ep 5] 800/1867 loss=0.2714 已用 10.2min 预计还需 13.5min
+[ep 5] 1000/1867 loss=0.2747 已用 12.7min 预计还需 11.0min
+[ep 5] 1200/1867 loss=0.2770 已用 15.2min 预计还需 8.5min
+[ep 5] 1400/1867 loss=0.2778 已用 17.7min 预计还需 5.9min
+[ep 5] 1600/1867 loss=0.2788 已用 20.3min 预计还需 3.4min
+[ep 5] 1800/1867 loss=0.2803 已用 22.8min 预计还需 0.8min
+[ep 5] ★ 完成 loss=0.2794 val_acc=0.7860  [raw 0.7540 EMA 0.7860] 用时 23.9min
+[ep 5] ↑ 新最优（按 full）
+[ep 5] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep 6] 200/1867 loss=0.2339 已用 2.5min 预计还需 21.0min
+[ep 6] 400/1867 loss=0.2401 已用 5.0min 预计还需 18.4min
+[ep 6] 600/1867 loss=0.2437 已用 7.5min 预计还需 15.9min
+[ep 6] 800/1867 loss=0.2500 已用 10.0min 预计还需 13.4min
+[ep 6] 1000/1867 loss=0.2524 已用 12.6min 预计还需 10.9min
+[ep 6] 1200/1867 loss=0.2529 已用 15.1min 预计还需 8.4min
+[ep 6] 1400/1867 loss=0.2552 已用 17.6min 预计还需 5.9min
+[ep 6] 1600/1867 loss=0.2547 已用 20.1min 预计还需 3.4min
+[ep 6] 1800/1867 loss=0.2538 已用 22.6min 预计还需 0.8min
+[ep 6] ★ 完成 loss=0.2544 val_acc=0.7820  [raw 0.7740 EMA 0.7820] 用时 23.7min
+[ep 6] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep 7] 200/1867 loss=0.2265 已用 2.5min 预计还需 20.9min
+[ep 7] 400/1867 loss=0.2250 已用 5.0min 预计还需 18.2min
+[ep 7] 600/1867 loss=0.2294 已用 7.4min 预计还需 15.7min
+[ep 7] 800/1867 loss=0.2290 已用 10.0min 预计还需 13.3min
+[ep 7] 1000/1867 loss=0.2328 已用 12.5min 预计还需 10.8min
+[ep 7] 1200/1867 loss=0.2332 已用 15.0min 预计还需 8.4min
+[ep 7] 1400/1867 loss=0.2339 已用 17.5min 预计还需 5.8min
+[ep 7] 1600/1867 loss=0.2332 已用 20.0min 预计还需 3.3min
+[ep 7] 1800/1867 loss=0.2333 已用 22.5min 预计还需 0.8min
+[ep 7] ★ 完成 loss=0.2331 val_acc=0.7900  [raw 0.7840 EMA 0.7900] 用时 23.6min
+[ep 7] ↑ 新最优（按 full）
+[ep 7] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep 8] 200/1867 loss=0.2074 已用 2.6min 预计还需 21.3min
+[ep 8] 400/1867 loss=0.2071 已用 5.1min 预计还需 18.6min
+[ep 8] 600/1867 loss=0.2161 已用 7.6min 预计还需 16.0min
+[ep 8] 800/1867 loss=0.2161 已用 10.1min 预计还需 13.4min
+[ep 8] 1000/1867 loss=0.2151 已用 12.5min 预计还需 10.9min
+[ep 8] 1200/1867 loss=0.2113 已用 15.0min 预计还需 8.4min
+[ep 8] 1400/1867 loss=0.2092 已用 17.5min 预计还需 5.8min
+[ep 8] 1600/1867 loss=0.2083 已用 20.0min 预计还需 3.3min
+[ep 8] 1800/1867 loss=0.2075 已用 22.5min 预计还需 0.8min
+[ep 8] ★ 完成 loss=0.2078 val_acc=0.7900  [raw 0.7900 EMA 0.7900] 用时 23.6min
+[ep 8] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep 9] 200/1867 loss=0.1860 已用 2.5min 预计还需 21.2min
+[ep 9] 400/1867 loss=0.1942 已用 5.1min 预计还需 18.6min
+[ep 9] 600/1867 loss=0.1949 已用 7.6min 预计还需 16.1min
+[ep 9] 800/1867 loss=0.1988 已用 10.1min 预计还需 13.5min
+[ep 9] 1000/1867 loss=0.1985 已用 12.7min 预计还需 11.0min
+[ep 9] 1200/1867 loss=0.1953 已用 15.2min 预计还需 8.4min
+[ep 9] 1400/1867 loss=0.1971 已用 17.7min 预计还需 5.9min
+[ep 9] 1600/1867 loss=0.1980 已用 20.3min 预计还需 3.4min
+[ep 9] 1800/1867 loss=0.1982 已用 22.8min 预计还需 0.8min
+[ep 9] ★ 完成 loss=0.1982 val_acc=0.7860  [raw 0.7880 EMA 0.7860] 用时 23.9min
+[ep 9] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep10] 200/1867 loss=0.1579 已用 2.5min 预计还需 21.1min
+[ep10] 400/1867 loss=0.1654 已用 5.0min 预计还需 18.5min
+[ep10] 600/1867 loss=0.1741 已用 7.5min 预计还需 15.9min
+[ep10] 800/1867 loss=0.1770 已用 10.1min 预计还需 13.4min
+[ep10] 1000/1867 loss=0.1789 已用 12.6min 预计还需 10.9min
+[ep10] 1200/1867 loss=0.1798 已用 15.1min 预计还需 8.4min
+[ep10] 1400/1867 loss=0.1816 已用 17.6min 预计还需 5.9min
+[ep10] 1600/1867 loss=0.1817 已用 20.1min 预计还需 3.3min
+[ep10] 1800/1867 loss=0.1827 已用 22.6min 预计还需 0.8min
+[ep10] ★ 完成 loss=0.1845 val_acc=0.7960  [raw 0.7940 EMA 0.7960] 用时 23.7min
+[ep10] ↑ 新最优（按 full）
+[ep10] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep11] 200/1867 loss=0.1910 已用 2.5min 预计还需 21.0min
+[ep11] 400/1867 loss=0.1794 已用 5.0min 预计还需 18.4min
+[ep11] 600/1867 loss=0.1823 已用 7.5min 预计还需 15.8min
+[ep11] 800/1867 loss=0.1824 已用 10.0min 预计还需 13.3min
+[ep11] 1000/1867 loss=0.1822 已用 12.5min 预计还需 10.8min
+[ep11] 1200/1867 loss=0.1833 已用 14.9min 预计还需 8.3min
+[ep11] 1400/1867 loss=0.1824 已用 17.4min 预计还需 5.8min
+[ep11] 1600/1867 loss=0.1805 已用 19.9min 预计还需 3.3min
+[ep11] 1800/1867 loss=0.1815 已用 22.4min 预计还需 0.8min
+[ep11] ★ 完成 loss=0.1809 val_acc=0.7940  [raw 0.7960 EMA 0.7940] 用时 23.5min
+[ep11] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[ep12] 200/1867 loss=0.1539 已用 2.5min 预计还需 21.1min
+[ep12] 400/1867 loss=0.1714 已用 5.1min 预计还需 18.6min
+[ep12] 600/1867 loss=0.1710 已用 7.6min 预计还需 16.0min
+[ep12] 800/1867 loss=0.1740 已用 10.1min 预计还需 13.5min
+[ep12] 1000/1867 loss=0.1748 已用 12.6min 预计还需 10.9min
+[ep12] 1200/1867 loss=0.1734 已用 15.1min 预计还需 8.4min
+[ep12] 1400/1867 loss=0.1725 已用 17.6min 预计还需 5.9min
+[ep12] 1600/1867 loss=0.1737 已用 20.1min 预计还需 3.4min
+[ep12] 1800/1867 loss=0.1737 已用 22.6min 预计还需 0.8min
+[ep12] ★ 完成 loss=0.1742 val_acc=0.7940  [raw 0.7940 EMA 0.7940] 用时 23.8min
+[ep12] ckpt -> /root/autodl-tmp/aic/outputs/comboA.pt
+[swa] ★ 已加载 SWA 平均权重（共 8 个 epoch 平均，start=5）⇒ 作为提交权重
+[swa] SWA 权重 val_acc=0.7820（对照：选优 0.7960 @ep10，同一把 val 尺）
+
+[train] 完成，总用时 284.8 min
+[train] 最优 epoch=10 val_acc=0.7960（权重来源：EMA）
+[train] 最优权重 -> /root/autodl-tmp/aic/outputs/comboA_best.pt
+[train] val_acc 轨迹：0.622 0.696 0.742 0.768 0.786 0.782 0.790 0.790 0.786 0.796 0.794 0.794
+[10:26:12] SLOT1 train done (blind)
+[10:26:12] SLOT2 COMBO-B (comboA+lr1e4, blind)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '1e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/soft_conflicts_v2.json', '--val-ratio', '0.0', '--val-per-class', '1', '--ckpt', '/root/autodl-tmp/aic/outputs/comboB.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_comboB']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 89652 / 验证 500（验证每类至少 1 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4242.94it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0001×0.1 = 1.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=3970 训练集命中=4722 ★ 组总权重=0.8000~1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9859 sum=88390.4/89652
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1867 步（优化步 1867/轮，grad_accum=1），batch=48，lr(lora)=0.0001 lr(head)=0.0002（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ep 1] 200/1867 loss=1.1533 已用 2.5min 预计还需 20.9min
+[ep 1] 400/1867 loss=1.1080 已用 5.0min 预计还需 18.3min
+[ep 1] 600/1867 loss=1.0726 已用 7.5min 预计还需 15.8min
+[ep 1] 800/1867 loss=1.0291 已用 10.0min 预计还需 13.3min
+[ep 1] 1000/1867 loss=0.9773 已用 12.5min 预计还需 10.9min
+[ep 1] 1200/1867 loss=0.9247 已用 15.1min 预计还需 8.4min
+[ep 1] 1400/1867 loss=0.8759 已用 17.6min 预计还需 5.9min
+[ep 1] 1600/1867 loss=0.8330 已用 20.1min 预计还需 3.4min
+[ep 1] 1800/1867 loss=0.7978 已用 22.6min 预计还需 0.8min
+[ep 1] ★ 完成 loss=0.7877 val_acc=0.5500  [raw 0.5900 EMA 0.5500] 用时 23.7min
+[ep 1] ↑ 新最优（按 full）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/comboB.pt
+[ep 2] 200/1867 loss=0.4586 已用 2.5min 预计还需 21.2min

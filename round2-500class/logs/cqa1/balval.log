@@ -1,0 +1,6 @@
+[12:53:13] 教师结束，开始均衡验证
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[split] train ? val ?
+data.py 无 split_train_val，需改
+[12:53:24] rc=0

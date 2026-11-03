@@ -1,0 +1,12 @@
+[v22] 2026-09-26 11:42:00 === v22 start pid=6236 df=21G ===
+[v22] 2026-09-26 11:42:00 md5 src/noise.py = 853fe2b8257c08f3f122f90c49a09e92 OK
+[v22] 2026-09-26 11:42:00 md5 src/finetune_lora.py = f18de4d9cd37ea3181c99d5d821af641 OK
+[v22] 2026-09-26 11:42:00 md5 src/config.py = 4237d48c808eb258085fd6b7d118cc8e OK
+[v22] 2026-09-26 11:42:00 md5 src/data.py = 637807e864123effd0f3eda86d444b26 OK
+[v22] 2026-09-26 11:42:00 data/_preproc/train 类目录数 = 750（期望 750）
+[v22] 2026-09-26 11:42:01 feat_train.npy = 304527488 B
+[v22] 2026-09-26 11:42:01 config.GCE_Q = 0.7（B 组依赖；非数字则 B 组会被跳过）
+[v22] 2026-09-26 11:42:01 等待 v21 完成（判据：/root/autodl-tmp/aic/outputs/queue_0926v21.log 出现 'zip ready'）…
+[v22] 2026-09-26 11:42:01 wait v21: 0min df=21G
+[v22] 2026-09-26 11:57:01 wait v21: 15min df=20G
+[v22] 2026-09-26 12:12:01 wait v21: 30min df=19G

@@ -1,0 +1,32 @@
+# ---- 数据与权重：绝不入库 ----
+data/
+models/
+*.pt
+*.pth
+*.npy
+*.npz
+*.bin
+*.safetensors
+clip-vit-base-patch32/
+
+# ---- 运行产物 ----
+outputs/
+pred_results.csv
+pred_results.zip
+probs.npy
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ---- 编辑器 / 系统 ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---- 日志里的临时产物（log 本身要保留）----
+logs/**/*.tmp

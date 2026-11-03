@@ -1,0 +1,18 @@
+# 本方案实际运行环境（版本为实测值）
+# 安装：pip install -r requirements.txt
+torch==2.12.1
+torchvision==0.27.1
+transformers==5.17.0
+numpy==2.5.2
+pillow==12.3.0
+
+# 说明：
+# 1) torch / torchvision 需与 CUDA 匹配（本环境 CUDA 13.0，官方轮子带 +cu130 后缀）。
+# 2) 若在纯 CPU 环境复现推理，安装 CPU 版 torch 即可；训练需 GPU（显存峰值约 24GB，batch=96）。
+# 3) 底座权重不随包提供：首次运行会从官方发布 openai/clip-vit-base-patch32 拉取并缓存，
+#    详见 docs/权重来源与校验.md。
+# 4) pandas 与 scikit-learn 为训练与数据统计路径所需；如只做推理，可按需精简。
+pandas
+scikit-learn
+# 5) 可选依赖：当 transformers 载入底座失败时，图像读取模块会回退到 open_clip 路径。
+#    常规运行不需要；如需该回退，另装 open_clip_torch。

@@ -1,0 +1,13 @@
+[ptta] device=cuda；视图 1 个：tl
+[test] 49857 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 49857 张 / 500 类
+[tta] r640_best.pt best_ep=11 best_val_acc=0.812987012987013 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8196.79it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/tl] 10/195
+[tta/tl] 20/195
+[tta/tl] 30/195
+[tta/tl] 40/195
+[tta/tl] 50/195

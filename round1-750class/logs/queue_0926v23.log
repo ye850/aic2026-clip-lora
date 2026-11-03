@@ -1,0 +1,14 @@
+[v23] 2026-09-26 12:52:44 === v23 start pid=3214 df=15G ===
+[v23] 2026-09-26 12:52:44 driver_version = 580.105.08
+[v23] 2026-09-26 12:52:46 torch.cuda.is_available = 1
+[v23] 2026-09-26 12:52:46 disk avail = 15G
+[v23] 2026-09-26 12:52:46 md5 src/noise.py = 853fe2b8257c08f3f122f90c49a09e92 OK
+[v23] 2026-09-26 12:52:46 md5 src/finetune_lora.py = f18de4d9cd37ea3181c99d5d821af641 OK
+[v23] 2026-09-26 12:52:46 md5 src/config.py = 4237d48c808eb258085fd6b7d118cc8e OK
+[v23] 2026-09-26 12:52:46 md5 src/data.py = 637807e864123effd0f3eda86d444b26 OK
+[v23] 2026-09-26 12:52:46 data/_preproc/train 类目录数 = 750（期望 750）
+[v23] 2026-09-26 12:52:46 feat_train.npy = 304527488 B
+[v23] 2026-09-26 12:52:46 GPU 空 -> 开工
+[v23] 2026-09-26 12:52:46 reclaim lora.pt x0; free 15G
+[v23] 2026-09-26 12:52:46 --- d_r448ul4sd2 start（extras: --unfreeze-last 4 --backbone-lr-mult 0.1 --seed 2 ；snapshot --save-every-epoch）---
+[v23] 2026-09-26 12:52:46 started d_r448ul4sd2 pid=3294

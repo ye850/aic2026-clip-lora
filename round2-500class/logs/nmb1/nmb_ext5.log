@@ -1,0 +1,199 @@
+[14:45:59] ext5: wait nmb_ext4
+[15:38:05] STACKED 560+oversample start (batch 48)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--oversample-beta', '1.0', '--ckpt', '/root/autodl-tmp/aic/outputs/pxosb.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_pxosb']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4765.29it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[train] ★★ 类均衡重采样已启用（H3）：oversample_beta=1.0，w∝(1/freq)^beta；num_samples=85532（步数不变）；freq<150 的类 65 个将被均衡覆盖
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1781 步（优化步 1781/轮，grad_accum=1），batch=48，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ep 1] 200/1781 loss=1.2012 已用 2.5min 预计还需 19.6min
+[ep 1] 400/1781 loss=1.1442 已用 4.9min 预计还需 17.1min
+[ep 1] 600/1781 loss=1.0800 已用 7.4min 预计还需 14.6min
+[ep 1] 800/1781 loss=1.0117 已用 9.9min 预计还需 12.1min
+[ep 1] 1000/1781 loss=0.9441 已用 12.3min 预计还需 9.6min
+[ep 1] 1200/1781 loss=0.8840 已用 14.8min 预计还需 7.2min
+[ep 1] 1400/1781 loss=0.8363 已用 17.3min 预计还需 4.7min
+[ep 1] 1600/1781 loss=0.7979 已用 19.7min 预计还需 2.2min
+[ep 1] ★ 完成 loss=0.7694 val_acc=0.6143  [raw 0.5933 EMA 0.6143] 用时 22.6min
+[ep 1] ↑ 新最优（按 full）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep 2] 200/1781 loss=0.4820 已用 2.5min 预计还需 19.9min
+[ep 2] 400/1781 loss=0.4825 已用 5.0min 预计还需 17.3min
+[ep 2] 600/1781 loss=0.4827 已用 7.5min 预计还需 14.7min
+[ep 2] 800/1781 loss=0.4723 已用 9.9min 预计还需 12.2min
+[ep 2] 1000/1781 loss=0.4650 已用 12.4min 预计还需 9.7min
+[ep 2] 1200/1781 loss=0.4570 已用 14.8min 预计还需 7.2min
+[ep 2] 1400/1781 loss=0.4523 已用 17.3min 预计还需 4.7min
+[ep 2] 1600/1781 loss=0.4446 已用 19.8min 预计还需 2.2min
+[ep 2] ★ 完成 loss=0.4402 val_acc=0.7180  [raw 0.6957 EMA 0.7180] 用时 22.8min
+[ep 2] ↑ 新最优（按 full）
+[ep 2] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep 3] 200/1781 loss=0.3741 已用 2.5min 预计还需 19.9min
+[ep 3] 400/1781 loss=0.3790 已用 5.0min 预计还需 17.2min
+[ep 3] 600/1781 loss=0.3808 已用 7.4min 预计还需 14.6min
+[ep 3] 800/1781 loss=0.3730 已用 9.9min 预计还需 12.1min
+[ep 3] 1000/1781 loss=0.3695 已用 12.3min 预计还需 9.6min
+[ep 3] 1200/1781 loss=0.3660 已用 14.8min 预计还需 7.2min
+[ep 3] 1400/1781 loss=0.3644 已用 17.2min 预计还需 4.7min
+[ep 3] 1600/1781 loss=0.3622 已用 19.7min 预计还需 2.2min
+[ep 3] ★ 完成 loss=0.3598 val_acc=0.7556  [raw 0.7232 EMA 0.7556] 用时 22.6min
+[ep 3] ↑ 新最优（按 full）
+[ep 3] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep 4] 200/1781 loss=0.3428 已用 2.5min 预计还需 20.0min
+[ep 4] 400/1781 loss=0.3402 已用 5.0min 预计还需 17.3min
+[ep 4] 600/1781 loss=0.3332 已用 7.5min 预计还需 14.8min
+[ep 4] 800/1781 loss=0.3351 已用 10.1min 预计还需 12.3min
+[ep 4] 1000/1781 loss=0.3301 已用 12.6min 预计还需 9.8min
+[ep 4] 1200/1781 loss=0.3293 已用 15.1min 预计还需 7.3min
+[ep 4] 1400/1781 loss=0.3289 已用 17.6min 预计还需 4.8min
+[ep 4] 1600/1781 loss=0.3246 已用 20.1min 预计还需 2.3min
+[ep 4] ★ 完成 loss=0.3238 val_acc=0.7771  [raw 0.7543 EMA 0.7771] 用时 23.0min
+[ep 4] ↑ 新最优（按 full）
+[ep 4] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep 5] 200/1781 loss=0.3034 已用 2.5min 预计还需 20.2min
+[ep 5] 400/1781 loss=0.3056 已用 5.0min 预计还需 17.4min
+[ep 5] 600/1781 loss=0.2950 已用 7.5min 预计还需 14.8min
+[ep 5] 800/1781 loss=0.2931 已用 10.0min 预计还需 12.2min
+[ep 5] 1000/1781 loss=0.2864 已用 12.4min 预计还需 9.7min
+[ep 5] 1200/1781 loss=0.2856 已用 14.9min 预计还需 7.2min
+[ep 5] 1400/1781 loss=0.2827 已用 17.4min 预计还需 4.7min
+[ep 5] 1600/1781 loss=0.2838 已用 19.9min 预计还需 2.2min
+[ep 5] ★ 完成 loss=0.2818 val_acc=0.7859  [raw 0.7632 EMA 0.7859] 用时 22.8min
+[ep 5] ↑ 新最优（按 full）
+[ep 5] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep 6] 200/1781 loss=0.2765 已用 2.5min 预计还需 20.0min
+[ep 6] 400/1781 loss=0.2737 已用 5.0min 预计还需 17.3min
+[ep 6] 600/1781 loss=0.2622 已用 7.5min 预计还需 14.7min
+[ep 6] 800/1781 loss=0.2613 已用 9.9min 预计还需 12.2min
+[ep 6] 1000/1781 loss=0.2600 已用 12.4min 预计还需 9.7min
+[ep 6] 1200/1781 loss=0.2629 已用 14.9min 预计还需 7.2min
+[ep 6] 1400/1781 loss=0.2620 已用 17.4min 预计还需 4.7min
+[ep 6] 1600/1781 loss=0.2608 已用 19.8min 预计还需 2.2min
+[ep 6] ★ 完成 loss=0.2605 val_acc=0.7909  [raw 0.7781 EMA 0.7909] 用时 22.7min
+[ep 6] ↑ 新最优（按 full）
+[ep 6] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep 7] 200/1781 loss=0.2335 已用 2.6min 预计还需 20.3min
+[ep 7] 400/1781 loss=0.2396 已用 5.1min 预计还需 17.5min
+[ep 7] 600/1781 loss=0.2395 已用 7.5min 预计还需 14.8min
+[ep 7] 800/1781 loss=0.2420 已用 10.0min 预计还需 12.3min
+[ep 7] 1000/1781 loss=0.2398 已用 12.5min 预计还需 9.7min
+[ep 7] 1200/1781 loss=0.2422 已用 14.9min 预计还需 7.2min
+[ep 7] 1400/1781 loss=0.2393 已用 17.4min 预计还需 4.7min
+[ep 7] 1600/1781 loss=0.2391 已用 19.9min 预计还需 2.2min
+[ep 7] ★ 完成 loss=0.2367 val_acc=0.7985  [raw 0.7866 EMA 0.7985] 用时 22.8min
+[ep 7] ↑ 新最优（按 full）
+[ep 7] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep 8] 200/1781 loss=0.2400 已用 2.6min 预计还需 20.2min
+[ep 8] 400/1781 loss=0.2429 已用 5.0min 预计还需 17.4min
+[ep 8] 600/1781 loss=0.2323 已用 7.5min 预计还需 14.8min
+[ep 8] 800/1781 loss=0.2283 已用 10.0min 预计还需 12.3min
+[ep 8] 1000/1781 loss=0.2251 已用 12.5min 预计还需 9.7min
+[ep 8] 1200/1781 loss=0.2273 已用 14.9min 预计还需 7.2min
+[ep 8] 1400/1781 loss=0.2260 已用 17.4min 预计还需 4.7min
+[ep 8] 1600/1781 loss=0.2246 已用 19.9min 预计还需 2.2min
+[ep 8] ★ 完成 loss=0.2210 val_acc=0.8015  [raw 0.7931 EMA 0.8015] 用时 22.7min
+[ep 8] ↑ 新最优（按 full）
+[ep 8] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep 9] 200/1781 loss=0.2021 已用 2.5min 预计还需 19.9min
+[ep 9] 400/1781 loss=0.1979 已用 5.0min 预计还需 17.2min
+[ep 9] 600/1781 loss=0.1996 已用 7.4min 预计还需 14.6min
+[ep 9] 800/1781 loss=0.1999 已用 9.9min 预计还需 12.1min
+[ep 9] 1000/1781 loss=0.2007 已用 12.4min 预计还需 9.7min
+[ep 9] 1200/1781 loss=0.2011 已用 14.8min 预计还需 7.2min
+[ep 9] 1400/1781 loss=0.2029 已用 17.3min 预计还需 4.7min
+[ep 9] 1600/1781 loss=0.2051 已用 19.8min 预计还需 2.2min
+[ep 9] ★ 完成 loss=0.2016 val_acc=0.8045  [raw 0.8045 EMA 0.8045] 用时 22.7min
+[ep 9] ↑ 新最优（按 full）
+[ep 9] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep10] 200/1781 loss=0.2033 已用 2.5min 预计还需 19.8min
+[ep10] 400/1781 loss=0.2125 已用 5.0min 预计还需 17.2min
+[ep10] 600/1781 loss=0.2121 已用 7.4min 预计还需 14.6min
+[ep10] 800/1781 loss=0.2076 已用 9.9min 预计还需 12.1min
+[ep10] 1000/1781 loss=0.1963 已用 12.4min 预计还需 9.7min
+[ep10] 1200/1781 loss=0.1942 已用 14.8min 预计还需 7.2min
+[ep10] 1400/1781 loss=0.1963 已用 17.3min 预计还需 4.7min
+[ep10] 1600/1781 loss=0.1960 已用 19.8min 预计还需 2.2min
+[ep10] ★ 完成 loss=0.1955 val_acc=0.8065  [raw 0.8048 EMA 0.8065] 用时 22.6min
+[ep10] ↑ 新最优（按 full）
+[ep10] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep11] 200/1781 loss=0.1930 已用 2.6min 预计还需 20.3min
+[ep11] 400/1781 loss=0.1988 已用 5.0min 预计还需 17.4min
+[ep11] 600/1781 loss=0.1930 已用 7.5min 预计还需 14.8min
+[ep11] 800/1781 loss=0.1946 已用 10.0min 预计还需 12.2min
+[ep11] 1000/1781 loss=0.1976 已用 12.4min 预计还需 9.7min
+[ep11] 1200/1781 loss=0.1959 已用 14.9min 预计还需 7.2min
+[ep11] 1400/1781 loss=0.1953 已用 17.4min 预计还需 4.7min
+[ep11] 1600/1781 loss=0.1949 已用 19.8min 预计还需 2.2min
+[ep11] ★ 完成 loss=0.1943 val_acc=0.8056  [raw 0.8058 EMA 0.8056] 用时 22.7min
+[ep11] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[ep12] 200/1781 loss=0.2133 已用 2.5min 预计还需 19.9min
+[ep12] 400/1781 loss=0.2037 已用 5.0min 预计还需 17.2min
+[ep12] 600/1781 loss=0.1875 已用 7.4min 预计还需 14.7min
+[ep12] 800/1781 loss=0.1900 已用 9.9min 预计还需 12.2min
+[ep12] 1000/1781 loss=0.1893 已用 12.5min 预计还需 9.7min
+[ep12] 1200/1781 loss=0.1885 已用 15.0min 预计还需 7.2min
+[ep12] 1400/1781 loss=0.1893 已用 17.5min 预计还需 4.8min
+[ep12] 1600/1781 loss=0.1883 已用 20.0min 预计还需 2.3min
+[ep12] ★ 完成 loss=0.1895 val_acc=0.8061  [raw 0.8065 EMA 0.8061] 用时 22.9min
+[ep12] ckpt -> /root/autodl-tmp/aic/outputs/pxosb.pt
+[swa] ★ 已加载 SWA 平均权重（共 8 个 epoch 平均，start=5）⇒ 作为提交权重
+[swa] SWA 权重 val_acc=0.8063（对照：选优 0.8065 @ep10，同一把 val 尺）
+
+[train] 完成，总用时 273.7 min
+[train] 最优 epoch=10 val_acc=0.8065（权重来源：EMA）
+[train] 最优权重 -> /root/autodl-tmp/aic/outputs/pxosb_best.pt
+[train] val_acc 轨迹：0.614 0.718 0.756 0.777 0.786 0.791 0.798 0.802 0.805 0.806 0.806 0.806
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] pxosb_best.pt best_ep=10 best_val_acc=0.8064935064935065 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  75%|███████▍  | 297/398 [00:00<00:00, 2957.82it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 3193.72it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/1 base 完成（19s）
+[ptta] 1 视图融合完成，总用时 0.3 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 499/500 类（覆盖率 0.9980，空类 1）
+[ptta] 每类预测数：均值 9.2、最大 16、最小 0、最大/均值 1.73x
+[ptta] 平均熵 0.658（均匀分布为 6.215）、平均最大概率 0.847
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_rt_pxosb/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_rt_pxosb/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_pxosb/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_pxosb/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_rt_pxosb
+[ptta] 下一步：`scripts/check_submission.py` 校验
+  STAR pxosb pinned-val = 80.71% (n=4620)
+[20:12:28] ext5 DONE

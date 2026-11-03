@@ -1,0 +1,55 @@
+[21:26:58] ext10: wait cqa_ext9
+[ptta] device=cuda；视图 15 个：base, flip, rc0, rc1, rc2, rc3, rc4, rc5, rc6, rc7, zoom240, zoom256, zoom288, zoom320, square
+[test] 49857 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 49857 张 / 500 类
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 333, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 222, in main
+    model = load_lora_model(ckpt, K, device)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/scripts/tta_lora_eval.py", line 193, in load_lora_model
+    ck = torch.load(ckpt_path, map_location=device)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/serialization.py", line 1462, in load
+    return _load(
+           ^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/serialization.py", line 1964, in _load
+    result = unpickler.load()
+             ^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/_weights_only_unpickler.py", line 512, in load
+    self.append(self.persistent_load(pid))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/serialization.py", line 1928, in persistent_load
+    typed_storage = load_tensor(
+                    ^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/serialization.py", line 1900, in load_tensor
+    wrap_storage=restore_location(storage, location),
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/serialization.py", line 1801, in restore_location
+    return default_restore_location(storage, map_location)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/serialization.py", line 693, in default_restore_location
+    result = fn(storage, location)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/serialization.py", line 632, in _deserialize
+    return obj.to(device=device)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/storage.py", line 292, in to
+    return _to(self, device, non_blocking)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/_utils.py", line 99, in _to
+    untyped_storage = torch.UntypedStorage(self.size(), device=device)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+[23:36:08] inference DONE rows=
+[bal] 🛑 找不到概率文件 /root/autodl-tmp/aic/outputs/_conf2_test/probs.npy
+[23:36:08] calib rc=0
+=== 核验提交文件：/root/autodl-tmp/aic/outputs/pack_conf2_a100/pred_results.zip ===
+  [FAIL] 文件不存在：/root/autodl-tmp/aic/outputs/pack_conf2_a100/pred_results.zip
+[23:36:08] CONF2 PACKAGE READY

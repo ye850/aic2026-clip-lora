@@ -1,0 +1,235 @@
+[ptta] device=cuda；视图 10 个：base, flip, rc0, rc1, rc2, rc3, rc4, rc5, rc6, rc7
+[test] 49857 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 49857 张 / 500 类
+[tta] lora_best.pt best_ep=11 best_val_acc=0.8062770562770563 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7317.27it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 幂平均 t=4.0（锐化）
+[tta/base] 10/195
+[tta/base] 20/195
+[tta/base] 30/195
+[tta/base] 40/195
+[tta/base] 50/195
+[tta/base] 60/195
+[tta/base] 70/195
+[tta/base] 80/195
+[tta/base] 90/195
+[tta/base] 100/195
+[tta/base] 110/195
+[tta/base] 120/195
+[tta/base] 130/195
+[tta/base] 140/195
+[tta/base] 150/195
+[tta/base] 160/195
+[tta/base] 170/195
+[tta/base] 180/195
+[tta/base] 190/195
+[ptta] 视图 1/10 base 完成（95s）
+[tta/flip] 10/195
+[tta/flip] 20/195
+[tta/flip] 30/195
+[tta/flip] 40/195
+[tta/flip] 50/195
+[tta/flip] 60/195
+[tta/flip] 70/195
+[tta/flip] 80/195
+[tta/flip] 90/195
+[tta/flip] 100/195
+[tta/flip] 110/195
+[tta/flip] 120/195
+[tta/flip] 130/195
+[tta/flip] 140/195
+[tta/flip] 150/195
+[tta/flip] 160/195
+[tta/flip] 170/195
+[tta/flip] 180/195
+[tta/flip] 190/195
+[ptta] 视图 2/10 flip 完成（97s）
+[tta/rc0] 10/195
+[tta/rc0] 20/195
+[tta/rc0] 30/195
+[tta/rc0] 40/195
+[tta/rc0] 50/195
+[tta/rc0] 60/195
+[tta/rc0] 70/195
+[tta/rc0] 80/195
+[tta/rc0] 90/195
+[tta/rc0] 100/195
+[tta/rc0] 110/195
+[tta/rc0] 120/195
+[tta/rc0] 130/195
+[tta/rc0] 140/195
+[tta/rc0] 150/195
+[tta/rc0] 160/195
+[tta/rc0] 170/195
+[tta/rc0] 180/195
+[tta/rc0] 190/195
+[ptta] 视图 3/10 rc0 完成（95s）
+[tta/rc1] 10/195
+[tta/rc1] 20/195
+[tta/rc1] 30/195
+[tta/rc1] 40/195
+[tta/rc1] 50/195
+[tta/rc1] 60/195
+[tta/rc1] 70/195
+[tta/rc1] 80/195
+[tta/rc1] 90/195
+[tta/rc1] 100/195
+[tta/rc1] 110/195
+[tta/rc1] 120/195
+[tta/rc1] 130/195
+[tta/rc1] 140/195
+[tta/rc1] 150/195
+[tta/rc1] 160/195
+[tta/rc1] 170/195
+[tta/rc1] 180/195
+[tta/rc1] 190/195
+[ptta] 视图 4/10 rc1 完成（97s）
+[tta/rc2] 10/195
+[tta/rc2] 20/195
+[tta/rc2] 30/195
+[tta/rc2] 40/195
+[tta/rc2] 50/195
+[tta/rc2] 60/195
+[tta/rc2] 70/195
+[tta/rc2] 80/195
+[tta/rc2] 90/195
+[tta/rc2] 100/195
+[tta/rc2] 110/195
+[tta/rc2] 120/195
+[tta/rc2] 130/195
+[tta/rc2] 140/195
+[tta/rc2] 150/195
+[tta/rc2] 160/195
+[tta/rc2] 170/195
+[tta/rc2] 180/195
+[tta/rc2] 190/195
+[ptta] 视图 5/10 rc2 完成（96s）
+[tta/rc3] 10/195
+[tta/rc3] 20/195
+[tta/rc3] 30/195
+[tta/rc3] 40/195
+[tta/rc3] 50/195
+[tta/rc3] 60/195
+[tta/rc3] 70/195
+[tta/rc3] 80/195
+[tta/rc3] 90/195
+[tta/rc3] 100/195
+[tta/rc3] 110/195
+[tta/rc3] 120/195
+[tta/rc3] 130/195
+[tta/rc3] 140/195
+[tta/rc3] 150/195
+[tta/rc3] 160/195
+[tta/rc3] 170/195
+[tta/rc3] 180/195
+[tta/rc3] 190/195
+[ptta] 视图 6/10 rc3 完成（98s）
+[tta/rc4] 10/195
+[tta/rc4] 20/195
+[tta/rc4] 30/195
+[tta/rc4] 40/195
+[tta/rc4] 50/195
+[tta/rc4] 60/195
+[tta/rc4] 70/195
+[tta/rc4] 80/195
+[tta/rc4] 90/195
+[tta/rc4] 100/195
+[tta/rc4] 110/195
+[tta/rc4] 120/195
+[tta/rc4] 130/195
+[tta/rc4] 140/195
+[tta/rc4] 150/195
+[tta/rc4] 160/195
+[tta/rc4] 170/195
+[tta/rc4] 180/195
+[tta/rc4] 190/195
+[ptta] 视图 7/10 rc4 完成（96s）
+[tta/rc5] 10/195
+[tta/rc5] 20/195
+[tta/rc5] 30/195
+[tta/rc5] 40/195
+[tta/rc5] 50/195
+[tta/rc5] 60/195
+[tta/rc5] 70/195
+[tta/rc5] 80/195
+[tta/rc5] 90/195
+[tta/rc5] 100/195
+[tta/rc5] 110/195
+[tta/rc5] 120/195
+[tta/rc5] 130/195
+[tta/rc5] 140/195
+[tta/rc5] 150/195
+[tta/rc5] 160/195
+[tta/rc5] 170/195
+[tta/rc5] 180/195
+[tta/rc5] 190/195
+[ptta] 视图 8/10 rc5 完成（99s）
+[tta/rc6] 10/195
+[tta/rc6] 20/195
+[tta/rc6] 30/195
+[tta/rc6] 40/195
+[tta/rc6] 50/195
+[tta/rc6] 60/195
+[tta/rc6] 70/195
+[tta/rc6] 80/195
+[tta/rc6] 90/195
+[tta/rc6] 100/195
+[tta/rc6] 110/195
+[tta/rc6] 120/195
+[tta/rc6] 130/195
+[tta/rc6] 140/195
+[tta/rc6] 150/195
+[tta/rc6] 160/195
+[tta/rc6] 170/195
+[tta/rc6] 180/195
+[tta/rc6] 190/195
+[ptta] 视图 9/10 rc6 完成（97s）
+[tta/rc7] 10/195
+[tta/rc7] 20/195
+[tta/rc7] 30/195
+[tta/rc7] 40/195
+[tta/rc7] 50/195
+[tta/rc7] 60/195
+[tta/rc7] 70/195
+[tta/rc7] 80/195
+[tta/rc7] 90/195
+[tta/rc7] 100/195
+[tta/rc7] 110/195
+[tta/rc7] 120/195
+[tta/rc7] 130/195
+[tta/rc7] 140/195
+[tta/rc7] 150/195
+[tta/rc7] 160/195
+[tta/rc7] 170/195
+[tta/rc7] 180/195
+[tta/rc7] 190/195
+[ptta] 视图 10/10 rc7 完成（96s）
+[ptta] 10 视图融合完成，总用时 16.1 min
+[ptta] 各视图与 base 的预测一致率（仅供判断是否真有分歧）：
+[ptta]   base      1.0000
+[ptta]   flip      0.8484
+[ptta]   rc0       0.7717
+[ptta]   rc1       0.7729
+[ptta]   rc2       0.7725
+[ptta]   rc3       0.7722
+[ptta]   rc4       0.7724
+[ptta]   rc5       0.7709
+[ptta]   rc6       0.7709
+[ptta]   rc7       0.7734
+[ptta] ---- 健康检查（10 视图 · 幂平均 t=4.0）----
+[ptta] 预测 49857 条；覆盖 498/500 类（覆盖率 0.9960，空类 2）
+[ptta] 每类预测数：均值 99.7、最大 503、最小 0、最大/均值 5.04x
+[ptta] 平均熵 0.294（均匀分布为 6.215）、平均最大概率 0.889
+[ptta] 与 base 单视图的预测一致率 0.8409（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/probs_nz.npy (49857, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/pack_nz/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/pack_nz/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/pack_nz/pred_results.zip  (49857 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/pack_nz
+[ptta] 下一步：`scripts/check_submission.py` 校验

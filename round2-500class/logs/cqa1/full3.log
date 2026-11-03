@@ -1,0 +1,4 @@
+[09:29:38] full2 重启（全解冻 batch 48）
+  GPU: 0 MiB
+[12:48:53] full2 结束
+[train] 最优 epoch=11 val_acc=0.7887（权重来源：EMA）

@@ -1,0 +1,30 @@
+[ptta] device=cuda；视图 15 个：base, flip, rc0, rc1, rc2, rc3, rc4, rc5, rc6, rc7, zoom240, zoom256, zoom288, zoom320, square
+[test] 37444 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 37444 张 / 750 类
+[tta] lora_best.pt best_ep=6 best_val_acc=0.7705983813188271 r=16 hidden=0 targets=q,k,v,out,fc1,fc2
+[clip] 本地权重目录不完整，回退在线拉取 openai/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8102.30it/s]
+[clip] transformers 载入 openai/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 幂平均 t=4.0（锐化）
+[tta/base] 10/293
+[tta/base] 20/293
+[tta/base] 30/293
+[tta/base] 40/293
+[tta/base] 50/293
+[tta/base] 60/293
+[tta/base] 70/293
+[tta/base] 80/293
+[tta/base] 90/293
+[tta/base] 100/293
+[tta/base] 110/293
+[tta/base] 120/293
+[tta/base] 130/293
+[tta/base] 140/293
+[tta/base] 150/293
+[tta/base] 160/293
+[tta/base] 170/293
+[tta/base] 180/293
+[tta/base] 190/293
+[tta/base] 200/293
+[tta/base] 210/293
+[tta/base] 220/293

@@ -1,0 +1,69 @@
+[16:36:30] r640 val sweep: wait fixres done
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] r640_best.pt best_ep=11 best_val_acc=0.812987012987013 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7753.45it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/1 base 完成（25s）
+[ptta] 1 视图融合完成，总用时 0.4 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 498/500 类（覆盖率 0.9960，空类 2）
+[ptta] 每类预测数：均值 9.2、最大 17、最小 0、最大/均值 1.84x
+[ptta] 平均熵 0.668（均匀分布为 6.215）、平均最大概率 0.846
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_rt_r640v640/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_rt_r640v640/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_r640v640/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_r640v640/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_rt_r640v640
+[ptta] 下一步：`scripts/check_submission.py` 校验
+  STAR r640v640 pinned-val = 81.41% (n=4620)
+[16:37:36] r640 val @640 done
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] r640_best.pt best_ep=11 best_val_acc=0.812987012987013 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[tta] 🛑 分辨率不匹配：检查点训练于 IMG_SIZE=640，当前 C.IMG_SIZE=672。
+        修法：加环境变量重跑，即 `AIC_IMG_SIZE=640 …`。
+        不修的话位置编码插值与 TTA 视图几何都会按错的分辨率计算。
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_r640v672/pred_results.csv'
+[16:37:41] r640 val @672 done
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] r640_best.pt best_ep=11 best_val_acc=0.812987012987013 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[tta] 🛑 分辨率不匹配：检查点训练于 IMG_SIZE=640，当前 C.IMG_SIZE=704。
+        修法：加环境变量重跑，即 `AIC_IMG_SIZE=640 …`。
+        不修的话位置编码插值与 TTA 视图几何都会按错的分辨率计算。
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_r640v704/pred_results.csv'
+[16:37:44] r640 val @704 done
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] r640_best.pt best_ep=11 best_val_acc=0.812987012987013 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[tta] 🛑 分辨率不匹配：检查点训练于 IMG_SIZE=640，当前 C.IMG_SIZE=736。
+        修法：加环境变量重跑，即 `AIC_IMG_SIZE=640 …`。
+        不修的话位置编码插值与 TTA 视图几何都会按错的分辨率计算。
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_r640v736/pred_results.csv'
+[16:37:47] r640 val @736 done
+[16:37:47] R640 VAL SWEEP DONE

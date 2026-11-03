@@ -1,0 +1,202 @@
+[10:05:36] v3 pipeline: wait r640 arm exit (GPU headroom)
+[12:08:47] r640 exited - v3 pipeline start
+[v3] pool=90152 imgs / 500 classes
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 9630.51it/s]
+[transformers] [1mCLIPVisionModel LOAD REPORT[0m from: /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Key                                                          | Status     |  | 
+-------------------------------------------------------------+------------+--+-
+text_model.encoder.layers.{0...11}.self_attn.v_proj.bias     | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.layer_norm1.weight        | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.self_attn.v_proj.weight   | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.layer_norm2.weight        | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.mlp.fc1.weight            | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.self_attn.out_proj.bias   | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.mlp.fc1.bias              | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.mlp.fc2.weight            | UNEXPECTED |  | 
+text_model.embeddings.position_embedding.weight              | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.layer_norm1.bias          | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.self_attn.out_proj.weight | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.self_attn.q_proj.bias     | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.layer_norm2.bias          | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.mlp.fc2.bias              | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.self_attn.k_proj.weight   | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.self_attn.k_proj.bias     | UNEXPECTED |  | 
+text_model.encoder.layers.{0...11}.self_attn.q_proj.weight   | UNEXPECTED |  | 
+text_model.final_layer_norm.bias                             | UNEXPECTED |  | 
+logit_scale                                                  | UNEXPECTED |  | 
+visual_projection.weight                                     | UNEXPECTED |  | 
+text_model.embeddings.token_embedding.weight                 | UNEXPECTED |  | 
+text_model.final_layer_norm.weight                           | UNEXPECTED |  | 
+text_projection.weight                                       | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+[v3] clip loaded @5s
+[v3] embed 0/90152 @5s
+[v3] embed 640/90152 @11s
+[v3] embed 1280/90152 @18s
+[v3] embed 1920/90152 @24s
+[v3] embed 2560/90152 @29s
+[v3] embed 3200/90152 @37s
+[v3] embed 3840/90152 @43s
+[v3] embed 4480/90152 @49s
+[v3] embed 5120/90152 @54s
+[v3] embed 5760/90152 @61s
+[v3] embed 6400/90152 @67s
+[v3] embed 7040/90152 @73s
+[v3] embed 7680/90152 @79s
+[v3] embed 8320/90152 @85s
+[v3] embed 8960/90152 @92s
+[v3] embed 9600/90152 @98s
+[v3] embed 10240/90152 @104s
+[v3] embed 10880/90152 @110s
+[v3] embed 11520/90152 @116s
+[v3] embed 12160/90152 @122s
+[v3] embed 12800/90152 @128s
+[v3] embed 13440/90152 @134s
+[v3] embed 14080/90152 @140s
+[v3] embed 14720/90152 @147s
+[v3] embed 15360/90152 @154s
+[v3] embed 16000/90152 @159s
+[v3] embed 16640/90152 @165s
+[v3] embed 17280/90152 @171s
+[v3] embed 17920/90152 @177s
+[v3] embed 18560/90152 @183s
+[v3] embed 19200/90152 @189s
+[v3] embed 19840/90152 @195s
+[v3] embed 20480/90152 @201s
+[v3] embed 21120/90152 @207s
+[v3] embed 21760/90152 @213s
+[v3] embed 22400/90152 @219s
+[v3] embed 23040/90152 @224s
+[v3] embed 23680/90152 @230s
+[v3] embed 24320/90152 @236s
+[v3] embed 24960/90152 @242s
+[v3] embed 25600/90152 @247s
+[v3] embed 26240/90152 @253s
+[v3] embed 26880/90152 @259s
+[v3] embed 27520/90152 @265s
+[v3] embed 28160/90152 @270s
+[v3] embed 28800/90152 @276s
+[v3] embed 29440/90152 @282s
+[v3] embed 30080/90152 @288s
+[v3] embed 30720/90152 @294s
+[v3] embed 31360/90152 @300s
+[v3] embed 32000/90152 @306s
+[v3] embed 32640/90152 @312s
+[v3] embed 33280/90152 @318s
+[v3] embed 33920/90152 @323s
+[v3] embed 34560/90152 @329s
+[v3] embed 35200/90152 @335s
+[v3] embed 35840/90152 @341s
+[v3] embed 36480/90152 @346s
+[v3] embed 37120/90152 @352s
+[v3] embed 37760/90152 @358s
+[v3] embed 38400/90152 @364s
+[v3] embed 39040/90152 @370s
+[v3] embed 39680/90152 @376s
+[v3] embed 40320/90152 @382s
+[v3] embed 40960/90152 @388s
+[v3] embed 41600/90152 @394s
+[v3] embed 42240/90152 @400s
+[v3] embed 42880/90152 @406s
+[v3] embed 43520/90152 @412s
+[v3] embed 44160/90152 @418s
+[v3] embed 44800/90152 @423s
+[v3] embed 45440/90152 @429s
+[v3] embed 46080/90152 @435s
+[v3] embed 46720/90152 @441s
+[v3] embed 47360/90152 @447s
+[v3] embed 48000/90152 @453s
+[v3] embed 48640/90152 @459s
+[v3] embed 49280/90152 @465s
+[v3] embed 49920/90152 @471s
+[v3] embed 50560/90152 @477s
+[v3] embed 51200/90152 @484s
+[v3] embed 51840/90152 @489s
+[v3] embed 52480/90152 @496s
+[v3] embed 53120/90152 @502s
+[v3] embed 53760/90152 @508s
+[v3] embed 54400/90152 @514s
+[v3] embed 55040/90152 @520s
+[v3] embed 55680/90152 @526s
+[v3] embed 56320/90152 @532s
+[v3] embed 56960/90152 @538s
+[v3] embed 57600/90152 @544s
+[v3] embed 58240/90152 @550s
+[v3] embed 58880/90152 @556s
+[v3] embed 59520/90152 @563s
+[v3] embed 60160/90152 @568s
+[v3] embed 60800/90152 @574s
+[v3] embed 61440/90152 @580s
+[v3] embed 62080/90152 @586s
+[v3] embed 62720/90152 @592s
+[v3] embed 63360/90152 @598s
+[v3] embed 64000/90152 @604s
+[v3] embed 64640/90152 @610s
+[v3] embed 65280/90152 @616s
+[v3] embed 65920/90152 @622s
+[v3] embed 66560/90152 @628s
+[v3] embed 67200/90152 @634s
+[v3] embed 67840/90152 @640s
+[v3] embed 68480/90152 @646s
+[v3] embed 69120/90152 @652s
+[v3] embed 69760/90152 @658s
+[v3] embed 70400/90152 @664s
+[v3] embed 71040/90152 @670s
+[v3] embed 71680/90152 @676s
+[v3] embed 72320/90152 @682s
+[v3] embed 72960/90152 @688s
+[v3] embed 73600/90152 @694s
+[v3] embed 74240/90152 @700s
+[v3] embed 74880/90152 @706s
+[v3] embed 75520/90152 @712s
+[v3] embed 76160/90152 @718s
+[v3] embed 76800/90152 @724s
+[v3] embed 77440/90152 @730s
+[v3] embed 78080/90152 @736s
+[v3] embed 78720/90152 @742s
+[v3] embed 79360/90152 @748s
+[v3] embed 80000/90152 @754s
+[v3] embed 80640/90152 @760s
+[v3] embed 81280/90152 @766s
+[v3] embed 81920/90152 @772s
+[v3] embed 82560/90152 @778s
+[v3] embed 83200/90152 @784s
+[v3] embed 83840/90152 @790s
+[v3] embed 84480/90152 @796s
+[v3] embed 85120/90152 @802s
+[v3] embed 85760/90152 @808s
+[v3] embed 86400/90152 @814s
+[v3] embed 87040/90152 @820s
+[v3] embed 87680/90152 @826s
+[v3] embed 88320/90152 @833s
+[v3] embed 88960/90152 @838s
+[v3] embed 89600/90152 @844s
+[v3] embeddings saved: clip_embeds.npz
+[v3] embeddings (90152, 768) @850s
+[v3] knn 5000/90152 @850s
+[v3] knn 10000/90152 @850s
+[v3] knn 15000/90152 @850s
+[v3] knn 20000/90152 @850s
+[v3] knn 25000/90152 @850s
+[v3] knn 30000/90152 @850s
+[v3] knn 35000/90152 @850s
+[v3] knn 40000/90152 @851s
+[v3] knn 45000/90152 @851s
+[v3] knn 50000/90152 @851s
+[v3] knn 55000/90152 @851s
+[v3] knn 60000/90152 @851s
+[v3] knn 65000/90152 @851s
+[v3] knn 70000/90152 @851s
+[v3] knn 75000/90152 @851s
+[v3] knn 80000/90152 @851s
+[v3] knn 85000/90152 @851s
+[v3] knn 90000/90152 @851s
+[v3] knn 90152/90152 @851s
+[v3] kNN disagreement: 35596/90152 = 39.5%
+[v3] v2 dominant entries: 3197
+[v3] double-agreement relabels: 0
+[v3] top relabel classes: []
+[v3] WROTE pseudo_v3.json @852s
+[12:23:01] v3 pipeline DONE json=34

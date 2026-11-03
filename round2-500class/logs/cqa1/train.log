@@ -1,0 +1,166 @@
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '96', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '5', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '100', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--ckpt', '/root/autodl-tmp/aic/outputs/lora.pt', '--out-dir', '/root/autodl-tmp/aic/outputs']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 6942.88it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 890 步（优化步 890/轮，grad_accum=1），batch=96，lr(lora)=0.0002 lr(head)=0.001（5倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ep 1] 100/890 loss=1.1303 已用 1.7min 预计还需 13.4min
+[ep 1] 200/890 loss=1.0675 已用 3.4min 预计还需 11.6min
+[ep 1] 300/890 loss=0.9889 已用 5.0min 预计还需 9.9min
+[ep 1] 400/890 loss=0.9158 已用 6.7min 预计还需 8.2min
+[ep 1] 500/890 loss=0.8552 已用 8.4min 预计还需 6.5min
+[ep 1] 600/890 loss=0.8046 已用 10.1min 预计还需 4.9min
+[ep 1] 700/890 loss=0.7683 已用 11.7min 预计还需 3.2min
+[ep 1] 800/890 loss=0.7429 已用 13.4min 预计还需 1.5min
+[ep 1] ★ 完成 loss=0.7212 val_acc=0.4695  [raw 0.6028 EMA 0.4695] 用时 15.4min
+[ep 1] ↑ 新最优（按 full）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep 2] 100/890 loss=0.4988 已用 1.7min 预计还需 13.6min
+[ep 2] 200/890 loss=0.5004 已用 3.4min 预计还需 11.7min
+[ep 2] 300/890 loss=0.4899 已用 5.1min 预计还需 9.9min
+[ep 2] 400/890 loss=0.4892 已用 6.7min 预计还需 8.2min
+[ep 2] 500/890 loss=0.4790 已用 8.4min 预计还需 6.6min
+[ep 2] 600/890 loss=0.4723 已用 10.1min 预计还需 4.9min
+[ep 2] 700/890 loss=0.4673 已用 11.8min 预计还需 3.2min
+[ep 2] 800/890 loss=0.4667 已用 13.5min 预计还需 1.5min
+[ep 2] ★ 完成 loss=0.4630 val_acc=0.7128  [raw 0.6957 EMA 0.7128] 用时 15.5min
+[ep 2] ↑ 新最优（按 full）
+[ep 2] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep 3] 100/890 loss=0.3934 已用 1.7min 预计还需 13.6min
+[ep 3] 200/890 loss=0.3831 已用 3.4min 预计还需 11.7min
+[ep 3] 300/890 loss=0.3850 已用 5.1min 预计还需 9.9min
+[ep 3] 400/890 loss=0.3907 已用 6.7min 预计还需 8.2min
+[ep 3] 500/890 loss=0.3931 已用 8.4min 预计还需 6.6min
+[ep 3] 600/890 loss=0.3956 已用 10.1min 预计还需 4.9min
+[ep 3] 700/890 loss=0.3930 已用 11.8min 预计还需 3.2min
+[ep 3] 800/890 loss=0.3923 已用 13.5min 预计还需 1.5min
+[ep 3] ★ 完成 loss=0.3937 val_acc=0.7491  [raw 0.7301 EMA 0.7491] 用时 15.5min
+[ep 3] ↑ 新最优（按 full）
+[ep 3] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep 4] 100/890 loss=0.3193 已用 1.7min 预计还需 13.6min
+[ep 4] 200/890 loss=0.3355 已用 3.4min 预计还需 11.7min
+[ep 4] 300/890 loss=0.3349 已用 5.1min 预计还需 10.0min
+[ep 4] 400/890 loss=0.3477 已用 6.8min 预计还需 8.3min
+[ep 4] 500/890 loss=0.3444 已用 8.4min 预计还需 6.6min
+[ep 4] 600/890 loss=0.3407 已用 10.1min 预计还需 4.9min
+[ep 4] 700/890 loss=0.3406 已用 11.8min 预计还需 3.2min
+[ep 4] 800/890 loss=0.3392 已用 13.5min 预计还需 1.5min
+[ep 4] ★ 完成 loss=0.3431 val_acc=0.7714  [raw 0.7494 EMA 0.7714] 用时 15.5min
+[ep 4] ↑ 新最优（按 full）
+[ep 4] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep 5] 100/890 loss=0.2708 已用 1.7min 预计还需 13.6min
+[ep 5] 200/890 loss=0.2852 已用 3.4min 预计还需 11.7min
+[ep 5] 300/890 loss=0.2943 已用 5.1min 预计还需 10.0min
+[ep 5] 400/890 loss=0.3005 已用 6.7min 预计还需 8.3min
+[ep 5] 500/890 loss=0.3077 已用 8.4min 预计还需 6.6min
+[ep 5] 600/890 loss=0.3081 已用 10.1min 预计还需 4.9min
+[ep 5] 700/890 loss=0.3053 已用 11.8min 预计还需 3.2min
+[ep 5] 800/890 loss=0.3038 已用 13.5min 预计还需 1.5min
+[ep 5] ★ 完成 loss=0.3031 val_acc=0.7825  [raw 0.7658 EMA 0.7825] 用时 15.5min
+[ep 5] ↑ 新最优（按 full）
+[ep 5] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep 6] 100/890 loss=0.2665 已用 1.7min 预计还需 13.7min
+[ep 6] 200/890 loss=0.2712 已用 3.4min 预计还需 11.8min
+[ep 6] 300/890 loss=0.2706 已用 5.1min 预计还需 10.1min
+[ep 6] 400/890 loss=0.2696 已用 6.8min 预计还需 8.3min
+[ep 6] 500/890 loss=0.2735 已用 8.5min 预计还需 6.6min
+[ep 6] 600/890 loss=0.2724 已用 10.2min 预计还需 4.9min
+[ep 6] 700/890 loss=0.2765 已用 11.9min 预计还需 3.2min
+[ep 6] 800/890 loss=0.2788 已用 13.6min 预计还需 1.5min
+[ep 6] ★ 完成 loss=0.2775 val_acc=0.7887  [raw 0.7797 EMA 0.7887] 用时 15.6min
+[ep 6] ↑ 新最优（按 full）
+[ep 6] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep 7] 100/890 loss=0.2257 已用 1.8min 预计还需 13.9min
+[ep 7] 200/890 loss=0.2568 已用 3.5min 预计还需 12.0min
+[ep 7] 300/890 loss=0.2547 已用 5.2min 预计还需 10.2min
+[ep 7] 400/890 loss=0.2532 已用 6.9min 预计还需 8.4min
+[ep 7] 500/890 loss=0.2520 已用 8.6min 预计还需 6.7min
+[ep 7] 600/890 loss=0.2505 已用 10.3min 预计还需 5.0min
+[ep 7] 700/890 loss=0.2545 已用 12.0min 预计还需 3.2min
+[ep 7] 800/890 loss=0.2562 已用 13.7min 预计还需 1.5min
+[ep 7] ★ 完成 loss=0.2575 val_acc=0.7937  [raw 0.7911 EMA 0.7937] 用时 15.7min
+[ep 7] ↑ 新最优（按 full）
+[ep 7] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep 8] 100/890 loss=0.2073 已用 1.8min 预计还需 13.9min
+[ep 8] 200/890 loss=0.2142 已用 3.5min 预计还需 11.9min
+[ep 8] 300/890 loss=0.2314 已用 5.2min 预计还需 10.2min
+[ep 8] 400/890 loss=0.2361 已用 6.9min 预计还需 8.4min
+[ep 8] 500/890 loss=0.2368 已用 8.6min 预计还需 6.7min
+[ep 8] 600/890 loss=0.2368 已用 10.3min 预计还需 5.0min
+[ep 8] 700/890 loss=0.2340 已用 12.0min 预计还需 3.3min
+[ep 8] 800/890 loss=0.2323 已用 13.7min 预计还需 1.5min
+[ep 8] ★ 完成 loss=0.2339 val_acc=0.7981  [raw 0.7929 EMA 0.7981] 用时 15.8min
+[ep 8] ↑ 新最优（按 full）
+[ep 8] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep 9] 100/890 loss=0.2183 已用 1.8min 预计还需 13.9min
+[ep 9] 200/890 loss=0.2217 已用 3.5min 预计还需 11.9min
+[ep 9] 300/890 loss=0.2285 已用 5.2min 预计还需 10.1min
+[ep 9] 400/890 loss=0.2226 已用 6.9min 预计还需 8.4min
+[ep 9] 500/890 loss=0.2176 已用 8.6min 预计还需 6.7min
+[ep 9] 600/890 loss=0.2133 已用 10.3min 预计还需 5.0min
+[ep 9] 700/890 loss=0.2135 已用 12.0min 预计还需 3.3min
+[ep 9] 800/890 loss=0.2140 已用 13.7min 预计还需 1.5min
+[ep 9] ★ 完成 loss=0.2111 val_acc=0.8022  [raw 0.8000 EMA 0.8022] 用时 15.7min
+[ep 9] ↑ 新最优（按 full）
+[ep 9] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep10] 100/890 loss=0.1855 已用 1.7min 预计还需 13.8min
+[ep10] 200/890 loss=0.1878 已用 3.4min 预计还需 11.9min
+[ep10] 300/890 loss=0.1848 已用 5.1min 预计还需 10.1min
+[ep10] 400/890 loss=0.1899 已用 6.8min 预计还需 8.4min
+[ep10] 500/890 loss=0.1923 已用 8.5min 预计还需 6.6min
+[ep10] 600/890 loss=0.1952 已用 10.2min 预计还需 4.9min
+[ep10] 700/890 loss=0.1994 已用 11.9min 预计还需 3.2min
+[ep10] 800/890 loss=0.1988 已用 13.6min 预计还需 1.5min
+[ep10] ★ 完成 loss=0.1978 val_acc=0.8058  [raw 0.8024 EMA 0.8058] 用时 15.7min
+[ep10] ↑ 新最优（按 full）
+[ep10] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep11] 100/890 loss=0.2028 已用 1.7min 预计还需 13.8min
+[ep11] 200/890 loss=0.2037 已用 3.4min 预计还需 11.9min
+[ep11] 300/890 loss=0.2099 已用 5.1min 预计还需 10.1min
+[ep11] 400/890 loss=0.1993 已用 6.8min 预计还需 8.4min
+[ep11] 500/890 loss=0.1919 已用 8.5min 预计还需 6.6min
+[ep11] 600/890 loss=0.1909 已用 10.2min 预计还需 4.9min
+[ep11] 700/890 loss=0.1915 已用 11.9min 预计还需 3.2min
+[ep11] 800/890 loss=0.1906 已用 13.6min 预计还需 1.5min
+[ep11] ★ 完成 loss=0.1902 val_acc=0.8063  [raw 0.8061 EMA 0.8063] 用时 15.7min
+[ep11] ↑ 新最优（按 full）
+[ep11] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[ep12] 100/890 loss=0.2043 已用 1.7min 预计还需 13.7min
+[ep12] 200/890 loss=0.2026 已用 3.4min 预计还需 11.8min
+[ep12] 300/890 loss=0.2091 已用 5.1min 预计还需 10.1min
+[ep12] 400/890 loss=0.2028 已用 6.8min 预计还需 8.3min
+[ep12] 500/890 loss=0.2013 已用 8.5min 预计还需 6.6min
+[ep12] 600/890 loss=0.2019 已用 10.2min 预计还需 4.9min
+[ep12] 700/890 loss=0.2003 已用 11.9min 预计还需 3.2min
+[ep12] 800/890 loss=0.2025 已用 13.6min 预计还需 1.5min
+[ep12] ★ 完成 loss=0.2024 val_acc=0.8052  [raw 0.8043 EMA 0.8052] 用时 15.6min
+[ep12] ckpt -> /root/autodl-tmp/aic/outputs/lora.pt
+[swa] ★ 已加载 SWA 平均权重（共 8 个 epoch 平均，start=5）⇒ 作为提交权重
+[swa] SWA 权重 val_acc=0.8030（对照：选优 0.8063 @ep11，同一把 val 尺）
+
+[train] 完成，总用时 188.0 min
+[train] 最优 epoch=11 val_acc=0.8063（权重来源：EMA）
+[train] 最优权重 -> /root/autodl-tmp/aic/outputs/lora_best.pt
+[train] val_acc 轨迹：0.469 0.713 0.749 0.771 0.782 0.789 0.794 0.798 0.802 0.806 0.806 0.805

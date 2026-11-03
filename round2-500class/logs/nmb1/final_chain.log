@@ -1,0 +1,179 @@
+############ [23:38:37] FINAL CHAIN START ############
+############ [00:08:58] FINAL CHAIN START ############
+############ [00:10:14] FINAL CHAIN START ############
+############ [00:12:35] FINAL CHAIN START ############
+[00:14:45] GPU idle; free=13G
+[00:14:45] 起始态检查 data/test=49857（须 49857）
+[00:14:45] measure v5 res=560
+[ptta] device=cuda；视图 15 个：base, flip, rc0, rc1, rc2, rc3, rc4, rc5, rc6, rc7, zoom240, zoom256, zoom288, zoom320, square
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] v2combo5_best.pt best_ep=11 best_val_acc=0.8056277056277056 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4550.87it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/15 base 完成（19s）
+[tta/flip] 10/19
+[ptta] 视图 2/15 flip 完成（16s）
+[tta/rc0] 10/19
+[ptta] 视图 3/15 rc0 完成（17s）
+[tta/rc1] 10/19
+[ptta] 视图 4/15 rc1 完成（18s）
+[tta/rc2] 10/19
+[ptta] 视图 5/15 rc2 完成（18s）
+[tta/rc3] 10/19
+[ptta] 视图 6/15 rc3 完成（17s）
+[tta/rc4] 10/19
+[ptta] 视图 7/15 rc4 完成（18s）
+[tta/rc5] 10/19
+[ptta] 视图 8/15 rc5 完成（17s）
+[tta/rc6] 10/19
+[ptta] 视图 9/15 rc6 完成（17s）
+[tta/rc7] 10/19
+[ptta] 视图 10/15 rc7 完成（17s）
+[tta/zoom240] 10/19
+[ptta] 视图 11/15 zoom240 完成（18s）
+[tta/zoom256] 10/19
+[ptta] 视图 12/15 zoom256 完成（18s）
+[tta/zoom288] 10/19
+[ptta] 视图 13/15 zoom288 完成（18s）
+[tta/zoom320] 10/19
+[ptta] 视图 14/15 zoom320 完成（19s）
+[tta/square] 10/19
+[ptta] 视图 15/15 square 完成（16s）
+[ptta] 15 视图融合完成，总用时 4.4 min
+[ptta] 各视图与 base 的预测一致率（仅供判断是否真有分歧）：
+[ptta]   base      1.0000
+[ptta]   flip      0.1539
+[ptta]   rc0       0.1539
+[ptta]   rc1       0.1539
+[ptta]   rc2       0.1539
+[ptta]   rc3       0.1539
+[ptta]   rc4       0.1539
+[ptta]   rc5       0.1539
+[ptta]   rc6       0.1539
+[ptta]   rc7       0.1539
+[ptta]   zoom240   0.1539
+[ptta]   zoom256   0.1539
+[ptta]   zoom288   0.1539
+[ptta]   zoom320   0.1539
+[ptta]   square    0.1539
+[ptta] ---- 健康检查（15 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 1/500 类（覆盖率 0.0020，空类 499）
+[ptta] 每类预测数：均值 9.2、最大 4620、最小 0、最大/均值 500.00x
+[ptta] 平均熵 3.551（均匀分布为 6.215）、平均最大概率 0.271
+[ptta] 与 base 单视图的预测一致率 0.1539（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_rt_v5/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_rt_v5/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_v5/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_v5/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_rt_v5
+[ptta] 下一步：`scripts/check_submission.py` 校验
+[00:19:18] MEASURE_OK v5 rows=4620
+  STAR v5 pinned-val = 0.22% (n=4620)
+[patch] runA_best.pt img_size -> 672  =>  runA_r672.pt
+[00:19:21] measure r672 res=672
+[ptta] device=cuda；视图 15 个：base, flip, rc0, rc1, rc2, rc3, rc4, rc5, rc6, rc7, zoom240, zoom256, zoom288, zoom320, square
+[test] 49857 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 49857 张 / 500 类
+[tta] runA_r672.pt best_ep=16 best_val_acc=0.8155844155844156 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4228.92it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/195
+[tta/base] 20/195
+[tta/base] 30/195
+[tta/base] 40/195
+[tta/base] 50/195
+[tta/base] 60/195
+[tta/base] 70/195
+[tta/base] 80/195
+[tta/base] 90/195
+[tta/base] 100/195
+[tta/base] 110/195
+############ [00:22:42] FINAL CHAIN START ############
+[00:23:52] GPU idle; free=12G
+[00:23:52] 已取得 data/test 锁
+[00:23:52] 起始态检查 data/test=49857（须 49857）
+[00:23:52] measure v5 res=560
+[ptta] device=cuda；视图 15 个：base, flip, rc0, rc1, rc2, rc3, rc4, rc5, rc6, rc7, zoom240, zoom256, zoom288, zoom320, square
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] v2combo5_best.pt best_ep=11 best_val_acc=0.8056277056277056 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4691.52it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/15 base 完成（19s）
+[tta/flip] 10/19
+[ptta] 视图 2/15 flip 完成（18s）
+[tta/rc0] 10/19
+[ptta] 视图 3/15 rc0 完成（18s）
+[tta/rc1] 10/19
+[ptta] 视图 4/15 rc1 完成（18s）
+[tta/rc2] 10/19
+[ptta] 视图 5/15 rc2 完成（18s）
+[tta/rc3] 10/19
+[ptta] 视图 6/15 rc3 完成（18s）
+[tta/rc4] 10/19
+[ptta] 视图 7/15 rc4 完成（17s）
+[tta/rc5] 10/19
+[ptta] 视图 8/15 rc5 完成（18s）
+[tta/rc6] 10/19
+[ptta] 视图 9/15 rc6 完成（17s）
+[tta/rc7] 10/19
+[ptta] 视图 10/15 rc7 完成（18s）
+[tta/zoom240] 10/19
+[ptta] 视图 11/15 zoom240 完成（18s）
+[tta/zoom256] 10/19
+[ptta] 视图 12/15 zoom256 完成（19s）
+[tta/zoom288] 10/19
+[ptta] 视图 13/15 zoom288 完成（20s）
+[tta/zoom320] 10/19
+[ptta] 视图 14/15 zoom320 完成（21s）
+[tta/square] 10/19
+[ptta] 视图 15/15 square 完成（17s）
+[ptta] 15 视图融合完成，总用时 4.6 min
+[ptta] 各视图与 base 的预测一致率（仅供判断是否真有分歧）：
+[ptta]   base      1.0000
+[ptta]   flip      0.9331
+[ptta]   rc0       0.9182
+[ptta]   rc1       0.9212
+[ptta]   rc2       0.9210
+[ptta]   rc3       0.9216
+[ptta]   rc4       0.9169
+[ptta]   rc5       0.9199
+[ptta]   rc6       0.9210
+[ptta]   rc7       0.9208
+[ptta]   zoom240   0.9368
+[ptta]   zoom256   0.9234
+[ptta]   zoom288   0.8959
+[ptta]   zoom320   0.8753
+[ptta]   square    1.0000
+[ptta] ---- 健康检查（15 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 498/500 类（覆盖率 0.9960，空类 2）
+[ptta] 每类预测数：均值 9.2、最大 16、最小 0、最大/均值 1.73x
+[ptta] 平均熵 0.803（均匀分布为 6.215）、平均最大概率 0.835
+[ptta] 与 base 单视图的预测一致率 0.9442（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_rt_v5/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_rt_v5/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_v5/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_v5/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_rt_v5
+[ptta] 下一步：`scripts/check_submission.py` 校验
+[00:28:35] MEASURE_OK v5 rows=4620
+  STAR v5 pinned-val = 81.36% (n=4620)
+/root/autodl-tmp/aic/scripts/_final_chain.sh: line 100: syntax error near unexpected token `then'
+/root/autodl-tmp/aic/scripts/_final_chain.sh: line 100: `f "$CK5" ]; then measure "$CK5" 560 v5; else echo "[warn] v2combo5 无产物"; fi'

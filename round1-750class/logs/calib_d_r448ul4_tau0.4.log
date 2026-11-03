@@ -1,0 +1,17 @@
+[calib] 概率 /root/autodl-tmp/aic/outputs/probs_test_d_r448ul4.npy  shape=(37444, 750) dtype=float16
+[test] 37444 张（未发现官方列表，按文件名排序）
+[calib] τ=0.4  改动预测 1.24%（465/37444）
+[calib] 校正前分布: max=137 中位=48 均值=49.9 用到的类=746 前10类占比=3.4% 超额(>均值)=13.7%
+[calib] 校正后分布: max=130 中位=49 均值=49.9 用到的类=747 前10类占比=3.2% 超额(>均值)=12.9%
+[calib] 改动样本原预测类的平均热度 = 86.8 张；新预测类 = 38.4 张
+[calib] 与对照包 pred_results.csv：466 张不同（1.24%）
+[calib] ⚠️ 与对照包的**正确率**差在这里算不出来（测试集无标签） ⇒ 只能报改动量，不能报涨跌
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 750 类，编号 0..749（连续跨度 750）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0748', 748), ('0749', 749)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/submission_d_r448ul4_cal04/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/submission_d_r448ul4_cal04/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/submission_d_r448ul4_cal04/pred_results.zip  (37444 行)
+[calib] ★ 已写 /root/autodl-tmp/aic/outputs/submission_d_r448ul4_cal04
+[calib] 下一步：`scripts/check_submission.py /root/autodl-tmp/aic/outputs/submission_d_r448ul4_cal04/pred_results.zip` 校验

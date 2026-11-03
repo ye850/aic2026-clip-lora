@@ -1,0 +1,5 @@
+  train 20000/90152
+  train 40000/90152
+  train 60000/90152
+  train 80000/90152
+train hashed: 90150

@@ -1,0 +1,49 @@
+[17:50:41] 640 safe package (15-view + lora-scale 1.1)
+[ptta] device=cuda；视图 15 个：base, flip, rc0, rc1, rc2, rc3, rc4, rc5, rc6, rc7, zoom240, zoom256, zoom288, zoom320, square
+[test] 49857 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 49857 张 / 500 类
+[tta] r640_best.pt best_ep=11 best_val_acc=0.812987012987013 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 10415.43it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] ★ lora-scale=1.1: 已缩放 72 个 lora_B 张量
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/195
+[tta/base] 20/195
+[tta/base] 30/195
+[tta/base] 40/195
+[tta/base] 50/195
+[tta/base] 60/195
+[tta/base] 70/195
+[tta/base] 80/195
+[tta/base] 90/195
+[tta/base] 100/195
+[tta/base] 110/195
+[tta/base] 120/195
+[tta/base] 130/195
+[tta/base] 140/195
+[tta/base] 150/195
+[tta/base] 160/195
+[tta/base] 170/195
+[tta/base] 180/195
+[tta/base] 190/195
+[ptta] 视图 1/15 base 完成（202s）
+[tta/flip] 10/195
+[tta/flip] 20/195
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 349, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 280, in main
+    p = infer(model, paths, build_view_tf(v), device, a.batch, a.workers,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/scripts/tta_lora_eval.py", line 335, in infer
+    #   ⇒ 需要真实置信度时用 --no-amp（会慢一些，但概率是全精度的）。
+              ~~~~~~~~~~~~~~~~~~~^~~~
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/utils/data/_utils/signal_handling.py", line 73, in handler
+    _error_if_any_worker_fails()
+RuntimeError: DataLoader worker (pid 3375) is killed by signal: Killed. 
+[bal] 🛑 找不到概率文件 /root/autodl-tmp/aic/outputs/_r640_pkg/probs.npy
+=== 核验提交文件：/root/autodl-tmp/aic/outputs/pack_r640_s11/pred_results.zip ===
+  [FAIL] 文件不存在：/root/autodl-tmp/aic/outputs/pack_r640_s11/pred_results.zip
+[17:54:45] R640-S11 PKG PROBLEM

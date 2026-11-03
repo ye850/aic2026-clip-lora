@@ -1,0 +1,1131 @@
+[00:10:32] cqa1 packed: wait conf2_pkg + gate 05:40
+[05:41:14] gate passed - CQA1 PACKED START
+[05:41:14] SLOT1 640px (resolution ladder next rung)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '32', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--ckpt', '/root/autodl-tmp/aic/outputs/r640.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_r640']
+[05:41:18] gate passed - CQA1 PACKED START
+[05:41:18] SLOT1 640px (resolution ladder next rung)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '32', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--ckpt', '/root/autodl-tmp/aic/outputs/r640.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_r640']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8651.72it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 2672 步（优化步 2672/轮，grad_accum=1），batch=32，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7754.53it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 2672 步（优化步 2672/轮，grad_accum=1），batch=32，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 131, in main
+    return int(F.main() or 0)
+               ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 2494, in main
+    return train(a)
+           ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 1578, in train
+    logits, f_stu = model(x_in), None
+                    ^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 403, in forward
+    return self.forward_with_feat(pixel_values)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 414, in forward_with_feat
+    f = self.encode(pixel_values)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 396, in encode
+    f = take_embeds(self.clip.get_image_features(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 735, in get_image_features
+    vision_outputs: BaseModelOutputWithPooling = self.vision_model(
+                                                 ^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/generic.py", line 1081, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/output_capturing.py", line 287, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 635, in forward
+    encoder_outputs: BaseModelOutput = self.encoder(
+                                       ^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 469, in forward
+    hidden_states = encoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/modeling_layers.py", line 111, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 380, in forward
+    hidden_states = self.mlp(hidden_states)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 347, in forward
+    hidden_states = self.fc1(hidden_states)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/lora.py", line 98, in forward
+    return y + self.scale * delta
+           ~~^~~~~~~~~~~~~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 152.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 9.38 MiB is free. Process 52064 has 14.48 GiB memory in use. Including non-PyTorch memory, this process has 9.02 GiB memory in use. Of the allocated memory 8.45 GiB is allocated by PyTorch, and 163.17 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[ptta] 🛑 找不到检查点 /root/autodl-tmp/aic/outputs/r640_best.pt
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_r640/pred_results.csv'
+[05:41:30] r640 pin done
+[05:41:30] SLOT2 sel-frac 0.05 (noise filtering, implemented-never-tested)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--sel-frac', '0.05', '--sel-start', '3', '--ckpt', '/root/autodl-tmp/aic/outputs/sf05.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_sf05']
+[05:41:33] gate passed - CQA1 PACKED START
+[05:41:33] SLOT1 640px (resolution ladder next rung)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '32', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--ckpt', '/root/autodl-tmp/aic/outputs/r640.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_r640']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7694.09it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[sel] ★ 噪声样本筛选已启用：sel_frac=0.05 sel_start=3 min_keep=10
+[sel]   类内样本数 min=2 中位=174 max=210；按**类内分位**筛，不跨类比较 loss
+[sel]   ⚠️ 2 个类的样本数 ≤ 10，这些类**一张都不会被筛**（硬地板生效）
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1781 步（优化步 1781/轮，grad_accum=1），batch=48，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7586.46it/s]
+[clip] transformers 载入失败（RuntimeError: CUDA error: out of memory
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+），尝试 open_clip
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 131, in main
+    return int(F.main() or 0)
+               ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 2494, in main
+    return train(a)
+           ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 793, in train
+    kind, clip_model, _proc = load_clip(device)
+                              ^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/extract.py", line 105, in load_clip
+    import open_clip
+ModuleNotFoundError: No module named 'open_clip'
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 131, in main
+    return int(F.main() or 0)
+               ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 2494, in main
+    return train(a)
+           ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 1578, in train
+    logits, f_stu = model(x_in), None
+                    ^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 403, in forward
+    return self.forward_with_feat(pixel_values)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 414, in forward_with_feat
+    f = self.encode(pixel_values)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 396, in encode
+    f = take_embeds(self.clip.get_image_features(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 735, in get_image_features
+    vision_outputs: BaseModelOutputWithPooling = self.vision_model(
+                                                 ^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/generic.py", line 1081, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/output_capturing.py", line 287, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 635, in forward
+    encoder_outputs: BaseModelOutput = self.encoder(
+                                       ^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 469, in forward
+    hidden_states = encoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/modeling_layers.py", line 111, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 371, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 310, in forward
+    keys = self.k_proj(hidden_states)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/lora.py", line 98, in forward
+    return y + self.scale * delta
+           ~~^~~~~~~~~~~~~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 42.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 3.38 MiB is free. Process 52064 has 14.48 GiB memory in use. Including non-PyTorch memory, this process has 9.02 GiB memory in use. Of the allocated memory 8.46 GiB is allocated by PyTorch, and 162.70 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[ptta] 🛑 找不到检查点 /root/autodl-tmp/aic/outputs/r640_best.pt
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_r640/pred_results.csv'
+[05:41:42] r640 pin done
+[05:41:42] SLOT2 sel-frac 0.05 (noise filtering, implemented-never-tested)
+[ptta] device=cuda；视图 1 个：base
+[test] 49857 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 49857 张 / 500 类
+[ptta] 🛑 找不到检查点 /root/autodl-tmp/aic/outputs/sf05_best.pt
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--sel-frac', '0.05', '--sel-start', '3', '--ckpt', '/root/autodl-tmp/aic/outputs/sf05.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_sf05']
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_sf05/pred_results.csv'
+[05:41:44] sf05 pin done
+[05:41:44] SLOT3 lr3e-4@560 (lr sweep other side)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '3e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--ckpt', '/root/autodl-tmp/aic/outputs/lr3e4.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_lr3e4']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8153.03it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[sel] ★ 噪声样本筛选已启用：sel_frac=0.05 sel_start=3 min_keep=10
+[sel]   类内样本数 min=2 中位=174 max=210；按**类内分位**筛，不跨类比较 loss
+[sel]   ⚠️ 2 个类的样本数 ≤ 10，这些类**一张都不会被筛**（硬地板生效）
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1781 步（优化步 1781/轮，grad_accum=1），batch=48，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8610.58it/s]
+[clip] transformers 载入失败（OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 0 bytes is free. Process 52064 has 14.48 GiB memory in use. Process 52343 has 8.50 GiB memory in use. Including non-PyTorch memory, this process has 538.00 MiB memory in use. Of the allocated memory 183.83 MiB is allocated by PyTorch, and 6.17 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)），尝试 open_clip
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 131, in main
+    return int(F.main() or 0)
+               ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 2494, in main
+    return train(a)
+           ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 793, in train
+    kind, clip_model, _proc = load_clip(device)
+                              ^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/extract.py", line 105, in load_clip
+    import open_clip
+ModuleNotFoundError: No module named 'open_clip'
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 131, in main
+    return int(F.main() or 0)
+               ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 2494, in main
+    return train(a)
+           ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 1578, in train
+    logits, f_stu = model(x_in), None
+                    ^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 403, in forward
+    return self.forward_with_feat(pixel_values)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 414, in forward_with_feat
+    f = self.encode(pixel_values)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 396, in encode
+    f = take_embeds(self.clip.get_image_features(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 735, in get_image_features
+    vision_outputs: BaseModelOutputWithPooling = self.vision_model(
+                                                 ^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/generic.py", line 1081, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/output_capturing.py", line 287, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 635, in forward
+    encoder_outputs: BaseModelOutput = self.encoder(
+                                       ^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 469, in forward
+    hidden_states = encoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/modeling_layers.py", line 111, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 380, in forward
+    hidden_states = self.mlp(hidden_states)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 347, in forward
+    hidden_states = self.fc1(hidden_states)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/lora.py", line 98, in forward
+    return y + self.scale * delta
+               ~~~~~~~~~~~^~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 164.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 0 bytes is free. Process 52064 has 14.48 GiB memory in use. Including non-PyTorch memory, this process has 8.50 GiB memory in use. Process 52350 has 538.00 MiB memory in use. Of the allocated memory 7.96 GiB is allocated by PyTorch, and 136.87 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[ptta] 🛑 找不到检查点 /root/autodl-tmp/aic/outputs/lr3e4_best.pt
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_lr3e4/pred_results.csv'
+[05:41:54] lr3e4 pin done
+[05:41:54] SLOT4 margin 0.15@560 (m sweep)
+[ptta] device=cuda；视图 1 个：base
+[test] 49857 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 49857 张 / 500 类
+[ptta] 🛑 找不到检查点 /root/autodl-tmp/aic/outputs/sf05_best.pt
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_sf05/pred_results.csv'
+[05:41:56] sf05 pin done
+[05:41:56] SLOT3 lr3e-4@560 (lr sweep other side)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--margin', '0.15', '--ckpt', '/root/autodl-tmp/aic/outputs/mg015.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_mg015']
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '3e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--ckpt', '/root/autodl-tmp/aic/outputs/lr3e4.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_lr3e4']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8200.61it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1781 步（优化步 1781/轮，grad_accum=1），batch=48，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 9520.22it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0003×0.1 = 3.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 131, in main
+    return int(F.main() or 0)
+               ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 2494, in main
+    return train(a)
+           ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 1252, in train
+    ema_pairs.append((_p, _p.detach().clone().float()))
+                          ^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 64.00 KiB is free. Process 52064 has 14.48 GiB memory in use. Process 52454 has 8.05 GiB memory in use. Including non-PyTorch memory, this process has 996.00 MiB memory in use. Of the allocated memory 607.91 MiB is allocated by PyTorch, and 40.09 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 131, in main
+    return int(F.main() or 0)
+               ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 2494, in main
+    return train(a)
+           ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 1578, in train
+    logits, f_stu = model(x_in), None
+                    ^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 403, in forward
+    return self.forward_with_feat(pixel_values)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 414, in forward_with_feat
+    f = self.encode(pixel_values)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 396, in encode
+    f = take_embeds(self.clip.get_image_features(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 735, in get_image_features
+    vision_outputs: BaseModelOutputWithPooling = self.vision_model(
+                                                 ^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/generic.py", line 1081, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/output_capturing.py", line 287, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 635, in forward
+    encoder_outputs: BaseModelOutput = self.encoder(
+                                       ^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 469, in forward
+    hidden_states = encoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/modeling_layers.py", line 111, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 371, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 311, in forward
+    values = self.v_proj(hidden_states)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/lora.py", line 98, in forward
+    return y + self.scale * delta
+               ~~~~~~~~~~~^~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 42.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 8.06 MiB is free. Process 52064 has 14.48 GiB memory in use. Including non-PyTorch memory, this process has 8.05 GiB memory in use. Process 52461 has 988.00 MiB memory in use. Of the allocated memory 7.49 GiB is allocated by PyTorch, and 152.12 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[ptta] 🛑 找不到检查点 /root/autodl-tmp/aic/outputs/lr3e4_best.pt
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_lr3e4/pred_results.csv'
+[05:42:06] lr3e4 pin done
+[05:42:06] SLOT4 margin 0.15@560 (m sweep)
+[ptta] device=cuda；视图 1 个：base
+[test] 49857 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 49857 张 / 500 类
+[ptta] 🛑 找不到检查点 /root/autodl-tmp/aic/outputs/mg015_best.pt
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--margin', '0.15', '--ckpt', '/root/autodl-tmp/aic/outputs/mg015.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_mg015']
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_mg015/pred_results.csv'
+[05:42:08] mg015 pin done
+[05:42:08] CQA1 PACKED DONE (4 arms)
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7855.61it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1781 步（优化步 1781/轮，grad_accum=1），batch=48，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 135, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/arm_runner.py", line 131, in main
+    return int(F.main() or 0)
+               ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 2494, in main
+    return train(a)
+           ^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 1578, in train
+    logits, f_stu = model(x_in), None
+                    ^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 403, in forward
+    return self.forward_with_feat(pixel_values)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 414, in forward_with_feat
+    f = self.encode(pixel_values)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/finetune_lora.py", line 396, in encode
+    f = take_embeds(self.clip.get_image_features(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/generic.py", line 943, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 735, in get_image_features
+    vision_outputs: BaseModelOutputWithPooling = self.vision_model(
+                                                 ^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/generic.py", line 1081, in wrapper
+    output = func(self, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/utils/output_capturing.py", line 287, in wrapper
+    outputs = func(self, *args, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 635, in forward
+    encoder_outputs: BaseModelOutput = self.encoder(
+                                       ^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 469, in forward
+    hidden_states = encoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/modeling_layers.py", line 111, in __call__
+    return super().__call__(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 371, in forward
+    hidden_states, _ = self.self_attn(
+                       ^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/transformers/models/clip/modeling_clip.py", line 310, in forward
+    keys = self.k_proj(hidden_states)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/miniconda3/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/lora.py", line 98, in forward
+    return y + self.scale * delta
+           ~~^~~~~~~~~~~~~~~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 42.00 MiB. GPU 0 has a total capacity of 23.52 GiB of which 3.38 MiB is free. Process 52064 has 14.48 GiB memory in use. Including non-PyTorch memory, this process has 9.02 GiB memory in use. Of the allocated memory 8.46 GiB is allocated by PyTorch, and 162.70 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[ptta] 🛑 找不到检查点 /root/autodl-tmp/aic/outputs/mg015_best.pt
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_mg015/pred_results.csv'
+[05:42:18] mg015 pin done
+[05:42:18] CQA1 PACKED DONE (4 arms)
+[ep 1] 200/2672 loss=1.1492 已用 2.3min 预计还需 28.8min
+[ep 1] 400/2672 loss=1.1103 已用 4.6min 预计还需 26.3min
+[ep 1] 600/2672 loss=1.0796 已用 6.9min 预计还需 24.0min
+[ep 1] 800/2672 loss=1.0409 已用 9.2min 预计还需 21.6min
+[ep 1] 1000/2672 loss=0.9962 已用 11.6min 预计还需 19.3min
+[ep 1] 1200/2672 loss=0.9486 已用 13.9min 预计还需 17.0min
+[ep 1] 1400/2672 loss=0.9052 已用 16.2min 预计还需 14.7min
+[ep 1] 1600/2672 loss=0.8669 已用 18.5min 预计还需 12.4min
+[ep 1] 1800/2672 loss=0.8335 已用 20.8min 预计还需 10.1min
+[ep 1] 2000/2672 loss=0.8057 已用 23.1min 预计还需 7.8min
+[ep 1] 2200/2672 loss=0.7813 已用 25.4min 预计还需 5.5min
+[ep 1] 2400/2672 loss=0.7628 已用 27.7min 预计还需 3.1min
+[ep 1] 2600/2672 loss=0.7446 已用 30.0min 预计还需 0.8min
+[ep 1] ★ 完成 loss=0.7395 val_acc=0.6481  [raw 0.5874 EMA 0.6481] 用时 31.5min
+[ep 1] ↑ 新最优（按 full）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep 2] 200/2672 loss=0.4854 已用 2.3min 预计还需 28.7min
+[ep 2] 400/2672 loss=0.4987 已用 4.6min 预计还需 26.3min
+[ep 2] 600/2672 loss=0.4903 已用 6.9min 预计还需 23.9min
+[ep 2] 800/2672 loss=0.4849 已用 9.2min 预计还需 21.6min
+[ep 2] 1000/2672 loss=0.4831 已用 11.5min 预计还需 19.3min
+[ep 2] 1200/2672 loss=0.4786 已用 13.9min 预计还需 17.0min
+[ep 2] 1400/2672 loss=0.4774 已用 16.2min 预计还需 14.7min
+[ep 2] 1600/2672 loss=0.4726 已用 18.5min 预计还需 12.4min
+[ep 2] 1800/2672 loss=0.4686 已用 20.8min 预计还需 10.1min
+[ep 2] 2000/2672 loss=0.4648 已用 23.1min 预计还需 7.8min
+[ep 2] 2200/2672 loss=0.4623 已用 25.4min 预计还需 5.4min
+[ep 2] 2400/2672 loss=0.4594 已用 27.7min 预计还需 3.1min
+[ep 2] 2600/2672 loss=0.4571 已用 30.0min 预计还需 0.8min
+[ep 2] ★ 完成 loss=0.4559 val_acc=0.7266  [raw 0.6898 EMA 0.7266] 用时 31.5min
+[ep 2] ↑ 新最优（按 full）
+[ep 2] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep 3] 200/2672 loss=0.3843 已用 2.3min 预计还需 28.7min
+[ep 3] 400/2672 loss=0.3870 已用 4.6min 预计还需 26.3min
+[ep 3] 600/2672 loss=0.3866 已用 6.9min 预计还需 24.0min
+[ep 3] 800/2672 loss=0.3922 已用 9.2min 预计还需 21.6min
+[ep 3] 1000/2672 loss=0.3894 已用 11.6min 预计还需 19.3min
+[ep 3] 1200/2672 loss=0.3919 已用 13.9min 预计还需 17.0min
+[ep 3] 1400/2672 loss=0.3929 已用 16.2min 预计还需 14.7min
+[ep 3] 1600/2672 loss=0.3909 已用 18.5min 预计还需 12.4min
+[ep 3] 1800/2672 loss=0.3908 已用 20.8min 预计还需 10.1min
+[ep 3] 2000/2672 loss=0.3896 已用 23.1min 预计还需 7.8min
+[ep 3] 2200/2672 loss=0.3896 已用 25.4min 预计还需 5.5min
+[ep 3] 2400/2672 loss=0.3868 已用 27.7min 预计还需 3.1min
+[ep 3] 2600/2672 loss=0.3861 已用 30.0min 预计还需 0.8min
+[ep 3] ★ 完成 loss=0.3852 val_acc=0.7613  [raw 0.7301 EMA 0.7613] 用时 31.6min
+[ep 3] ↑ 新最优（按 full）
+[ep 3] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep 4] 200/2672 loss=0.3305 已用 2.3min 预计还需 28.8min
+[ep 4] 400/2672 loss=0.3303 已用 4.6min 预计还需 26.3min
+[ep 4] 600/2672 loss=0.3339 已用 6.9min 预计还需 24.0min
+[ep 4] 800/2672 loss=0.3380 已用 9.2min 预计还需 21.6min
+[ep 4] 1000/2672 loss=0.3377 已用 11.6min 预计还需 19.3min
+[ep 4] 1200/2672 loss=0.3414 已用 13.9min 预计还需 17.0min
+[ep 4] 1400/2672 loss=0.3377 已用 16.2min 预计还需 14.7min
+[ep 4] 1600/2672 loss=0.3368 已用 18.5min 预计还需 12.4min
+[ep 4] 1800/2672 loss=0.3374 已用 20.8min 预计还需 10.1min
+[ep 4] 2000/2672 loss=0.3391 已用 23.1min 预计还需 7.8min
+[ep 4] 2200/2672 loss=0.3382 已用 25.4min 预计还需 5.5min
+[ep 4] 2400/2672 loss=0.3390 已用 27.7min 预计还需 3.1min
+[ep 4] 2600/2672 loss=0.3398 已用 30.1min 预计还需 0.8min
+[ep 4] ★ 完成 loss=0.3402 val_acc=0.7790  [raw 0.7563 EMA 0.7790] 用时 31.6min
+[ep 4] ↑ 新最优（按 full）
+[ep 4] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep 5] 200/2672 loss=0.2932 已用 2.3min 预计还需 28.8min
+[ep 5] 400/2672 loss=0.2973 已用 4.6min 预计还需 26.3min
+[ep 5] 600/2672 loss=0.2960 已用 6.9min 预计还需 24.0min
+[ep 5] 800/2672 loss=0.3002 已用 9.2min 预计还需 21.6min
+[ep 5] 1000/2672 loss=0.3003 已用 11.5min 预计还需 19.3min
+[ep 5] 1200/2672 loss=0.3040 已用 13.9min 预计还需 17.0min
+[ep 5] 1400/2672 loss=0.3032 已用 16.2min 预计还需 14.7min
+[ep 5] 1600/2672 loss=0.3035 已用 18.5min 预计还需 12.4min
+[ep 5] 1800/2672 loss=0.3045 已用 20.8min 预计还需 10.1min
+[ep 5] 2000/2672 loss=0.3057 已用 23.1min 预计还需 7.8min
+[ep 5] 2200/2672 loss=0.3074 已用 25.4min 预计还需 5.5min
+[ep 5] 2400/2672 loss=0.3059 已用 27.7min 预计还需 3.1min
+[ep 5] 2600/2672 loss=0.3060 已用 30.0min 预计还需 0.8min
+[ep 5] ★ 完成 loss=0.3056 val_acc=0.7918  [raw 0.7749 EMA 0.7918] 用时 31.6min
+[ep 5] ↑ 新最优（按 full）
+[ep 5] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep 6] 200/2672 loss=0.2815 已用 2.3min 预计还需 28.9min
+[ep 6] 400/2672 loss=0.2855 已用 4.7min 预计还需 26.4min
+[ep 6] 600/2672 loss=0.2817 已用 7.0min 预计还需 24.0min
+[ep 6] 800/2672 loss=0.2762 已用 9.3min 预计还需 21.7min
+[ep 6] 1000/2672 loss=0.2775 已用 11.6min 预计还需 19.4min
+[ep 6] 1200/2672 loss=0.2753 已用 13.9min 预计还需 17.0min
+[ep 6] 1400/2672 loss=0.2718 已用 16.2min 预计还需 14.7min
+[ep 6] 1600/2672 loss=0.2705 已用 18.5min 预计还需 12.4min
+[ep 6] 1800/2672 loss=0.2715 已用 20.8min 预计还需 10.1min
+[ep 6] 2000/2672 loss=0.2719 已用 23.1min 预计还需 7.8min
+[ep 6] 2200/2672 loss=0.2724 已用 25.4min 预计还需 5.5min
+[ep 6] 2400/2672 loss=0.2735 已用 27.8min 预计还需 3.1min
+[ep 6] 2600/2672 loss=0.2737 已用 30.1min 预计还需 0.8min
+[ep 6] ★ 完成 loss=0.2725 val_acc=0.7987  [raw 0.7846 EMA 0.7987] 用时 31.6min
+[ep 6] ↑ 新最优（按 full）
+[ep 6] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep 7] 200/2672 loss=0.2491 已用 2.3min 预计还需 28.9min
+[ep 7] 400/2672 loss=0.2585 已用 4.6min 预计还需 26.4min
+[ep 7] 600/2672 loss=0.2569 已用 7.0min 预计还需 24.0min
+[ep 7] 800/2672 loss=0.2540 已用 9.3min 预计还需 21.7min
+[ep 7] 1000/2672 loss=0.2434 已用 11.6min 预计还需 19.4min
+[ep 7] 1200/2672 loss=0.2425 已用 13.9min 预计还需 17.0min
+[ep 7] 1400/2672 loss=0.2443 已用 16.2min 预计还需 14.7min
+[ep 7] 1600/2672 loss=0.2451 已用 18.5min 预计还需 12.4min
+[ep 7] 1800/2672 loss=0.2452 已用 20.8min 预计还需 10.1min
+[ep 7] 2000/2672 loss=0.2456 已用 23.1min 预计还需 7.8min
+[ep 7] 2200/2672 loss=0.2468 已用 25.4min 预计还需 5.5min
+[ep 7] 2400/2672 loss=0.2461 已用 27.8min 预计还需 3.1min
+[ep 7] 2600/2672 loss=0.2475 已用 30.1min 预计还需 0.8min
+[ep 7] ★ 完成 loss=0.2482 val_acc=0.8063  [raw 0.8009 EMA 0.8063] 用时 31.6min
+[ep 7] ↑ 新最优（按 full）
+[ep 7] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep 8] 200/2672 loss=0.2328 已用 2.3min 预计还需 28.9min
+[ep 8] 400/2672 loss=0.2252 已用 4.6min 预计还需 26.4min
+[ep 8] 600/2672 loss=0.2244 已用 7.0min 预计还需 24.0min
+[ep 8] 800/2672 loss=0.2232 已用 10.0min 预计还需 23.3min
+[ep 8] 1000/2672 loss=0.2268 已用 12.3min 预计还需 20.5min
+[ep 8] 1200/2672 loss=0.2286 已用 15.2min 预计还需 18.6min
+[ep 8] 1400/2672 loss=0.2240 已用 18.5min 预计还需 16.8min
+[ep 8] 1600/2672 loss=0.2243 已用 21.8min 预计还需 14.6min
+[ep 8] 1800/2672 loss=0.2254 已用 25.1min 预计还需 12.1min
+[ep 8] 2000/2672 loss=0.2237 已用 27.4min 预计还需 9.2min
+[ep 8] 2200/2672 loss=0.2238 已用 30.3min 预计还需 6.5min
+[ep 8] 2400/2672 loss=0.2239 已用 33.3min 预计还需 3.8min
+[ep 8] 2600/2672 loss=0.2230 已用 36.3min 预计还需 1.0min
+[ep 8] ★ 完成 loss=0.2239 val_acc=0.8117  [raw 0.8084 EMA 0.8117] 用时 38.7min
+[ep 8] ↑ 新最优（按 full）
+[ep 8] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep 9] 200/2672 loss=0.1964 已用 2.9min 预计还需 35.5min
+[ep 9] 400/2672 loss=0.1938 已用 5.2min 预计还需 29.4min
+[ep 9] 600/2672 loss=0.1955 已用 7.5min 预计还需 25.9min
+[ep 9] 800/2672 loss=0.1995 已用 9.8min 预计还需 22.9min
+[ep 9] 1000/2672 loss=0.1999 已用 12.1min 预计还需 20.3min
+[ep 9] 1200/2672 loss=0.2015 已用 14.4min 预计还需 17.7min
+[ep 9] 1400/2672 loss=0.2012 已用 16.7min 预计还需 15.2min
+[ep 9] 1600/2672 loss=0.2015 已用 19.0min 预计还需 12.8min
+[ep 9] 1800/2672 loss=0.2010 已用 21.4min 预计还需 10.3min
+[ep 9] 2000/2672 loss=0.2005 已用 23.7min 预计还需 8.0min
+[ep 9] 2200/2672 loss=0.2020 已用 26.0min 预计还需 5.6min
+[ep 9] 2400/2672 loss=0.2015 已用 28.3min 预计还需 3.2min
+[ep 9] 2600/2672 loss=0.2012 已用 30.6min 预计还需 0.8min
+[ep 9] ★ 完成 loss=0.2008 val_acc=0.8123  [raw 0.8100 EMA 0.8123] 用时 32.1min
+[ep 9] ↑ 新最优（按 full）
+[ep 9] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep10] 200/2672 loss=0.1931 已用 2.3min 预计还需 28.9min
+[ep10] 400/2672 loss=0.1888 已用 4.6min 预计还需 26.4min
+[ep10] 600/2672 loss=0.1888 已用 7.0min 预计还需 24.0min
+[ep10] 800/2672 loss=0.1920 已用 9.3min 预计还需 21.7min
+[ep10] 1000/2672 loss=0.1867 已用 11.6min 预计还需 19.4min
+[ep10] 1200/2672 loss=0.1905 已用 13.9min 预计还需 17.0min
+[ep10] 1400/2672 loss=0.1915 已用 16.2min 预计还需 14.7min
+[ep10] 1600/2672 loss=0.1946 已用 18.5min 预计还需 12.4min
+[ep10] 1800/2672 loss=0.1948 已用 20.8min 预计还需 10.1min
+[ep10] 2000/2672 loss=0.1961 已用 23.1min 预计还需 7.8min
+[ep10] 2200/2672 loss=0.1958 已用 25.4min 预计还需 5.5min
+[ep10] 2400/2672 loss=0.1959 已用 27.7min 预计还需 3.1min
+[ep10] 2600/2672 loss=0.1954 已用 30.1min 预计还需 0.8min
+[ep10] ★ 完成 loss=0.1955 val_acc=0.8121  [raw 0.8113 EMA 0.8121] 用时 31.6min
+[ep10] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep11] 200/2672 loss=0.1933 已用 2.3min 预计还需 28.8min
+[ep11] 400/2672 loss=0.1975 已用 4.6min 预计还需 26.3min
+[ep11] 600/2672 loss=0.1973 已用 6.9min 预计还需 23.9min
+[ep11] 800/2672 loss=0.1956 已用 9.2min 预计还需 21.6min
+[ep11] 1000/2672 loss=0.1938 已用 11.5min 预计还需 19.3min
+[ep11] 1200/2672 loss=0.1910 已用 13.8min 预计还需 17.0min
+[ep11] 1400/2672 loss=0.1923 已用 16.1min 预计还需 14.6min
+[ep11] 1600/2672 loss=0.1913 已用 18.4min 预计还需 12.3min
+[ep11] 1800/2672 loss=0.1884 已用 20.7min 预计还需 10.0min
+[ep11] 2000/2672 loss=0.1859 已用 23.0min 预计还需 7.7min
+[ep11] 2200/2672 loss=0.1850 已用 25.3min 预计还需 5.4min
+[ep11] 2400/2672 loss=0.1860 已用 27.6min 预计还需 3.1min
+[ep11] 2600/2672 loss=0.1859 已用 29.9min 预计还需 0.8min
+[ep11] ★ 完成 loss=0.1863 val_acc=0.8130  [raw 0.8134 EMA 0.8130] 用时 31.4min
+[ep11] ↑ 新最优（按 full）
+[ep11] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[ep12] 200/2672 loss=0.1744 已用 2.3min 预计还需 28.7min
+[ep12] 400/2672 loss=0.1787 已用 4.6min 预计还需 26.2min
+[ep12] 600/2672 loss=0.1705 已用 6.9min 预计还需 23.8min
+[ep12] 800/2672 loss=0.1762 已用 9.2min 预计还需 21.5min
+[ep12] 1000/2672 loss=0.1806 已用 11.5min 预计还需 19.2min
+[ep12] 1200/2672 loss=0.1853 已用 13.8min 预计还需 16.9min
+[ep12] 1400/2672 loss=0.1811 已用 16.1min 预计还需 14.6min
+[ep12] 1600/2672 loss=0.1781 已用 18.4min 预计还需 12.3min
+[ep12] 1800/2672 loss=0.1792 已用 20.7min 预计还需 10.0min
+[ep12] 2000/2672 loss=0.1782 已用 23.0min 预计还需 7.7min
+[ep12] 2200/2672 loss=0.1817 已用 25.3min 预计还需 5.4min
+[ep12] 2400/2672 loss=0.1822 已用 27.6min 预计还需 3.1min
+[ep12] 2600/2672 loss=0.1815 已用 29.9min 预计还需 0.8min
+[ep12] ★ 完成 loss=0.1810 val_acc=0.8130  [raw 0.8130 EMA 0.8130] 用时 31.4min
+[ep12] ckpt -> /root/autodl-tmp/aic/outputs/r640.pt
+[swa] ★ 已加载 SWA 平均权重（共 8 个 epoch 平均，start=5）⇒ 作为提交权重
+[swa] SWA 权重 val_acc=0.8141（对照：选优 0.8130 @ep11，同一把 val 尺）
+
+[train] 完成，总用时 387.0 min
+[train] 最优 epoch=11 val_acc=0.8130（权重来源：EMA）
+[train] 最优权重 -> /root/autodl-tmp/aic/outputs/r640_best.pt
+[train] val_acc 轨迹：0.648 0.727 0.761 0.779 0.792 0.799 0.806 0.812 0.812 0.812 0.813 0.813
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] r640_best.pt best_ep=11 best_val_acc=0.812987012987013 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 7636.93it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/1 base 完成（20s）
+[ptta] 1 视图融合完成，总用时 0.3 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 498/500 类（覆盖率 0.9960，空类 2）
+[ptta] 每类预测数：均值 9.2、最大 17、最小 0、最大/均值 1.84x
+[ptta] 平均熵 0.668（均匀分布为 6.215）、平均最大概率 0.846
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_rt_r640/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_rt_r640/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_r640/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_r640/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_rt_r640
+[ptta] 下一步：`scripts/check_submission.py` 校验
+  STAR r640 pinned-val = 81.41% (n=4620)
+[12:08:48] r640 pin done
+[12:08:48] SLOT2 sel-frac 0.05 (noise filtering, implemented-never-tested)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '2e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--sel-frac', '0.05', '--sel-start', '3', '--ckpt', '/root/autodl-tmp/aic/outputs/sf05.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_sf05']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  46%|████▌     | 183/398 [00:00<00:00, 1613.78it/s]Loading weights:  87%|████████▋ | 345/398 [00:00<00:00, 1437.86it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 1660.85it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[sel] ★ 噪声样本筛选已启用：sel_frac=0.05 sel_start=3 min_keep=10
+[sel]   类内样本数 min=2 中位=174 max=210；按**类内分位**筛，不跨类比较 loss
+[sel]   ⚠️ 2 个类的样本数 ≤ 10，这些类**一张都不会被筛**（硬地板生效）
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1781 步（优化步 1781/轮，grad_accum=1），batch=48，lr(lora)=0.0002 lr(head)=0.0004（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[ptta] 🛑 找不到检查点 /root/autodl-tmp/aic/outputs/sf05_best.pt
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_sf05/pred_results.csv'
+[12:10:51] sf05 pin done
+[12:10:51] SLOT3 lr3e-4@560 (lr sweep other side)
+[arm] → finetune_lora.main() argv=['--epochs', '12', '--batch', '48', '--workers', '16', '--lr', '3e-4', '--head-lr-mult', '2', '--targets', 'q,k,v,out,fc1,fc2', '--dropout', '0.1', '--mixup', '0.2', '--ema-decay', '0.999', '--ema-start', '1', '--unfreeze-last', '4', '--log-every', '200', '--hidden', '1024', '--kind', 'sce', '--r', '16', '--sam-rho', '0.05', '--swa', '--swa-start', '5', '--soft-conflicts', '/root/autodl-tmp/aic/outputs/dedup_soft_conflicts_500.json', '--ckpt', '/root/autodl-tmp/aic/outputs/lr3e4.pt', '--out-dir', '/root/autodl-tmp/aic/outputs/_lr3e4']
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 500 类；编号范围 0..499（连续）
+[train] 90152 张图 / 500 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 90152 张 / 500 类
+[data] 训练 85532 / 验证 4620（验证每类至少 8 张）
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  61%|██████    | 241/398 [00:00<00:00, 1975.52it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 1701.32it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[vpt] 未启用（--vpt 0）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0003×0.1 = 3.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 32,045,045 / 154,969,334（20.678%）
+[noise] ⚠️ 未找到 T.npy，CL 降权与前向校正将跳过（只影响权重，不影响能否训练）
+[noise] 样本权重：min=0.936 max=8.727 mean=1.000
+[soft] 冲突组=773 训练集命中=1552 ★ 组总权重=1.0000（组内每张 0.5000…）
+[soft] 软目标：组内不同标签均分；未命中样本仍为 one-hot 硬标签
+[soft] 权重叠加后：min=0.0642 max=8.7273 mean=0.9884 sum=84537.8/85532
+[opt] 分组参数：lora=2,654,208 vpt=0 backbone=28,353,024 region=0 head=1,037,812 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 215 个张量（122 MB fp32）
+[sam] 变体 = 原版 SAM（ε=ρ·g/‖g‖，所有参数一视同仁）
+[sam] 已启用：ρ=0.05（每步两次前向；AMP 已强制关闭）
+[sam] 扰动参数张量数 = 215｜★ 解析：min_w max_{‖ε‖≤ρ} L(w+ε) ⇒ 求平坦极小 ⇒ 抗输入扰动
+[swa] 已启用：从 epoch 5 起对权重做滑动平均（训练结束后用平均权重当提交权重）
+[sam] ρ=0.05 ⇒ ★ 强制关闭 AMP（走 fp32）以保证 SAM 的扰动/恢复正确
+[train] 12 轮 x 1781 步（优化步 1781/轮，grad_accum=1），batch=48，lr(lora)=0.0003 lr(head)=0.0006（2倍）
+[train] kind=sce use_cl=True class_balance=cb amp=False
+[drift] 未启用（--drift-lambda 0）
+[ep 1] 200/1781 loss=1.1188 已用 4.4min 预计还需 34.4min
+[ep 1] 400/1781 loss=1.0598 已用 8.6min 预计还需 29.6min
+[ep 1] 600/1781 loss=0.9836 已用 12.8min 预计还需 25.1min
+[ep 1] 800/1781 loss=0.9127 已用 16.7min 预计还需 20.5min
+[ep 1] 1000/1781 loss=0.8520 已用 20.8min 预计还需 16.3min
+[ep 1] 1200/1781 loss=0.8030 已用 25.0min 预计还需 12.1min
+[ep 1] 1400/1781 loss=0.7652 已用 29.1min 预计还需 7.9min

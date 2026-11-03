@@ -1,0 +1,144 @@
+[10:49:55] FixRes sweep: wait r640 exit
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] px560rt_best.pt best_ep=9 best_val_acc=0.8090909090909091 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights:  83%|████████▎ | 332/398 [00:00<00:00, 2559.60it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 2741.44it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/1 base 完成（37s）
+[ptta] 1 视图融合完成，总用时 0.6 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 500/500 类（覆盖率 1.0000，空类 0）
+[ptta] 每类预测数：均值 9.2、最大 19、最小 1、最大/均值 2.06x
+[ptta] 平均熵 0.655（均匀分布为 6.215）、平均最大概率 0.848
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_rt_fx560/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_rt_fx560/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_fx560/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_fx560/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_rt_fx560
+[ptta] 下一步：`scripts/check_submission.py` 校验
+  STAR fx560 pinned-val = 81.06% (n=4620)
+[12:09:56] fixres 560 done
+[ptta] device=cuda；视图 1 个：base
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 333, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 211, in main
+    te = build_test_manifest()
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/data.py", line 299, in build_test_manifest
+    raise FileNotFoundError(
+FileNotFoundError: 未找到测试目录：/root/autodl-tmp/aic/data/test
+请把测试图片放到 data/test/ 下。
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_fx616/pred_results.csv'
+[12:10:00] fixres 616 done
+[ptta] device=cuda；视图 1 个：base
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 333, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 211, in main
+    te = build_test_manifest()
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/data.py", line 299, in build_test_manifest
+    raise FileNotFoundError(
+FileNotFoundError: 未找到测试目录：/root/autodl-tmp/aic/data/test
+请把测试图片放到 data/test/ 下。
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_fx640/pred_results.csv'
+[12:10:05] fixres 640 done
+[ptta] device=cuda；视图 1 个：base
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 333, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 211, in main
+    te = build_test_manifest()
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/data.py", line 299, in build_test_manifest
+    raise FileNotFoundError(
+FileNotFoundError: 未找到测试目录：/root/autodl-tmp/aic/data/test
+请把测试图片放到 data/test/ 下。
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_fx672/pred_results.csv'
+[12:10:09] fixres 672 done
+[ptta] device=cuda；视图 1 个：base
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 333, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/autodl-tmp/aic/scripts/predict_tta.py", line 211, in main
+    te = build_test_manifest()
+         ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/aic/src/data.py", line 299, in build_test_manifest
+    raise FileNotFoundError(
+FileNotFoundError: 未找到测试目录：/root/autodl-tmp/aic/data/test
+请把测试图片放到 data/test/ 下。
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_fx704/pred_results.csv'
+[12:10:14] fixres 704 done
+usage: predict_tta.py [-h] [--lora LORA] [--views VIEWS] [--out-dir OUT_DIR]
+                      [--batch BATCH] [--device {auto,cuda,cpu}]
+                      [--fusion {arith,power}] [--fusion-t FUSION_T]
+                      [--workers WORKERS] [--limit LIMIT] [--dry-run]
+                      [--allow-unverified-map] [--force]
+                      [--save-probs SAVE_PROBS]
+                      [--probs-dtype {float16,float32,float64}] [--head HEAD]
+predict_tta.py: error: unrecognized arguments: --fuse power --t-strength 1.5
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_pw1.5/pred_results.csv'
+[12:10:22] power-fuse t=1.5 done
+usage: predict_tta.py [-h] [--lora LORA] [--views VIEWS] [--out-dir OUT_DIR]
+                      [--batch BATCH] [--device {auto,cuda,cpu}]
+                      [--fusion {arith,power}] [--fusion-t FUSION_T]
+                      [--workers WORKERS] [--limit LIMIT] [--dry-run]
+                      [--allow-unverified-map] [--force]
+                      [--save-probs SAVE_PROBS]
+                      [--probs-dtype {float16,float32,float64}] [--head HEAD]
+predict_tta.py: error: unrecognized arguments: --fuse power --t-strength 2.0
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_pw2.0/pred_results.csv'
+[12:10:27] power-fuse t=2.0 done
+usage: predict_tta.py [-h] [--lora LORA] [--views VIEWS] [--out-dir OUT_DIR]
+                      [--batch BATCH] [--device {auto,cuda,cpu}]
+                      [--fusion {arith,power}] [--fusion-t FUSION_T]
+                      [--workers WORKERS] [--limit LIMIT] [--dry-run]
+                      [--allow-unverified-map] [--force]
+                      [--save-probs SAVE_PROBS]
+                      [--probs-dtype {float16,float32,float64}] [--head HEAD]
+predict_tta.py: error: unrecognized arguments: --fuse power --t-strength 3.0
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_pw3.0/pred_results.csv'
+[12:10:32] power-fuse t=3.0 done
+[12:10:32] FIXRES SWEEP DONE

@@ -1,0 +1,17 @@
+outputs/conf it=50 std=14.888 min=43 max=136
+outputs/conf PROD60: std=14.904 change_vs_raw=23.64%
+outputs/conf it=50 std=14.888 min=43 max=136
+outputs/conf it=100 std=14.904 min=42 max=136
+outputs/conf it=150 std=14.904 min=42 max=136
+outputs/conf it=200 std=14.904 min=42 max=136
+outputs/conf it=250 std=14.904 min=42 max=136
+outputs/conf it=300 std=14.904 min=42 max=136
+outputs/conf it=350 std=14.904 min=42 max=136
+outputs/conf it=400 std=14.904 min=42 max=136
+outputs/conf it=450 std=14.904 min=42 max=136
+outputs/conf it=500 std=14.904 min=42 max=136
+outputs/conf it=550 std=14.904 min=42 max=136
+outputs/conf it=600 std=14.904 min=42 max=136
+outputs/conf FULL: iters_done std=14.904 min=42 max=136
+outputs/conf PRED_DIFF prod60_vs_full = 1 rows (0.00%)
+outputs/conf B_DELTA mean|b60-bfull|=0.0007 max=0.0036

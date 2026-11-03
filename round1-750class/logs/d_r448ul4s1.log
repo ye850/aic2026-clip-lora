@@ -1,0 +1,156 @@
+[cfg] device=cuda cuda=True root=/root/autodl-tmp/aic
+[class_map] 依据文件夹名前缀数字建立映射，共 750 类；编号范围 0..749（连续）
+[train] 148695 张图 / 750 类；目录 /root/autodl-tmp/aic/data/train
+[data] 全量 148695 张 / 750 类
+[preproc] ★ 启用预处理缓存 /root/autodl-tmp/aic/data/_preproc/train（缺失回落 0 张）—— 绝对分数不可与未启用时横比
+[data] 训练 141158 / 验证 7537（验证每类至少 8 张）
+[clip] 本地权重目录不完整，回退在线拉取 openai/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 6639.86it/s]
+[clip] transformers 载入 openai/clip-vit-base-patch32 (投影维度 512)
+[lora] 定位到 72 个投影层，覆盖 12 个 encoder 层（目标 q,k,v,out,fc1,fc2）
+[lora] LoRA 注入 72 层，可训练 2,654,208 / 151,277,313 参数（1.755%）
+[lora] 训练态参数显存估算 ≈ 35.4 MB（fp16 权重 + Adam 两阶矩 + fp32 主副本）
+[unfreeze] ★ 解冻视觉塔最后 4/12 层（骨干 lr = 0.0002×0.1 = 2.00e-05）
+[unfreeze]   ⚠️ 这是本项目第一次让骨干参数参与训练；若 val 曲线先涨后掉即为过拟合，选优请用 --select-by lowsim_a
+[model] 可训练 31,391,983 / 154,316,272（20.343%）
+[noise] 载入 T，收缩强度 0.5
+[noise] 样本权重：min=0.666 max=18.038 mean=1.000
+[opt] 分组参数：lora=2,654,208 backbone=28,353,024 head=384,750 logit_scale=1
+[ema] ★ 启用 decay=0.999，从第 1 轮起累积，跟踪 213 个张量（120 MB fp32）
+[train] 12 轮 x 1470 步（优化步 1470/轮，grad_accum=1），batch=96，lr(lora)=0.0002 lr(head)=0.001（5倍）
+[train] kind=sce use_cl=True class_balance=cb amp=True
+[track] ⚠️ 低相似子集 3008 张 ≠ 基准 3089 张 ⇒ 口径与其它脚本不同，本轮的「低相似」列**不可横向比较**
+[track] ★ 逐轮追踪已开启：低相似 3008 张（A 选优 1504 / B 报数 1504）；选优口径 = lowsim_a
+[track] ⚠️ 选优改用低相似 A 半 ⇒ **报数请看 B 半**，不要报 A 半（那是「选出来的」数字）
+[ep 1] 200/1470 loss=1.0572 已用 1.0min 预计还需 6.6min
+[ep 1] 400/1470 loss=0.9176 已用 2.1min 预计还需 5.5min
+[ep 1] 600/1470 loss=0.7956 已用 3.1min 预计还需 4.4min
+[ep 1] 800/1470 loss=0.7075 已用 4.1min 预计还需 3.4min
+[ep 1] 1000/1470 loss=0.6528 已用 5.1min 预计还需 2.4min
+[ep 1] 1200/1470 loss=0.6087 已用 6.1min 预计还需 1.4min
+[ep 1] 1400/1470 loss=0.5752 已用 7.2min 预计还需 0.4min
+[ep 1] ★ 完成 loss=0.5642 val_acc=0.5094 低相似=0.3900 [A 0.3910 / B 0.3890]  [raw 0.5742 EMA 0.5094] 用时 8.0min
+[ep 1] ↑ 新最优（按 lowsim_a）
+[ep 1] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep 1] 快照 -> lora_ep01.pt
+[ep 2] 200/1470 loss=0.3525 已用 1.0min 预计还需 6.3min
+[ep 2] 400/1470 loss=0.3450 已用 2.0min 预计还需 5.3min
+[ep 2] 600/1470 loss=0.3356 已用 3.0min 预计还需 4.3min
+[ep 2] 800/1470 loss=0.3300 已用 3.9min 预计还需 3.3min
+[ep 2] 1000/1470 loss=0.3246 已用 4.9min 预计还需 2.3min
+[ep 2] 1200/1470 loss=0.3237 已用 5.9min 预计还需 1.3min
+[ep 2] 1400/1470 loss=0.3195 已用 6.8min 预计还需 0.3min
+[ep 2] ★ 完成 loss=0.3178 val_acc=0.7128 低相似=0.5821 [A 0.5891 / B 0.5751]  [raw 0.6683 EMA 0.7128] 用时 7.7min
+[ep 2] ↑ 新最优（按 lowsim_a）
+[ep 2] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep 2] 快照 -> lora_ep02.pt
+[ep 3] 200/1470 loss=0.2532 已用 1.1min 预计还需 6.9min
+[ep 3] 400/1470 loss=0.2511 已用 2.2min 预计还需 5.8min
+[ep 3] 600/1470 loss=0.2522 已用 3.2min 预计还需 4.7min
+[ep 3] 800/1470 loss=0.2512 已用 4.3min 预计还需 3.6min
+[ep 3] 1000/1470 loss=0.2526 已用 5.4min 预计还需 2.5min
+[ep 3] 1200/1470 loss=0.2502 已用 6.4min 预计还需 1.4min
+[ep 3] 1400/1470 loss=0.2501 已用 7.5min 预计还需 0.4min
+[ep 3] ★ 完成 loss=0.2509 val_acc=0.7479 低相似=0.6187 [A 0.6184 / B 0.6190]  [raw 0.7080 EMA 0.7479] 用时 8.5min
+[ep 3] ↑ 新最优（按 lowsim_a）
+[ep 3] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep 3] 快照 -> lora_ep03.pt
+[ep 4] 200/1470 loss=0.2228 已用 1.0min 预计还需 6.6min
+[ep 4] 400/1470 loss=0.2243 已用 2.0min 预计还需 5.5min
+[ep 4] 600/1470 loss=0.2218 已用 3.1min 预计还需 4.5min
+[ep 4] 800/1470 loss=0.2260 已用 4.1min 预计还需 3.5min
+[ep 4] 1000/1470 loss=0.2243 已用 5.2min 预计还需 2.4min
+[ep 4] 1200/1470 loss=0.2216 已用 6.2min 预计还需 1.4min
+[ep 4] 1400/1470 loss=0.2192 已用 7.3min 预计还需 0.4min
+[ep 4] ★ 完成 loss=0.2188 val_acc=0.7587 低相似=0.6353 [A 0.6330 / B 0.6376]  [raw 0.7260 EMA 0.7587] 用时 8.2min
+[ep 4] ↑ 新最优（按 lowsim_a）
+[ep 4] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep 4] 快照 -> lora_ep04.pt
+[ep 5] 200/1470 loss=0.1820 已用 1.1min 预计还需 6.8min
+[ep 5] 400/1470 loss=0.1854 已用 2.1min 预计还需 5.7min
+[ep 5] 600/1470 loss=0.1836 已用 3.1min 预计还需 4.6min
+[ep 5] 800/1470 loss=0.1858 已用 4.1min 预计还需 3.5min
+[ep 5] 1000/1470 loss=0.1857 已用 5.1min 预计还需 2.4min
+[ep 5] 1200/1470 loss=0.1866 已用 6.1min 预计还需 1.4min
+[ep 5] 1400/1470 loss=0.1889 已用 7.1min 预计还需 0.4min
+[ep 5] ★ 完成 loss=0.1889 val_acc=0.7698 低相似=0.6466 [A 0.6463 / B 0.6469]  [raw 0.7354 EMA 0.7698] 用时 8.0min
+[ep 5] ↑ 新最优（按 lowsim_a）
+[ep 5] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep 5] 快照 -> lora_ep05.pt
+[ep 6] 200/1470 loss=0.1634 已用 1.0min 预计还需 6.5min
+[ep 6] 400/1470 loss=0.1684 已用 2.0min 预计还需 5.4min
+[ep 6] 600/1470 loss=0.1668 已用 3.0min 预计还需 4.3min
+[ep 6] 800/1470 loss=0.1678 已用 4.0min 预计还需 3.3min
+[ep 6] 1000/1470 loss=0.1696 已用 5.0min 预计还需 2.3min
+[ep 6] 1200/1470 loss=0.1728 已用 6.0min 预计还需 1.3min
+[ep 6] 1400/1470 loss=0.1728 已用 6.9min 预计还需 0.3min
+[ep 6] ★ 完成 loss=0.1735 val_acc=0.7664 低相似=0.6430 [A 0.6469 / B 0.6390]  [raw 0.7463 EMA 0.7664] 用时 7.8min
+[ep 6] ↑ 新最优（按 lowsim_a）
+[ep 6] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep 6] 快照 -> lora_ep06.pt
+[ep 7] 200/1470 loss=0.1572 已用 1.0min 预计还需 6.6min
+[ep 7] 400/1470 loss=0.1554 已用 2.0min 预计还需 5.4min
+[ep 7] 600/1470 loss=0.1599 已用 3.0min 预计还需 4.4min
+[ep 7] 800/1470 loss=0.1552 已用 4.0min 预计还需 3.4min
+[ep 7] 1000/1470 loss=0.1565 已用 5.0min 预计还需 2.4min
+[ep 7] 1200/1470 loss=0.1571 已用 6.0min 预计还需 1.4min
+[ep 7] 1400/1470 loss=0.1584 已用 7.0min 预计还需 0.4min
+[ep 7] ★ 完成 loss=0.1581 val_acc=0.7658 低相似=0.6363 [A 0.6383 / B 0.6343]  [raw 0.7565 EMA 0.7658] 用时 7.9min
+[ep 7] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep 7] 快照 -> lora_ep07.pt
+[ep 8] 200/1470 loss=0.1560 已用 1.0min 预计还需 6.5min
+[ep 8] 400/1470 loss=0.1555 已用 2.0min 预计还需 5.4min
+[ep 8] 600/1470 loss=0.1511 已用 3.0min 预计还需 4.4min
+[ep 8] 800/1470 loss=0.1497 已用 4.0min 预计还需 3.3min
+[ep 8] 1000/1470 loss=0.1472 已用 5.0min 预计还需 2.3min
+[ep 8] 1200/1470 loss=0.1455 已用 6.0min 预计还需 1.3min
+[ep 8] 1400/1470 loss=0.1446 已用 7.0min 预计还需 0.3min
+[ep 8] ★ 完成 loss=0.1449 val_acc=0.7657 低相似=0.6390 [A 0.6449 / B 0.6330]  [raw 0.7560 EMA 0.7657] 用时 7.9min
+[ep 8] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep 8] 快照 -> lora_ep08.pt
+[ep 9] 200/1470 loss=0.1341 已用 1.0min 预计还需 6.5min
+[ep 9] 400/1470 loss=0.1345 已用 2.0min 预计还需 5.4min
+[ep 9] 600/1470 loss=0.1351 已用 3.0min 预计还需 4.4min
+[ep 9] 800/1470 loss=0.1325 已用 4.0min 预计还需 3.4min
+[ep 9] 1000/1470 loss=0.1316 已用 5.0min 预计还需 2.3min
+[ep 9] 1200/1470 loss=0.1315 已用 6.0min 预计还需 1.3min
+[ep 9] 1400/1470 loss=0.1299 已用 7.0min 预计还需 0.3min
+[ep 9] ★ 完成 loss=0.1298 val_acc=0.7654 低相似=0.6386 [A 0.6390 / B 0.6383]  [raw 0.7592 EMA 0.7654] 用时 7.9min
+[ep 9] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep 9] 快照 -> lora_ep09.pt
+[ep10] 200/1470 loss=0.1131 已用 1.0min 预计还需 6.5min
+[ep10] 400/1470 loss=0.1183 已用 2.0min 预计还需 5.4min
+[ep10] 600/1470 loss=0.1234 已用 3.0min 预计还需 4.4min
+[ep10] 800/1470 loss=0.1173 已用 4.0min 预计还需 3.3min
+[ep10] 1000/1470 loss=0.1180 已用 5.0min 预计还需 2.3min
+[ep10] 1200/1470 loss=0.1208 已用 6.0min 预计还需 1.3min
+[ep10] 1400/1470 loss=0.1216 已用 7.0min 预计还需 0.3min
+[ep10] ★ 完成 loss=0.1225 val_acc=0.7646 低相似=0.6393 [A 0.6416 / B 0.6370]  [raw 0.7608 EMA 0.7646] 用时 7.9min
+[ep10] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep10] 快照 -> lora_ep10.pt
+[ep11] 200/1470 loss=0.1246 已用 1.1min 预计还需 6.8min
+[ep11] 400/1470 loss=0.1258 已用 2.1min 预计还需 5.6min
+[ep11] 600/1470 loss=0.1255 已用 3.1min 预计还需 4.6min
+[ep11] 800/1470 loss=0.1223 已用 4.2min 预计还需 3.5min
+[ep11] 1000/1470 loss=0.1206 已用 5.2min 预计还需 2.4min
+[ep11] 1200/1470 loss=0.1229 已用 6.2min 预计还需 1.4min
+[ep11] 1400/1470 loss=0.1224 已用 7.3min 预计还需 0.4min
+[ep11] ★ 完成 loss=0.1226 val_acc=0.7630 低相似=0.6356 [A 0.6436 / B 0.6277]  [raw 0.7622 EMA 0.7630] 用时 8.2min
+[ep11] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep11] 快照 -> lora_ep11.pt
+[ep12] 200/1470 loss=0.1263 已用 1.1min 预计还需 6.8min
+[ep12] 400/1470 loss=0.1187 已用 2.1min 预计还需 5.6min
+[ep12] 600/1470 loss=0.1201 已用 3.1min 预计还需 4.6min
+[ep12] 800/1470 loss=0.1167 已用 4.2min 预计还需 3.5min
+[ep12] 1000/1470 loss=0.1155 已用 5.2min 预计还需 2.5min
+[ep12] 1200/1470 loss=0.1133 已用 6.3min 预计还需 1.4min
+[ep12] 1400/1470 loss=0.1141 已用 7.3min 预计还需 0.4min
+[ep12] ★ 完成 loss=0.1133 val_acc=0.7613 低相似=0.6330 [A 0.6396 / B 0.6263]  [raw 0.7626 EMA 0.7613] 用时 8.2min
+[ep12] ckpt -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora.pt
+[ep12] 快照 -> lora_ep12.pt
+[amp] 因 inf/nan 梯度跳过 6 步（占 0.0%）；这些步的 lr 未推进（已与调度器对齐）
+
+[train] 完成，总用时 96.7 min
+[train] 最优 epoch=6 val_acc=0.7664（权重来源：EMA）
+[train] 最优权重 -> /root/autodl-tmp/aic/outputs/d_r448ul4s1/lora_best.pt
+[train] val_acc 轨迹：0.509 0.713 0.748 0.759 0.770 0.766 0.766 0.766 0.765 0.765 0.763 0.761

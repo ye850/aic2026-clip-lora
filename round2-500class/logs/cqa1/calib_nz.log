@@ -1,0 +1,24 @@
+[bal] 概率 probs_nz.npy  shape=(49857, 500) dtype=float16
+[test] 49857 张（未发现官方列表，按文件名排序）
+[bal] 目标边际 = 均匀（每类 N/K）
+[bal] 解 Sinkhorn 不动点（iters=60 damp=0.5）...
+    [sinkhorn] 第  10 轮：实得列计数 标准差= 26.69 min=35 max=227
+    [sinkhorn] 第  20 轮：实得列计数 标准差= 15.84 min=54 max=162
+    [sinkhorn] 第  30 轮：实得列计数 标准差= 10.78 min=56 max=140
+    [sinkhorn] 第  40 轮：实得列计数 标准差=  8.11 min=57 max=126
+    [sinkhorn] 第  50 轮：实得列计数 标准差=  6.57 min=57 max=119
+    [sinkhorn] 第  60 轮：实得列计数 标准差=  5.66 min=57 max=116
+
+[bal] 校正前: max= 503 中位=  88 均值=  99.7 min=  0 标准差= 56.2 超额=20.74%
+[bal] 校正后: max= 116 中位= 100 均值=  99.7 min= 57 标准差=  5.7 超额= 2.18%
+[bal] 改动预测 26.77%（13347/49857）
+[bal] 改动样本原预测类平均热度 181.4 张 → 新预测类 67.1 张（应以后者更大 = 往冷门搬）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/pack_nz_cal/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/pack_nz_cal/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/pack_nz_cal/pred_results.zip  (49857 行)
+[bal] ★ 已写 /root/autodl-tmp/aic/outputs/pack_nz_cal
+[bal] 下一步：scripts/check_submission.py /root/autodl-tmp/aic/outputs/pack_nz_cal/pred_results.zip

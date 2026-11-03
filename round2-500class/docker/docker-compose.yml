@@ -1,0 +1,47 @@
+# ============================================================================
+# 复现编排（数据 / 模型 / 代码全部从宿主机映射，镜像内一概不含）
+# ----------------------------------------------------------------------------
+# 用法：
+#   export AIC_CODE=/path/to/code          # 单独提交的代码包
+#   export AIC_MODELS=/path/to/models      # CLIP 官方权重 + fd560v2_best.pt
+#   export AIC_DATA=/path/to/data          # 测试集
+#   export AIC_OUT=/path/to/out            # 输出目录
+#   docker compose up -d && docker compose exec aic-repro bash
+#
+# 前提：已用 docker load -i aic-ntl-semi-760137.tar.gz 载入镜像
+#       （compose 直接用该镜像，不会重新构建）
+# ============================================================================
+services:
+  aic-repro:
+    # ★ 用随包提供的镜像（docker load 后的名字就是它），不要重新构建
+    image: aic-ntl-semi:760137
+    # 若镜像未加载、想自己构建，解开下面这行（需联网，10 分钟~1 小时）
+    # build: .
+    working_dir: /workspace/aic
+    # 共享内存：多进程 DataLoader 需要较大 /dev/shm（默认仅 64MB）。
+    # 注意：即便给了 ipc: host，Windows Docker 上多进程仍可能崩，
+    # 故脚本默认走单进程（AIC_WORKERS=0）。
+    ipc: host
+    shm_size: 2gb
+    volumes:
+      # 代码（单独提交，只读挂载）
+      - ${AIC_CODE}:/workspace/aic/code:ro
+      # 模型：models/clip-vit-base-patch32（OpenAI 官方）+ models/fd560v2_best.pt
+      - ${AIC_MODELS}:/workspace/aic/models:ro
+      # 数据：data/test（49857 张，扁平目录，文件名即 ID）
+      - ${AIC_DATA}:/workspace/aic/data:ro
+      # 输出（可写）
+      - ${AIC_OUT}:/workspace/out
+    environment:
+      AIC_ROOT: /workspace/aic
+      AIC_CLIP_DIR: /workspace/aic/models/clip-vit-base-patch32
+      AIC_IMG_SIZE: "560"
+      AIC_WORKERS: "0"
+      PYTHONPATH: /workspace/aic/code/src:/workspace/aic/code/scripts
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

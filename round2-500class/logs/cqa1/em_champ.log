@@ -1,0 +1,6 @@
+/root/autodl-tmp/aic/champ it=5 prior: min=0.00000 max=0.01527 std=0.00140
+/root/autodl-tmp/aic/champ it=10 prior: min=0.00000 max=0.01530 std=0.00140
+/root/autodl-tmp/aic/champ it=15 prior: min=0.00000 max=0.01530 std=0.00140
+/root/autodl-tmp/aic/champ EM prior: min=0.00000 max=0.01530 std=0.00140 (uniform=0.00200)
+/root/autodl-tmp/aic/champ change_vs_raw=7.33%  change_vs_prod60=22.56%
+/root/autodl-tmp/aic/champ saved _pi_em/_p_em/_p_prod60

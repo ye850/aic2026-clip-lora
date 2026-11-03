@@ -1,0 +1,17 @@
+outputs/champ it=50 std=6.306 min=65 max=119
+outputs/champ PROD60: std=5.564 change_vs_raw=26.93%
+outputs/champ it=50 std=6.306 min=65 max=119
+outputs/champ it=100 std=3.896 min=65 max=111
+outputs/champ it=150 std=3.372 min=65 max=109
+outputs/champ it=200 std=3.222 min=65 max=108
+outputs/champ it=250 std=3.214 min=65 max=108
+outputs/champ it=300 std=3.183 min=65 max=109
+outputs/champ it=350 std=3.216 min=65 max=109
+outputs/champ it=400 std=3.195 min=65 max=109
+outputs/champ it=450 std=3.196 min=65 max=110
+outputs/champ it=500 std=3.196 min=65 max=110
+outputs/champ it=550 std=3.189 min=65 max=110
+outputs/champ it=600 std=3.192 min=65 max=110
+outputs/champ FULL: iters_done std=3.192 min=65 max=110
+outputs/champ PRED_DIFF prod60_vs_full = 2022 rows (4.06%)
+outputs/champ B_DELTA mean|b60-bfull|=1.3475 max=26.0804

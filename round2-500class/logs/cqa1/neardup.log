@@ -1,0 +1,9 @@
+test=49855 train=90150
+band maps built
+scanned 10000 hits so far 608
+scanned 20000 hits so far 1182
+scanned 30000 hits so far 1838
+scanned 40000 hits so far 2475
+TOTAL near-dup pairs (ham<=8): 3096
+top classes by near-dup hits: [(376, 489), (144, 249), (205, 184), (404, 115), (460, 94), (423, 79), (215, 69), (31, 66), (179, 63), (481, 53), (267, 49), (283, 48), (162, 45), (430, 42), (442, 42), (223, 41), (152, 40), (189, 40), (114, 40), (206, 32)]
+unique test images with >=1 near-dup: 558

@@ -1,0 +1,160 @@
+[08:49:23] RunA pkg: wait training done
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] runA_best.pt best_ep=16 best_val_acc=0.8155844155844156 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4045.14it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/1 base 完成（25s）
+[ptta] 1 视图融合完成，总用时 0.4 min
+[ptta] ---- 健康检查（1 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 499/500 类（覆盖率 0.9980，空类 1）
+[ptta] 每类预测数：均值 9.2、最大 17、最小 0、最大/均值 1.84x
+[ptta] 平均熵 0.576（均匀分布为 6.215）、平均最大概率 0.865
+[ptta] 与 base 单视图的预测一致率 1.0000（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_rt_runA640/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_rt_runA640/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_runA640/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_rt_runA640/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_rt_runA640
+[ptta] 下一步：`scripts/check_submission.py` 校验
+  STAR runA640 pinned-val = 81.73% (n=4620)
+[11:20:17] runA@640 swept
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] runA_best.pt best_ep=16 best_val_acc=0.8155844155844156 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[tta] 🛑 分辨率不匹配：检查点训练于 IMG_SIZE=640，当前 C.IMG_SIZE=672。
+        修法：加环境变量重跑，即 `AIC_IMG_SIZE=640 …`。
+        不修的话位置编码插值与 TTA 视图几何都会按错的分辨率计算。
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_runA672/pred_results.csv'
+[11:20:21] runA@672 swept
+[ptta] device=cuda；视图 1 个：base
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] runA_best.pt best_ep=16 best_val_acc=0.8155844155844156 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[tta] 🛑 分辨率不匹配：检查点训练于 IMG_SIZE=640，当前 C.IMG_SIZE=704。
+        修法：加环境变量重跑，即 `AIC_IMG_SIZE=640 …`。
+        不修的话位置编码插值与 TTA 视图几何都会按错的分辨率计算。
+Traceback (most recent call last):
+  File "/root/autodl-tmp/aic/eval_acc.py", line 16, in <module>
+    for l in open(RR + '/outputs/' + pref + m + '/pred_results.csv'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/root/autodl-tmp/aic/outputs/_rt_runA704/pred_results.csv'
+[11:20:25] runA@704 swept
+[11:20:25] BEST SIZE = 640 @ 81.73
+[ptta] device=cuda；视图 15 个：base, flip, rc0, rc1, rc2, rc3, rc4, rc5, rc6, rc7, zoom240, zoom256, zoom288, zoom320, square
+[test] 4620 张（未发现官方列表，按文件名排序）
+[ptta] 测试集 4620 张 / 500 类
+[tta] runA_best.pt best_ep=16 best_val_acc=0.8155844155844156 r=16 hidden=1024 targets=q,k,v,out,fc1,fc2
+[clip] 使用本地权重目录 /root/autodl-tmp/aic/models/clip-vit-base-patch32
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 4505.00it/s]
+[clip] transformers 载入 /root/autodl-tmp/aic/models/clip-vit-base-patch32 (投影维度 512)
+[ptta] 融合规则 = 算术平均（历史口径）
+[tta/base] 10/19
+[ptta] 视图 1/15 base 完成（25s）
+[tta/flip] 10/19
+[ptta] 视图 2/15 flip 完成（24s）
+[tta/rc0] 10/19
+[ptta] 视图 3/15 rc0 完成（26s）
+[tta/rc1] 10/19
+[ptta] 视图 4/15 rc1 完成（24s）
+[tta/rc2] 10/19
+[ptta] 视图 5/15 rc2 完成（24s）
+[tta/rc3] 10/19
+[ptta] 视图 6/15 rc3 完成（24s）
+[tta/rc4] 10/19
+[ptta] 视图 7/15 rc4 完成（25s）
+[tta/rc5] 10/19
+[ptta] 视图 8/15 rc5 完成（27s）
+[tta/rc6] 10/19
+[ptta] 视图 9/15 rc6 完成（25s）
+[tta/rc7] 10/19
+[ptta] 视图 10/15 rc7 完成（25s）
+[tta/zoom240] 10/19
+[ptta] 视图 11/15 zoom240 完成（25s）
+[tta/zoom256] 10/19
+[ptta] 视图 12/15 zoom256 完成（26s）
+[tta/zoom288] 10/19
+[ptta] 视图 13/15 zoom288 完成（26s）
+[tta/zoom320] 10/19
+[ptta] 视图 14/15 zoom320 完成（29s）
+[tta/square] 10/19
+[ptta] 视图 15/15 square 完成（25s）
+[ptta] 15 视图融合完成，总用时 6.3 min
+[ptta] 各视图与 base 的预测一致率（仅供判断是否真有分歧）：
+[ptta]   base      1.0000
+[ptta]   flip      0.9574
+[ptta]   rc0       0.9361
+[ptta]   rc1       0.9342
+[ptta]   rc2       0.9318
+[ptta]   rc3       0.9320
+[ptta]   rc4       0.9340
+[ptta]   rc5       0.9355
+[ptta]   rc6       0.9351
+[ptta]   rc7       0.9364
+[ptta]   zoom240   0.9468
+[ptta]   zoom256   0.9323
+[ptta]   zoom288   0.9158
+[ptta]   zoom320   0.8916
+[ptta]   square    1.0000
+[ptta] ---- 健康检查（15 视图 · 算术平均）----
+[ptta] 预测 4620 条；覆盖 499/500 类（覆盖率 0.9980，空类 1）
+[ptta] 每类预测数：均值 9.2、最大 17、最小 0、最大/均值 1.84x
+[ptta] 平均熵 0.622（均匀分布为 6.215）、平均最大概率 0.854
+[ptta] 与 base 单视图的预测一致率 0.9539（TTA 只应在少数样本上改动预测）
+[ptta] 已存 /root/autodl-tmp/aic/outputs/_runA_pkg/probs.npy (4620, 500)（float16）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/_runA_pkg/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/_runA_pkg/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/_runA_pkg/pred_results.zip  (4620 行)
+[ptta] ★ 提交文件已写到 /root/autodl-tmp/aic/outputs/_runA_pkg
+[ptta] 下一步：`scripts/check_submission.py` 校验
+[bal] 概率 probs.npy  shape=(4620, 500) dtype=float16
+[test] 4620 张（未发现官方列表，按文件名排序）
+[bal] 目标边际 = 均匀（每类 N/K）
+[bal] 解 Sinkhorn 不动点（iters=60 damp=0.5）...
+    [sinkhorn] 第  10 轮：实得列计数 标准差=  1.32 min=3 max=14
+    [sinkhorn] 第  20 轮：实得列计数 标准差=  1.22 min=3 max=13
+    [sinkhorn] 第  30 轮：实得列计数 标准差=  1.17 min=3 max=12
+    [sinkhorn] 第  40 轮：实得列计数 标准差=  1.15 min=3 max=12
+    [sinkhorn] 第  50 轮：实得列计数 标准差=  1.15 min=3 max=12
+    [sinkhorn] 第  60 轮：实得列计数 标准差=  1.15 min=3 max=12
+
+[bal] 校正前: max=  17 中位=   9 均值=   9.2 min=  0 标准差=  2.2 超额= 8.73%
+[bal] 校正后: max=  12 中位=   9 均值=   9.2 min=  3 标准差=  1.1 超额= 4.70%
+[bal] 改动预测 7.58%（350/4620）
+[bal] 改动样本原预测类平均热度 11.7 张 → 新预测类 6.9 张（应以后者更大 = 往冷门搬）
+[audit] 映射来源：文件夹名前缀数字（可信度 prefix_contiguous）
+[audit] 共 500 类，编号 0..499（连续跨度 500）
+[audit] 样例：[('0000', 0), ('0001', 1), ('0002', 2)] ... [('0498', 498), ('0499', 499)]
+[audit] ✅ 未发现问题
+[submit] 映射审计 /root/autodl-tmp/aic/outputs/pack_runA/class_map_used.csv
+[submit] /root/autodl-tmp/aic/outputs/pack_runA/pred_results.csv
+[submit] /root/autodl-tmp/aic/outputs/pack_runA/pred_results.zip  (4620 行)
+[bal] ★ 已写 /root/autodl-tmp/aic/outputs/pack_runA
+[bal] 下一步：scripts/check_submission.py /root/autodl-tmp/aic/outputs/pack_runA/pred_results.zip
+=== 核验提交文件：/root/autodl-tmp/aic/outputs/pack_runA/pred_results.zip ===
+  zip 内含 1 个条目：['pred_results.csv']
+  解析出 4620 行
+  [OK] 类别编号均为四位数字
+[test] 4620 张（未发现官方列表，按文件名排序）
+  [OK] 无重复文件名
+  [OK] 文件名与测试集完全一致
+  [信息] 预测覆盖 500 个不同类别编号
+=== 结论：全部通过，可提交 ===
+[11:26:57] RUNA PACKAGE VERIFIED READY @640

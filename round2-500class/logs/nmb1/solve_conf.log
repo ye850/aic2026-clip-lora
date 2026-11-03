@@ -1,0 +1,10 @@
+conf it=100 std=14.904 min=42 max=136 damp=0.451
+conf it=200 std=14.904 min=42 max=136 damp=0.400
+conf it=300 std=14.904 min=42 max=136 damp=0.351
+conf it=400 std=14.904 min=42 max=136 damp=0.300
+conf it=500 std=14.904 min=42 max=136 damp=0.251
+conf it=600 std=14.904 min=42 max=136 damp=0.201
+conf it=700 std=14.904 min=42 max=136 damp=0.150
+conf it=800 std=14.904 min=42 max=136 damp=0.100
+conf AVG-B std=14.904 min=42 max=136
+conf saved outputs/_b_conf_avg.npy
